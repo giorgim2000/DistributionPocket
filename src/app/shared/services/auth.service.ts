@@ -27,9 +27,9 @@ interface UserResponse{
 
 @Injectable()
 export class AuthService {
-  private _user: IUser | null = defaultUser;
+  private _user: IUser | null = null;
   get loggedIn(): boolean {
-    return !!this._user;
+    return !!this.cookieService.get("X-ss-id");
   }
 
   private _lastAuthenticatedPath: string = defaultPath;
