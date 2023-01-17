@@ -14,7 +14,10 @@ import { AuthService } from '../../services';
 })
 export class LoginFormComponent {
   loading = false;
-  formData: any = {};
+  formData: any = {
+    image: 'src/assets/images/logo.png'
+  };
+  
 
   constructor(private authService: AuthService, private router: Router) { }
 

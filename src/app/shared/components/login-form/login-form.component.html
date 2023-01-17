@@ -1,7 +1,9 @@
 <form class="login-form" (submit)="onSubmit($event)">
   <dx-form [formData]="formData" [disabled]="loading">
 
-    <img src="logo.png" style="height: '25px';"/>
+    <dxi-item dataField="image">
+        <img [src]="formData.image">
+    </dxi-item>
 
 
     <dxi-item dataField="email" editorType="dxTextBox"

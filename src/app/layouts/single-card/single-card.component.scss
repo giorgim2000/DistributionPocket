@@ -24,6 +24,8 @@
 
     .header {
       margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
 
       .title {
         color: $base-text-color;

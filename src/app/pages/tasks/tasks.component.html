@@ -12,7 +12,13 @@
   <dxo-paging [pageSize]="10"></dxo-paging>
   <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
   <dxo-filter-row [visible]="true"></dxo-filter-row>
-
+  
+  <dxo-toolbar>
+    <dxi-item location="before" [editorType]="dDate">
+        
+    </dxi-item>
+  </dxo-toolbar>
+    
   <dxi-column
     dataField="Task_ID"
     [width]="90"
@@ -48,13 +54,13 @@
   <dxi-column
     dataField="Task_Start_Date"
     caption="ნაღდი"
-    dataType="date"
+    dataType="number"
     [hidingPriority]="3">
   </dxi-column>
   <dxi-column
     dataField="Task_Due_Date"
     caption="აღებული თანხა"
-    dataType="date"
+    dataType="number"
     [hidingPriority]="4">
   </dxi-column>
   <!-- <dxi-column
