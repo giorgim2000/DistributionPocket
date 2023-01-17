@@ -12,10 +12,10 @@ export interface IUser {
 }
 
 const defaultPath = '/';
-const defaultUser = {
-  email: 'nodari@example.com',
-  avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'
-};
+// const defaultUser = {
+//   email: 'nodari@example.com',
+//   avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'
+// };
 
 interface UserResponse{
   DisplayName : string;
@@ -28,6 +28,7 @@ interface UserResponse{
 @Injectable()
 export class AuthService {
   private _user: IUser | null = null;
+  
   get loggedIn(): boolean {
     return !!this.cookieService.get("X-ss-id");
   }

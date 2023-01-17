@@ -1,8 +1,10 @@
 <h2 class="content-block">Tasks</h2>
 
+
+
 <dx-data-grid class="dx-card wide-card"
   [dataSource]="dataSource"
-  [showBorders]="false"
+  [showBorders]="true"
   [focusedRowEnabled]="false"
   [focusedRowIndex]="0"
   [columnAutoWidth]="true"
@@ -14,66 +16,62 @@
   <dxo-filter-row [visible]="true"></dxo-filter-row>
   
   <dxo-toolbar>
-    <dxi-item location="before" [editorType]="dDate">
-        
+    <dxi-item
+    widget="dxDateBox"
+    [options]="dateBoxOptions"
+    location="before">
+      
     </dxi-item>
-  </dxo-toolbar>
     
+  </dxo-toolbar>
+  
+
   <dxi-column
-    dataField="Task_ID"
-    [width]="90"
-    [hidingPriority]="2">
+    dataField="Acc"
+    caption="ანგარიში"
+    [width]="90">
   </dxi-column>
   <dxi-column
-    dataField="Task_Subject"
+    dataField="Accnu"
     [width]="190"
-    caption="კლიენტი"
-    [hidingPriority]="8">
+    caption="ნომერი">
   </dxi-column>
   <dxi-column
-    dataField="Task_Status"
-    caption="მისამართი"
-    [hidingPriority]="6">
+    dataField="Address"
+    caption="მისამართი">
   </dxi-column>
   <dxi-column
-    dataField="Task_Priority"
-    caption="შეკვეთები"
-    [hidingPriority]="5">
-    <!-- <dxo-lookup
-      [dataSource]="priority"
-      valueExpr="value"
-      displayExpr="name">
-    </dxo-lookup> -->
+    dataField="Ordsuccess"
+    caption="შეკვეთები">
+    
   </dxi-column>
   <dxi-column
-    dataField="ResponsibleEmployee.Employee_Full_Name"
+    dataField="Ordn"
+    caption="შეკვეთ">
+  </dxi-column>
+  <dxi-column
+    dataField="Retsuccess"
     caption="დაბრუნება"
-    [allowSorting]="false"
-    [hidingPriority]="7">
+    dataType="number">
   </dxi-column>
   <dxi-column
-    dataField="Task_Start_Date"
-    caption="ნაღდი"
-    dataType="number"
-    [hidingPriority]="3">
+    dataField="Retn"
+    caption="Retn"
+    dataType="number">
   </dxi-column>
   <dxi-column
-    dataField="Task_Due_Date"
-    caption="აღებული თანხა"
-    dataType="number"
-    [hidingPriority]="4">
-  </dxi-column>
-  <!-- <dxi-column
-    dataField="Task_Priority"
-    caption="Priority"
-    name="Priority"
-    [hidingPriority]="1">
+    dataField="Collectpay"
+    caption="Collectpay"
+    dataType="number">
   </dxi-column>
   <dxi-column
-    dataField="Task_Completion"
-    caption="Completion"
-    [hidingPriority]="0">
-  </dxi-column> -->
+    dataField="Paydcash"
+    caption="Paydcash"
+    dataType="number">
+  </dxi-column>
+  
+
+  
 </dx-data-grid>
 
 
