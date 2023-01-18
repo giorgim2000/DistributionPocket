@@ -52,7 +52,7 @@ export class AuthService {
         var resp = await this.http.post<UserResponse>("http://10.10.0.29:9183/auth.json", null, options)
         .subscribe(resp => {
           this.cookieService.set("X-ss-id", resp.SessionId);
-          this.router.navigate(["/tasks"])
+          this.router.navigate(["/home"])
         }, error =>{
           if(error.status === 401){
             this.router.navigate(['/login-form']);

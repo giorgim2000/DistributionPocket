@@ -34,7 +34,6 @@ export class SideNavInnerToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.menuOpened = this.screen.sizes['screen-large'];
-
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.selectedRoute = val.urlAfterRedirects.split('?')[0];

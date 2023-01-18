@@ -4,6 +4,7 @@ import 'devextreme/data/odata/store';
 import 'devextreme/ui/date_box';
 import {formatDate} from '@angular/common';
 import { ScreenService } from 'src/app/shared/services';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   templateUrl: 'tasks.component.html'
@@ -20,19 +21,22 @@ export class TasksComponent {
     openOnFieldClick: true,
     stylingMode:"outlined",
     label: "თარიღი",
-    width: 150,
-    onValueChanged: this.dDateChange
+    width: 180,
+    onValueChanged: (e: Object) => this.dDateChange(e)
   }
 
   constructor(private http: HttpClient, private screenService: ScreenService) {
-    http.get<DisDocsByExpeditor>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(this.dateBoxOptions.value, "yyyy-MM-dd","en")}&Acc=null`).subscribe(result => {
+    this.getData(this.dateBoxOptions.value);
+  }
+
+  getData(dDate : Date){
+    this.http.get<DisDocsByExpeditor>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}&Acc=null`).subscribe(result => {
       this.dataSource = result;
     });
   }
 
-  dDateChange(e: Object){
-    console.log(e);
-    alert(e);
+  dDateChange(e: any){
+    this.getData(e.value);
   }
 }
 
