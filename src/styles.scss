@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'MyFont';
+    src:  url('assets/NotoSansGeorgian_Condensed-Regular.ttf') format('truetype');
+  }
+  
+// *{
+//     font-family: 'MyFont' !important;
+// }
+
+.dx-button-text{
+    font-family: 'MyFont' !important;
+    font-weight: bold;
+}
