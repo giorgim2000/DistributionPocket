@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, NgModule } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { timeout } from 'rxjs';
+import { VisitsTabComponent } from 'src/app/shared/components/visits-tab/visits-tab.component';
+
 
 
 
@@ -12,12 +14,20 @@ import { timeout } from 'rxjs';
 export class HomeComponent {
   
   constructor(private router: Router) {
-    timeout(5000);
-    this.getVisits();
+
   }
 
   getVisits(){
-    this.router.navigateByUrl("/home");
+    console.log("nodari");
+    this.router.navigate(["/tasks"]);
   }
 }
 
+// @NgModule({
+//   imports: [
+//     RouterModule
+//   ]
+// })
+// export class HomeComponentModule{
+
+// }

@@ -8,10 +8,12 @@ import { AuthService, ScreenService, AppInfoService, AddHeaderInterceptor } from
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'ngx-cookie-service';
+import { VisitsTabComponent } from './shared/components/visits-tab/visits-tab.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VisitsTabComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,9 @@ import { CookieService } from 'ngx-cookie-service';
       useClass: AddHeaderInterceptor,
       multi: true
     }
+  ],
+  exports: [
+    VisitsTabComponent
   ],
   bootstrap: [AppComponent]
 })
