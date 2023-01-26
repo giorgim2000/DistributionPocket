@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, NgModule } from "@angular/core";
 
 @Component({
     selector: 'visits-tab',
@@ -9,3 +9,9 @@ import { Component } from "@angular/core";
 export class VisitsTabComponent{
 
 }
+
+@NgModule({
+    declarations: [ VisitsTabComponent ],
+    exports: [ VisitsTabComponent ]
+  })
+  export class VisitsTabModule { }

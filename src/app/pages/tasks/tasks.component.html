@@ -1,56 +1,25 @@
 <h2 class="content-block">ვიზიტები</h2>
+<div id="mainDiv">
+  <div class="tabDiv" *ngFor="let visit of dummyData">
+      <div class="clientAdressDiv">
+          <p id="nameP">{{visit.Accnu}}</p>
+          <p id="adressP">{{visit.Address}}</p>
+      </div>
+      <div class="otherInfoDiv">
+          <p>Orders: 
+              <a class="otherInfoP">{{visit.Ordsuccess}}/{{visit.Ordn}}</a>
+          </p>
+          <p>Returns: 
+              <a class="otherInfoP">{{visit.Retsuccess}}/{{visit.Retn}}</a>
+          </p>
+          <p>Cash: 
+              <a class="otherInfoP">{{visit.Paydcash}}/{{visit.Collectpay}}</a>
+          </p>
+      </div>
+  </div>
+</div>
 
 
-
-<!-- <dx-data-grid class="dx-card wide-card"
-  [dataSource]="dataSource"
-  [showBorders]="true"
-  [showRowLines]="true"
-  [hoverStateEnabled]="true"
-  [focusedRowEnabled]="false"
-  [focusedRowIndex]="0"
-  [columnAutoWidth]="true"
-  [columnHidingEnabled]="true"
-  (onRowClick)="visitClick($event)"
-  >
-
-  <dxo-paging [pageSize]="10"></dxo-paging>
-  <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
-  
-  <dxo-toolbar>
-    <dxi-item
-    widget="dxDateBox"
-    [options]="dateBoxOptions"
-    location="before">
-    </dxi-item>
-  </dxo-toolbar>
-  
-  <dxi-column
-    dataField="Accnu"
-    caption="კლიენტი">
-  </dxi-column>
-  <dxi-column
-    dataField="Address"
-    caption="მისამართი">
-  </dxi-column>
-  <dxi-column
-    dataField="Orders"
-    caption="შეკვეთები">
-  </dxi-column>
-  <dxi-column
-    dataField="Returns"
-    caption="დაბრუნება">
-  </dxi-column>
-  <dxi-column
-    dataField="Cash"
-    caption="ნაღდი"
-    dataType="number">
-  </dxi-column>
-  <dxi-column
-    dataField="CollectedPay"
-    caption="აღებული თანხა"
-    dataType="number">
-  </dxi-column>
-</dx-data-grid> -->
+ 
 
 

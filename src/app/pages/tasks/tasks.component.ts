@@ -8,23 +8,24 @@ import { IfStmt } from '@angular/compiler';
 import { Router } from '@angular/router';
 
 @Component({
-  templateUrl: 'tasks.component.html'
+  templateUrl: 'tasks.component.html',
+  styleUrls: ['./tasks.component.scss','tasks.component.scss']
 })
 
 export class TasksComponent {
   dataSource: any;
   //dDate: Date = new Date();   //2022, 10, 17
-  dateBoxOptions = {
-    value :new Date(),
-    acceptCustomValue: false,
-    displayFormat: "dd-MM-yyyy",
-    dateSerializationFormat:"yyyy-MM-dd",
-    openOnFieldClick: true,
-    stylingMode:"outlined",
-    label: "თარიღი",
-    width: 180,
-    //onValueChanged: (e: any) => this.getData(e.value)
-  }
+  // dateBoxOptions = {
+  //   value :new Date(),
+  //   acceptCustomValue: false,
+  //   displayFormat: "dd-MM-yyyy",
+  //   dateSerializationFormat:"yyyy-MM-dd",
+  //   openOnFieldClick: true,
+  //   stylingMode:"outlined",
+  //   label: "თარიღი",
+  //   width: 180,
+  //   //onValueChanged: (e: any) => this.getData(e.value)
+  // }
 
   dummyData : DisDocsByExpeditor[] = [
     {
@@ -63,7 +64,7 @@ export class TasksComponent {
   ]
 
   constructor(private http: HttpClient, private screenService: ScreenService, private router: Router) {
-    this.getData();
+    //this.getData();
     //this.getData(this.dateBoxOptions.value);
   }
 

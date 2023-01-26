@@ -1,0 +1,53 @@
+*{
+    font-family: system-ui;
+}
+
+#mainDiv{
+    width: 100%;
+}
+
+.tabDiv{
+    display: block;
+    background-color: #e4e5e9;
+    transition: background-color 0.2s ease-in-out;
+    border-top: grey 1px solid;
+}
+
+.tabDiv:hover{
+    background-color: #d0d1d4;
+    border-top: black 2px solid;
+}
+
+.tabDiv > * {
+    padding: 5px 1px;
+}
+
+p{
+    margin: 8px;
+    color: #496bf0;
+}
+
+#nameP{
+    font-weight: bold;
+    font-size: 1.35rem;
+}
+
+#adressP{
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.otherInfoDiv{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.otherInfoDiv > *{
+    margin: 5px;
+}
+
+.otherInfoP{
+    font-size: 1.05rem;
+    font-weight: 500;
+}

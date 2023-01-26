@@ -3,17 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SideNavOuterToolbarModule, SideNavInnerToolbarModule, SingleCardModule } from './layouts';
-import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule } from './shared/components';
+import { FooterModule, ResetPasswordFormModule, CreateAccountFormModule, ChangePasswordFormModule, LoginFormModule, VisitsTabComponent } from './shared/components';
 import { AuthService, ScreenService, AppInfoService, AddHeaderInterceptor } from './shared/services';
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'ngx-cookie-service';
-import { VisitsTabComponent } from './shared/components/visits-tab/visits-tab.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    VisitsTabComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +38,6 @@ import { VisitsTabComponent } from './shared/components/visits-tab/visits-tab.co
       useClass: AddHeaderInterceptor,
       multi: true
     }
-  ],
-  exports: [
-    VisitsTabComponent
   ],
   bootstrap: [AppComponent]
 })
