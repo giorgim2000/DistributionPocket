@@ -33,5 +33,19 @@
 //   }
 // }
 
+.menuDiv{
+    display: flex;
+    flex-direction: column;
+    width: 100%; 
+    height: 70vh; 
+    justify-content: center;
+    align-items: center;
+}
+
+dx-button{
+    width:250px;
+    height: 60px;
+    margin-top: 10px;
+}
 
 

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class TasksComponent {
-  dataSource: any;
+  dataSource: DisDocsByExpeditor[] = [];
   //dDate: Date = new Date();   //2022, 10, 17
   // dateBoxOptions = {
   //   value :new Date(),
@@ -27,6 +27,7 @@ export class TasksComponent {
   //   //onValueChanged: (e: any) => this.getData(e.value)
   // }
 
+  FilteredData: DisDocsByExpeditor[] = [];
   dummyData : DisDocsByExpeditor[] = [
     {
       Acc: "1221455",
@@ -37,7 +38,7 @@ export class TasksComponent {
       Retsuccess: 5,
       Retn: 5,
       Collectpay: 1200,
-      Paydcash: 50
+      Payedcash: 50
     },
     {
       Acc: "5912033",
@@ -48,7 +49,7 @@ export class TasksComponent {
       Retsuccess: 1,
       Retn: 3,
       Collectpay: 400,
-      Paydcash: 150
+      Payedcash: 150
     },
     {
       Acc: "12315551",
@@ -59,36 +60,52 @@ export class TasksComponent {
       Retsuccess: 3,
       Retn: 9,
       Collectpay: 1552,
-      Paydcash: 799
+      Payedcash: 799
     }
   ]
 
+  private _filter : string = '';
+  get filter(): string{
+    return this._filter;
+  }
+  set filter(value: string){
+    this._filter = value;
+    this.FilteredData = this.performFilter(value);
+  }
+
+  
+
   constructor(private http: HttpClient, private screenService: ScreenService, private router: Router) {
-    //this.getData();
+    this.getData(new Date());
     //this.getData(this.dateBoxOptions.value);
   }
 
-  // getData(dDate : Date){
-  //   this.http.get<DisDocsByExpeditor>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`).subscribe(result => {
-  //     this.dataSource = result;
-  //   });
-  // }
+  getData(dDate : Date){
+    return this.http.get<any>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`).subscribe(result => {
+      //this.dataSource = result.Result;
+      return result.Result;
+    });
+  }
 
-  visitClick(e : any){
-    console.log(e);
+  visitClick(){
     this.router.navigate(["/home"]);
   }
 
-  getData(){
-    this.dataSource = this.dummyData.map(v => ({
-      Accnu: v.Accnu,
-      Address: v.Address,
-      Orders: v.Ordsuccess + '/' + v.Ordn,
-      Returns: v.Retsuccess + '/' + v.Retn,
-      Cash: v.Paydcash,
-      CollectedPay: v.Collectpay
-    }))
+  performFilter(filterBy: string): DisDocsByExpeditor[]{
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.dummyData.filter((doc: DisDocsByExpeditor) => doc.Accnu.toLocaleLowerCase().includes(filterBy));
   }
+
+  // getData(){
+  //   this.dataSource = this.dummyData.map(v => ({
+  //     Accnu: v.Accnu,
+  //     Address: v.Address,
+  //     Orders: v.Ordsuccess + '/' + v.Ordn,
+  //     Returns: v.Retsuccess + '/' + v.Retn,
+  //     Cash: v.Paydcash,
+  //     CollectedPay: v.Collectpay
+  //   }))
+  // }
 }
 
 interface DisDocsByExpeditor{
@@ -100,5 +117,5 @@ interface DisDocsByExpeditor{
   Retsuccess : number;
   Retn : number;
   Collectpay : number;
-  Paydcash : number;
+  Payedcash : number;
 }

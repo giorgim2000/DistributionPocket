@@ -10,12 +10,15 @@
     display: block;
     background-color: #e4e5e9;
     transition: background-color 0.2s ease-in-out;
-    border-top: grey 1px solid;
+    border-top: rgb(156, 153, 153) 1px solid;
+    border-bottom: rgb(156, 153, 153) 1px solid;
+    cursor: pointer;
 }
 
 .tabDiv:hover{
-    background-color: #d0d1d4;
+    background-color: #dfe0e4;
     border-top: black 2px solid;
+    border-bottom: black 2px solid;
 }
 
 .tabDiv > * {
@@ -24,7 +27,7 @@
 
 p{
     margin: 8px;
-    color: #496bf0;
+    color: black;
 }
 
 #nameP{

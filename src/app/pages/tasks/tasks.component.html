@@ -1,25 +1,33 @@
 <h2 class="content-block">ვიზიტები</h2>
+<label for="filterText">ფილტრი:</label>
+<input type="text" name="filterText" id="">
 <div id="mainDiv">
-  <div class="tabDiv" *ngFor="let visit of dummyData">
+<div *ngIf="dataSource.length> 0">
+  <div class="tabDiv" (click)="visitClick()" *ngFor="let visit of FilteredData">
       <div class="clientAdressDiv">
           <p id="nameP">{{visit.Accnu}}</p>
           <p id="adressP">{{visit.Address}}</p>
       </div>
       <div class="otherInfoDiv">
-          <p>Orders: 
+          <p>შეკვეთები: 
               <a class="otherInfoP">{{visit.Ordsuccess}}/{{visit.Ordn}}</a>
           </p>
-          <p>Returns: 
+          <p>დაბრუნებები: 
               <a class="otherInfoP">{{visit.Retsuccess}}/{{visit.Retn}}</a>
           </p>
-          <p>Cash: 
-              <a class="otherInfoP">{{visit.Paydcash}}/{{visit.Collectpay}}</a>
+          <p>თანხა: 
+              <a class="otherInfoP">{{visit.Payedcash}}/{{visit.Collectpay}}</a>
           </p>
       </div>
   </div>
+</div>
+<div *ngIf="dataSource.length === 0">
+    Loading data...
+</div>
 </div>
 
 
  
 
 
+  
