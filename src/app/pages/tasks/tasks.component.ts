@@ -15,22 +15,19 @@ import { Router } from '@angular/router';
 export class TasksComponent implements OnInit {
   dataSource: DisDocsByExpeditor[] = [];
   FilteredData: DisDocsByExpeditor[] = [];
+  visitDate: String = new Date().toString();
   
   private _filter : string = '';
 
   get filter(): string{
     return this._filter;
   }
-
   set filter(value: string){
     this._filter = value;
-    if(value.length != 0)
-      this.FilteredData = this.performFilter(value);
+    this.FilteredData = this.performFilter(value);
   }
 
-  constructor(private http: HttpClient, private router: Router) {
-    //this.getData(this.dateBoxOptions.value);
-  }
+  constructor(private http: HttpClient, private router: Router) {  }
 
   ngOnInit(): void {
     this.getData(new Date());
@@ -52,6 +49,18 @@ export class TasksComponent implements OnInit {
     return this.dataSource.filter((doc: DisDocsByExpeditor) => doc.Accnu.toLocaleLowerCase().includes(filterBy));
   }
 
+  dateChange(e: any){
+    console.log("YLEEEEEEE");
+    this.getData(e.value);
+  }
+
+  clearInput(){
+    this.filter = "";
+  }
+
+  ch(e:any){
+    console.log(e);
+  }
 }
 
 export interface DisDocsByExpeditor{

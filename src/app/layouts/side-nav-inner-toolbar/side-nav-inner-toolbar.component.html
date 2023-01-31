@@ -6,9 +6,10 @@
   [revealMode]="menuRevealMode"
   [minSize]="minMenuSize"
   [shading]="shaderEnabled"
-  [(opened)]="menuOpened">
+  [(opened)]="menuOpened"
+  >
 
-  <app-side-navigation-menu
+  <!-- <app-side-navigation-menu
     [compactMode]="!menuOpened"
     [selectedItem]="selectedRoute"
     class="dx-swatch-additional"
@@ -33,22 +34,22 @@
           [text]="title">
         </dxi-item>
       </dx-toolbar>
-  </app-side-navigation-menu>
+  </app-side-navigation-menu> -->
 
   <div class="container">
-    <app-header
+    <!-- <app-header
       [menuToggleEnabled]="minMenuSize === 0"
       (menuToggle)="menuOpened = !menuOpened;">
-    </app-header>
+    </app-header> -->
 
     <dx-scroll-view class="layout-body with-footer">
       <div class="content">
         <ng-content></ng-content>
       </div>
 
-      <div class="content-block">
+      <!-- <div class="content-block">
         <ng-content select="app-footer"></ng-content>
-      </div>
+      </div> -->
     </dx-scroll-view>
   </div>
 </dx-drawer>

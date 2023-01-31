@@ -1,5 +1,9 @@
 *{
-    font-family: system-ui;
+    font-family: 'MyFont' !important;
+}
+
+#headerDiv{
+    margin: 10px;
 }
 
 #mainDiv{
@@ -60,3 +64,20 @@ p{
     font-size: 1.03rem;
     font-weight: 500;
 }
+
+input{
+    width: 350px;
+    height: 50px;
+}
+
+img{
+    height: 50px;
+}
+
+.clearButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }

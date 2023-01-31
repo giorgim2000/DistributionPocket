@@ -1,6 +1,39 @@
 <h2 class="content-block">ვიზიტები</h2>
-<label for="filterText">ფილტრი: </label>
-<input [(ngModel)]="filter" type="text" name="filterText">
+<div id="headerDiv">
+    <!-- <dx-text-box
+        placeholder="ფილტრი"
+        stylingMode="filled"
+        [showClearButton]="true"
+        [spellcheck]="false"
+        [(value)]="filter"
+      >
+      </dx-text-box> -->
+
+    <!-- <label for="filterText">ფილტრი: </label>                            
+    [displayFormat]="'dd-MM-yyyy'"
+    [dateSerializationFormat]="'yyyy-MM-dd'"                  
+    type="Date"
+    -->
+    <div style="display: flex;">
+        <input [(ngModel)]="filter" type="text" name="filterText" placeholder="ფილტრი">
+        <button *ngIf="filter" (click)="clearInput()" class="clearButton">
+            <img src="../../../assets/clear.png" alt="Clear">
+        </button>
+    </div>
+    
+
+    <dx-date-box 
+    [(ngModel)]="visitDate"
+    (onValueChanged)="dateChange($event)"
+    [acceptCustomValue]="false"
+    [openOnFieldClick]="true"
+    [stylingMode]="'outlined'"
+    [label]="'თარიღი'"
+    [displayFormat]="'dd-MM-yyyy'"
+    [dateSerializationFormat]="'yyyy-MM-dd'"
+    >
+    </dx-date-box>
+</div>
 <div id="mainDiv">
 <div *ngIf="FilteredData.length> 0">
   <div class="tabDiv" (click)="visitClick()" *ngFor="let visit of FilteredData">
