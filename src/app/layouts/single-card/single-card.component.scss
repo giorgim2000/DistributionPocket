@@ -9,7 +9,7 @@
   .dx-card {
     width: 330px;
     margin: auto auto;
-    padding: 40px;
+    padding: 100px 40px 40px 40px;
     flex-grow: 0;
 
     :host-context(.screen-x-small) & {
@@ -37,6 +37,10 @@
       .description {
         color: rgba($base-text-color, alpha($base-text-color) * 0.7);
         line-height: 18px;
+      }
+
+      img{
+        height: 70px;
       }
     }
   }

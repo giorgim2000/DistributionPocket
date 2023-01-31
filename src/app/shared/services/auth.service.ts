@@ -40,8 +40,8 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient, private cookieService : CookieService) {}
 
-  async logIn(email: string, password: string) {
-    let creds = `${email}:${password}`;
+  async logIn(username: string, password: string) {
+    let creds = `${username}:${password}`;
     let header = new HttpHeaders({
       'Authorization': "Basic " + btoa(creds)
     });
@@ -59,7 +59,7 @@ export class AuthService {
           }
         });
       
-      this._user = { email: email, avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'};
+      this._user = { email: username, avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'};
       //this.router.navigate(["/Home"]);
 
       return {

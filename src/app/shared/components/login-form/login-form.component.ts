@@ -14,19 +14,17 @@ import { AuthService } from '../../services';
 })
 export class LoginFormComponent {
   loading = false;
-  formData: any = {
-    image: 'src/assets/images/logo.png'
-  };
+  formData: any = {};
   
 
   constructor(private authService: AuthService, private router: Router) { }
 
   async onSubmit(e: Event) {
     e.preventDefault();
-    const { email, password } = this.formData;
+    const { username, password } = this.formData;
     this.loading = true;
 
-    const result = await this.authService.logIn(email, password);
+    const result = await this.authService.logIn(username, password);
     
     if (!result.isOk) {
       this.loading = false;
