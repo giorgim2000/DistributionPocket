@@ -26,31 +26,37 @@
 }
 
 p{
-    margin: 8px;
+    margin: 4px;
     color: black;
 }
 
 #nameP{
     font-weight: bold;
-    font-size: 1.35rem;
+    font-size: 1.15rem;
 }
 
 #adressP{
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
 .otherInfoDiv{
     display: flex;
     flex-wrap: wrap;
-    padding: 5px;
+    padding: 4px;
 }
 
 .otherInfoDiv > *{
-    margin: 5px;
+    margin: 4px;
+}
+
+.otherInfoDiv{
+    p{
+        font-size: 0.75rem;
+    }
 }
 
 .otherInfoP{
-    font-size: 1.05rem;
+    font-size: 1.03rem;
     font-weight: 500;
 }

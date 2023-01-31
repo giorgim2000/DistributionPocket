@@ -1,8 +1,8 @@
 <h2 class="content-block">ვიზიტები</h2>
-<label for="filterText">ფილტრი:</label>
-<input type="text" name="filterText" id="">
+<label for="filterText">ფილტრი: </label>
+<input [(ngModel)]="filter" type="text" name="filterText">
 <div id="mainDiv">
-<div *ngIf="dataSource.length> 0">
+<div *ngIf="FilteredData.length> 0">
   <div class="tabDiv" (click)="visitClick()" *ngFor="let visit of FilteredData">
       <div class="clientAdressDiv">
           <p id="nameP">{{visit.Accnu}}</p>
@@ -21,7 +21,7 @@
       </div>
   </div>
 </div>
-<div *ngIf="dataSource.length === 0">
+<div *ngIf="FilteredData.length === 0">
     Loading data...
 </div>
 </div>
