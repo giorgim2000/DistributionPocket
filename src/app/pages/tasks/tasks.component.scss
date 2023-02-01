@@ -71,13 +71,14 @@ input{
 }
 
 img{
-    height: 50px;
+    height: 40px;
 }
 
 .clearButton {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    bottom: 15%;
+    right: 20%;
+    font-size: 15px;
     cursor: pointer;
+    border-radius: 10px;
   }

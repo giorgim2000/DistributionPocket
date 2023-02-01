@@ -2,7 +2,7 @@
   <dx-toolbar class="header-toolbar">
     <dxi-item
     location="before">
-      <img src="../../../../assets/logo.png" alt="apex">
+      <img src="../../../../assets/logo.png" alt="apex" (click)="backToMain()">
     </dxi-item>
     <dxi-item
       location="after"
@@ -23,5 +23,12 @@
     <div *dxTemplate="let data of 'menuItem'">
       <app-user-panel [user]="user" [menuItems]="userMenuItems" menuMode="list"></app-user-panel>
     </div>
+    <dxi-item
+    location="center"
+    >
+      <dx-button >
+          
+      </dx-button>
+    </dxi-item>
   </dx-toolbar>
 </header>

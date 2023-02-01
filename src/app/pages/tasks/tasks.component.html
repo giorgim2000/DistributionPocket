@@ -16,9 +16,10 @@
     -->
     <div style="display: flex;">
         <input [(ngModel)]="filter" type="text" name="filterText" placeholder="ფილტრი">
-        <button *ngIf="filter" (click)="clearInput()" class="clearButton">
-            <img src="../../../assets/clear.png" alt="Clear">
-        </button>
+        <dx-button *ngIf="filter" (click)="clearInput()" class="clearButton" stylingMode="contained" type="default" width="250" height="60">
+            <!-- <img src="../../../assets/clear.png" alt="Clear"> -->
+            გასუფთავება
+        </dx-button>
     </div>
     
 
@@ -31,6 +32,7 @@
     [label]="'თარიღი'"
     [displayFormat]="'dd-MM-yyyy'"
     [dateSerializationFormat]="'yyyy-MM-dd'"
+    
     >
     </dx-date-box>
 </div>

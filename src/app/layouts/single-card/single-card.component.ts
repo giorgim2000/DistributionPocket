@@ -10,13 +10,7 @@ import { identifierName } from '@angular/compiler';
   styleUrls: ['./single-card.component.scss']
 })
 export class SingleCardComponent {
-  @Input()
-  title!: string;
-  
-  @Input()
-  description!: string;
 
-  
   constructor()  {}
 }
 

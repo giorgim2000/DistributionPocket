@@ -50,7 +50,6 @@ export class TasksComponent implements OnInit {
   }
 
   dateChange(e: any){
-    console.log("YLEEEEEEE");
     this.getData(e.value);
   }
 
@@ -58,9 +57,6 @@ export class TasksComponent implements OnInit {
     this.filter = "";
   }
 
-  ch(e:any){
-    console.log(e);
-  }
 }
 
 export interface DisDocsByExpeditor{

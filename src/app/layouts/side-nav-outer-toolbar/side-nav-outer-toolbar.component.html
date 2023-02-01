@@ -6,7 +6,11 @@
   [title]="title">
 </app-header>
 
-<dx-drawer
+<div class="content">
+  <ng-content></ng-content>
+</div>
+
+<!-- <dx-drawer
   class="layout-body"
   position="before"
   [closeOnOutsideClick]="shaderEnabled"
@@ -21,15 +25,15 @@
     *dxTemplate="let dataMenu of 'panel'"
     (selectedItemChanged)="navigationChanged($event)"
     (openMenu)="navigationClick()">
-  </app-side-navigation-menu> -->
+  </app-side-navigation-menu>
   <div class="content">
     <ng-content></ng-content>
   </div>
-  <!-- <dx-scroll-view class="with-footer">
+   <dx-scroll-view class="with-footer">
     
 
     <div class="content-block">
       <ng-content select="app-footer"></ng-content>
     </div>
-  </dx-scroll-view> -->
-</dx-drawer>
+  </dx-scroll-view>
+</dx-drawer> -->

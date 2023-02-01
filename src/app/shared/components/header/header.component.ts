@@ -25,15 +25,9 @@ export class HeaderComponent implements OnInit {
 
   user: IUser | null = { email: '' };
 
-  userMenuItems = [{
-    text: 'Profile',
-    icon: 'user',
-    onClick: () => {
-      this.router.navigate(['/profile']);
-    }
-  },
+  userMenuItems = [
   {
-    text: 'Logout',
+    text: 'გამოსვლა',
     icon: 'runner',
     onClick: () => {
       this.authService.logOut();
@@ -48,6 +42,10 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu = () => {
     this.menuToggle.emit();
+  }
+
+  backToMain(){
+    this.router.navigate(["/home"]);
   }
 }
 
