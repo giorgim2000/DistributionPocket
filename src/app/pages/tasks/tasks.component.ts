@@ -44,6 +44,10 @@ export class TasksComponent implements OnInit {
     this.router.navigate(["/home"]);
   }
 
+  filterValueChanged(e: any){
+    this.filter = e.value;
+  }
+
   performFilter(filterBy: string): DisDocsByExpeditor[]{
     filterBy = filterBy.toLocaleLowerCase();
     return this.dataSource.filter((doc: DisDocsByExpeditor) => doc.Accnu.toLocaleLowerCase().includes(filterBy));

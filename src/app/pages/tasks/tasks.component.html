@@ -14,14 +14,23 @@
     [dateSerializationFormat]="'yyyy-MM-dd'"                  
     type="Date"
     -->
-    <div style="display: flex;">
+
+    <!-- <div style="display: flex;">
         <input [(ngModel)]="filter" type="text" name="filterText" placeholder="ფილტრი">
         <dx-button *ngIf="filter" (click)="clearInput()" class="clearButton" stylingMode="contained" type="default" width="250" height="60">
-            <!-- <img src="../../../assets/clear.png" alt="Clear"> -->
-            გასუფთავება
+            ფილტრის გასუფთავება
         </dx-button>
-    </div>
+        
+    </div> -->
     
+    <dx-text-box 
+    [showClearButton]="true"
+    placeholder="ფილტრი"
+    valueChangeEvent="keyup"
+    (onValueChanged)="filterValueChanged($event)"
+    >
+
+    </dx-text-box>
 
     <dx-date-box 
     [(ngModel)]="visitDate"
@@ -32,11 +41,13 @@
     [label]="'თარიღი'"
     [displayFormat]="'dd-MM-yyyy'"
     [dateSerializationFormat]="'yyyy-MM-dd'"
-    
     >
     </dx-date-box>
 </div>
 <div id="mainDiv">
+<div *ngIf="dataSource.length === 0" class="notFoundDiv">
+    მიმდინარეობს მონაცემების ჩატვირთვა...
+</div>
 <div *ngIf="FilteredData.length> 0">
   <div class="tabDiv" (click)="visitClick()" *ngFor="let visit of FilteredData">
       <div class="clientAdressDiv">
@@ -56,8 +67,8 @@
       </div>
   </div>
 </div>
-<div *ngIf="FilteredData.length === 0">
-    Loading data...
+<div *ngIf="FilteredData.length === 0" class="notFoundDiv">
+    ვიზიტები ვერ მოიძებნა...
 </div>
 </div>
 

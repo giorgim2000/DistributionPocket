@@ -10,9 +10,15 @@
     width: 100%;
 }
 
+.notFoundDiv{
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
 .tabDiv{
     display: block;
-    background-color: #e4e5e9;
+    background-color: #ffffff;
     transition: background-color 0.2s ease-in-out;
     border-top: rgb(156, 153, 153) 1px solid;
     border-bottom: rgb(156, 153, 153) 1px solid;
@@ -25,9 +31,9 @@
     border-bottom: black 2px solid;
 }
 
-.tabDiv > * {
-    padding: 5px 1px;
-}
+// .tabDiv > * {
+//     padding: 3px 1px;
+// }
 
 p{
     margin: 4px;
@@ -47,7 +53,7 @@ p{
 .otherInfoDiv{
     display: flex;
     flex-wrap: wrap;
-    padding: 4px;
+    // padding: 4px;
 }
 
 .otherInfoDiv > *{
@@ -61,8 +67,8 @@ p{
 }
 
 .otherInfoP{
-    font-size: 1.03rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 input{
@@ -73,12 +79,3 @@ input{
 img{
     height: 40px;
 }
-
-.clearButton {
-    position: fixed;
-    bottom: 15%;
-    right: 20%;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 10px;
-  }
