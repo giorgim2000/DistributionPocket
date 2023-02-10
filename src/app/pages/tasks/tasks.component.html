@@ -49,7 +49,7 @@
     მიმდინარეობს მონაცემების ჩატვირთვა...
 </div>
 <div *ngIf="FilteredData.length> 0">
-  <div class="tabDiv" (click)="visitClick()" *ngFor="let visit of FilteredData">
+  <div class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData">
       <div class="clientAdressDiv">
           <p id="nameP">{{visit.Accnu}}</p>
           <p id="adressP">{{visit.Address}}</p>

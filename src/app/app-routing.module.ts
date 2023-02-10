@@ -8,6 +8,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { VisitComponent } from './pages/visit/visit.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
+    path: 'visit',
+    component: VisitComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
@@ -63,7 +69,8 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     ProfileComponent,
-    TasksComponent
+    TasksComponent,
+    VisitComponent
   ]
 })
 export class AppRoutingModule { }

@@ -37,11 +37,13 @@ export class TasksComponent implements OnInit {
     return this.http.get<any>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`).subscribe(result => {
       this.dataSource = result.Result;
       this.FilteredData = this.performFilter(this.filter);
+    }, error => {
+      this.router.navigate(["/login-form"]);
     });
   }
 
-  visitClick(){
-    this.router.navigate(["/home"]);
+  visitClick(visit: any){
+    this.router.navigate(["/visit"], { state: { data: visit } });
   }
 
   filterValueChanged(e: any){
@@ -55,10 +57,6 @@ export class TasksComponent implements OnInit {
 
   dateChange(e: any){
     this.getData(e.value);
-  }
-
-  clearInput(){
-    this.filter = "";
   }
 
 }

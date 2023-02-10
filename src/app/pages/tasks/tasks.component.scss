@@ -2,6 +2,10 @@
     font-family: 'MyFont' !important;
 }
 
+h2{
+    font-size: 25px;
+}
+
 #headerDiv{
     margin: 10px;
 }
@@ -23,6 +27,8 @@
     border-top: rgb(156, 153, 153) 1px solid;
     border-bottom: rgb(156, 153, 153) 1px solid;
     cursor: pointer;
+    margin: 0px 10px;
+    border-radius: 10px;
 }
 
 .tabDiv:hover{
@@ -30,10 +36,6 @@
     border-top: black 2px solid;
     border-bottom: black 2px solid;
 }
-
-// .tabDiv > * {
-//     padding: 3px 1px;
-// }
 
 p{
     margin: 4px;
@@ -53,7 +55,6 @@ p{
 .otherInfoDiv{
     display: flex;
     flex-wrap: wrap;
-    // padding: 4px;
 }
 
 .otherInfoDiv > *{

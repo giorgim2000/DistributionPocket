@@ -8,6 +8,7 @@ import { AuthService, ScreenService, AppInfoService, AddHeaderInterceptor } from
 import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'ngx-cookie-service';
+import { VisitComponent } from './pages/visit/visit.component';
 
 
 @NgModule({
