@@ -1,5 +1,5 @@
 import { Component, NgModule, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 import { AuthService, IUser } from '../../services';
 import { UserPanelModule } from '../user-panel/user-panel.component';
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     }
   }];
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private location: Location) { }
 
   ngOnInit() {
     this.authService.getUser().then((e) => this.user = e.data);
@@ -46,6 +46,10 @@ export class HeaderComponent implements OnInit {
 
   backToMain(){
     this.router.navigate(["/home"]);
+  }
+
+  back(){
+    this.location.back();
   }
 }
 
