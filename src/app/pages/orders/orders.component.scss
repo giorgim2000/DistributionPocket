@@ -1,26 +1,19 @@
-*{
-    font-family: 'MyFont' !important;
+#mainDiv{
+    width: 100%;
 }
 
-#title{
+.headerDiv{
+    margin: 12px;
+    border-bottom: 1px solid white;
+}
+
+#orderTitle{
     font-size: 20px;
     font-weight: 500;
     color: white;
     font-family: "myFont";
 }
 
-#headerDiv{
-    margin: 10px;
-}
-
-.titleDiv{
-    border-bottom: 1px solid white;
-    margin-bottom: 15px;
-}
-
-#mainDiv{
-    width: 100%;
-}
 
 .notFoundDiv{
     display: flex;
@@ -37,6 +30,8 @@
     cursor: pointer;
     margin: 0px 10px;
     border-radius: 10px;
+    max-height: 140px;
+    overflow: hidden;
 }
 
 .tabDiv:hover{
@@ -48,6 +43,7 @@
 p{
     margin: 4px;
     color: black;
+    overflow: hidden;
 }
 
 #nameP{
@@ -58,33 +54,4 @@ p{
 #adressP{
     font-size: 1rem;
     font-weight: 500;
-}
-
-.otherInfoDiv{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.otherInfoDiv > *{
-    margin: 4px;
-}
-
-.otherInfoDiv{
-    p{
-        font-size: 0.75rem;
-    }
-}
-
-.otherInfoP{
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-input{
-    width: 350px;
-    height: 50px;
-}
-
-img{
-    height: 40px;
 }

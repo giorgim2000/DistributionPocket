@@ -9,6 +9,7 @@ import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxText
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -70,7 +76,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     TasksComponent,
-    VisitComponent
+    VisitComponent,
+    OrdersComponent
   ]
 })
 export class AppRoutingModule { }

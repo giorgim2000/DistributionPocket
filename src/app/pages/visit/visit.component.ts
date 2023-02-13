@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DisDocsByExpeditor } from '../tasks/tasks.component';
 
 @Component({
   selector: 'app-visit',
@@ -14,11 +13,10 @@ export class VisitComponent implements OnInit {
 
   ngOnInit(): void {
     this.visitData = history.state.data;
-    console.log(this.visitData);
   }
 
-  mouse(){
-    this.router.navigate(["/tasks"]);
+  orders(){
+    this.router.navigate(["/orders"]);
   }
 
 }

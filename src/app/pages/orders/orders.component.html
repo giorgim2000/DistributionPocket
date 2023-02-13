@@ -1,0 +1,21 @@
+<div class="headerDiv">
+    <p id="orderTitle">შეკვეთები --- </p>
+</div>
+<div id="mainDiv">
+    <div *ngIf="dummyData.length === 0" class="notFoundDiv">
+        მიმდინარეობს მონაცემების ჩატვირთვა...
+    </div>
+    <div *ngIf="dummyData.length > 0">
+      <div class="tabDiv" (click)="orderClick(order)" *ngFor="let order of dummyData">
+          <div class="clientAdressDiv">
+              <p id="nameP">{{order.Preseller}}</p>
+              <p id="adressP">{{order.InvoiceNumber}}</p>
+              <p>შენიშვნა: {{order.Remark}}</p>
+              <p>კომენტარი: {{order.Comment}} </p>
+          </div>
+      </div>
+    </div>
+    <div *ngIf="dummyData.length === 0" class="notFoundDiv">
+        ვიზიტები ვერ მოიძებნა...
+    </div>
+</div>
