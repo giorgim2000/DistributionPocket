@@ -50,4 +50,11 @@ dx-button{
     font-family: 'MyFont';
 }
 
-
+@media only screen and (min-width: 430px){
+    dx-button{
+        width:350px;
+        height: 90px;
+        margin-top: 15px;
+        font-size: 26px;
+    }
+}

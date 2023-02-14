@@ -88,3 +88,17 @@ input{
 img{
     height: 40px;
 }
+
+@media only screen and (min-width: 430px){
+    #title{
+        font-size: 32px;
+    }
+    
+    .tabDiv{
+        margin: 5px 10px;
+    }
+
+    input{
+        height: 60px;
+    }
+}

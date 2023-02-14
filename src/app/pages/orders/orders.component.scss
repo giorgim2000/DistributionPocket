@@ -22,22 +22,40 @@
 }
 
 .tabDiv{
-    display: block;
+    display: flex;
     background-color: #ffffff;
     transition: background-color 0.2s ease-in-out;
     border-top: rgb(156, 153, 153) 1px solid;
     border-bottom: rgb(156, 153, 153) 1px solid;
     cursor: pointer;
-    margin: 0px 10px;
+    margin: 5px auto;
     border-radius: 10px;
-    max-height: 140px;
+    height: 160px;
+    width: 95%;
     overflow: hidden;
+    padding: 5px;
 }
 
 .tabDiv:hover{
     background-color: #dfe0e4;
     border-top: black 2px solid;
     border-bottom: black 2px solid;
+}
+
+.iconDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 13%;
+}
+
+.clientAdressDiv{
+    width: 87%;
+}
+
+.iconDiv > *{
+    margin: 0px;
+    padding: 0px;
 }
 
 p{
@@ -54,4 +72,27 @@ p{
 #adressP{
     font-size: 1rem;
     font-weight: 500;
+}
+
+@media only screen and (min-width: 430px) {
+    .tabDiv{
+        height: 220px;
+
+    }
+
+    #orderTitle{
+        font-size: 32px;
+    }
+
+    #nameP{
+        font-size: 1.5rem;
+    }
+
+    #adressP{
+        font-size: 1.3rem;
+    }
+
+    .pInfo{
+        font-size: 1.2rem;
+    }
 }

@@ -56,6 +56,8 @@ export class OrdersComponent implements OnInit {
       Comment: "საქონელი იყო დაზიანებული"
     }
   ]
+  completedUrl: string = "../../../assets/completed.png";
+  pendingUrl: string = "../../../assets/pending.png";
 
   constructor() { }
 

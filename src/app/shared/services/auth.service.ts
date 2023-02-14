@@ -4,6 +4,7 @@ import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { buffer } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
+import notify from 'devextreme/ui/notify';
 
 
 export interface IUser {
@@ -50,18 +51,16 @@ export class AuthService {
     };
     try {
         var resp = await this.http.post<UserResponse>("http://10.10.0.29:9183/auth.json", null, options)
-        .subscribe(resp => {
+        .subscribe({next: resp =>{
           this.cookieService.set("X-ss-id", resp.SessionId);
           this.router.navigate(["/home"])
-        }, error =>{
-          if(error.status === 401){
-            this.router.navigate(['/login-form']);
-          }
-        });
+        },
+        error: error =>{
+          notify("სახელი ან პაროლი არასწორია!", 'error', 2000);
+          location.reload();
+        }
+      });
       
-      this._user = { email: username, avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'};
-      //this.router.navigate(["/Home"]);
-
       return {
         isOk: true,
         data: this._user

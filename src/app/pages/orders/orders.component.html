@@ -10,8 +10,17 @@
           <div class="clientAdressDiv">
               <p id="nameP">{{order.Preseller}}</p>
               <p id="adressP">{{order.InvoiceNumber}}</p>
-              <p>შენიშვნა: {{order.Remark}}</p>
-              <p>კომენტარი: {{order.Comment}} </p>
+              <p class="pInfo">შენიშვნა: {{order.Remark}}</p>
+              <p class="pInfo">კომენტარი: {{order.Comment}} </p>
+          </div>
+          <div class="iconDiv">
+            <ng-container *ngIf="order.Status; then completed; else pending"></ng-container>
+            <ng-template #completed>
+            <img [src]="completedUrl" alt="Completed">
+            </ng-template>
+            <ng-template #pending>
+            <img [src]="pendingUrl" alt="Pending">
+            </ng-template>
           </div>
       </div>
     </div>
