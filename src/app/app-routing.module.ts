@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { DwaybillDetailsComponent } from './pages/dwaybill-details/dwaybill-details.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'dwaybillDetails',
+    component: DwaybillDetailsComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -77,7 +83,8 @@ const routes: Routes = [
     ProfileComponent,
     TasksComponent,
     VisitComponent,
-    OrdersComponent
+    OrdersComponent,
+    DwaybillDetailsComponent
   ]
 })
 export class AppRoutingModule { }

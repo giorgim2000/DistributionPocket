@@ -9,7 +9,7 @@
       <div class="tabDiv" (click)="orderClick(order)" *ngFor="let order of dummyData">
           <div class="clientAdressDiv">
               <p id="nameP">{{order.Preseller}}</p>
-              <p id="adressP">{{order.InvoiceNumber}}</p>
+              <p id="adressP">{{order.DwaybillNumber}}</p>
               <p class="pInfo">შენიშვნა: {{order.Remark}}</p>
               <p class="pInfo">კომენტარი: {{order.Comment}} </p>
           </div>

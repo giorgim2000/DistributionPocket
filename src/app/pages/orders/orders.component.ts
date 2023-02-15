@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -8,48 +9,48 @@ import { Component, OnInit } from '@angular/core';
 export class OrdersComponent implements OnInit {
   dummyData: IOrder[]=[
     {
-      InvoiceNumber: "21312325",
+      DwaybillNumber: "21312325",
       Preseller: "ნოდარ ავალიშვილი",
       Remark: "ეს არის შენიშვნა...",
       Status: false,
       Comment: "საქონელი იყო დაზიანებული"
     },{
-      InvoiceNumber: "67585856",
+      DwaybillNumber: "67585856",
       Preseller: "ვასილ მაისურაძე",
       Remark: "ეს არის შენიშვნა...ეს არის შენიშვნა...",
       Status: false,
       Comment: "არ მიიღო ფასის გამო..."
     },
     {
-      InvoiceNumber: "6231677",
+      DwaybillNumber: "6231677",
       Preseller: "რამაზ აბდუ",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
       Comment: "კომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარი"
     },
     {
-      InvoiceNumber: "316772323",
+      DwaybillNumber: "316772323",
       Preseller: "ვასილი უტკინ",
       Remark: "ეს არის შენიშვნა...",
       Status: false,
       Comment: "საქონელი იყო დაზიანებული"
     },
     {
-      InvoiceNumber: "512536777",
+      DwaybillNumber: "512536777",
       Preseller: "მიხეილ სააკაშვილი",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
       Comment: "არავითარი პირობითი სასჯელი!"
     },
     {
-      InvoiceNumber: "666111222",
+      DwaybillNumber: "666111222",
       Preseller: "ლევან ხაბეიშვილი",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
       Comment: ""
     },
     {
-      InvoiceNumber: "21312325",
+      DwaybillNumber: "21312325",
       Preseller: "კობა ხაბაზი",
       Remark: "ეს არის შენიშვნა...",
       Status: false,
@@ -59,20 +60,20 @@ export class OrdersComponent implements OnInit {
   completedUrl: string = "../../../assets/completed.png";
   pendingUrl: string = "../../../assets/pending.png";
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     
   }
 
   orderClick(order: any){
-
+    this.router.navigate(["/dwaybillDetails"]);
   }
 
 }
 
 export interface IOrder{
-  InvoiceNumber: string;
+  DwaybillNumber: string;
   Preseller: string;
   Remark: string;
   Status: boolean;

@@ -34,12 +34,15 @@ export class TasksComponent implements OnInit {
   }
 
   getData(dDate : Date){
-    return this.http.get<any>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`).subscribe(result => {
+    return this.http.get<any>(`http://10.10.0.29:9183/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`)
+    .subscribe({
+      next: (result) => {
       this.dataSource = result.Result;
       this.FilteredData = this.performFilter(this.filter);
-    }, error => {
+    },
+    error: (err) => {
       this.router.navigate(["/login-form"]);
-    });
+    }});
   }
 
   visitClick(visit: any){

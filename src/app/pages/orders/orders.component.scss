@@ -74,6 +74,13 @@ p{
     font-weight: 500;
 }
 
+// .pInfo{
+//     max-height: 2em; /* Set maximum height to 2 lines */
+//   overflow: hidden; /* Hide overflow text */
+//   text-overflow: ellipsis; /* Add ellipsis if text is truncated */
+//   white-space: normal; /* Allow text to wrap within the element */
+// }
+
 @media only screen and (min-width: 430px) {
     .tabDiv{
         height: 220px;
