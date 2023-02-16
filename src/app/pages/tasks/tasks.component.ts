@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import 'devextreme/data/odata/store';
 import 'devextreme/ui/date_box';
 import {formatDate} from '@angular/common';
-import { ScreenService } from 'src/app/shared/services';
+import { AuthService, ScreenService } from 'src/app/shared/services';
 import { IfStmt } from '@angular/compiler';
 import { Router } from '@angular/router';
 
@@ -27,7 +27,7 @@ export class TasksComponent implements OnInit {
     this.FilteredData = this.performFilter(value);
   }
 
-  constructor(private http: HttpClient, private router: Router) {  }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {  }
 
   ngOnInit(): void {
     this.getData(new Date());
@@ -41,7 +41,8 @@ export class TasksComponent implements OnInit {
       this.FilteredData = this.performFilter(this.filter);
     },
     error: (err) => {
-      this.router.navigate(["/login-form"]);
+      this.authService.logOut();
+      // this.router.navigate(["/login-form"]);
     }});
   }
 
