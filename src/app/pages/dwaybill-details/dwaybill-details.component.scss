@@ -38,6 +38,21 @@ span{
     width: 100%;
 }
 
+.buttonDibv{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+dx-button{
+    font-weight: bold;
+    width: 200px;
+    height: 60px;
+    font-size: 22px;
+    font-family: "myFont";
+    
+}
+
 p{
     margin:5px;
     font-weight: bold;
