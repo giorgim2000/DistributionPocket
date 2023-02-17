@@ -33,7 +33,7 @@ dx-button{
   justify-content: space-between;
 }
 
-@media only screen and (min-width: 430px){
+@media only screen and (min-width: 450px){
   dx-button{
       width:350px;
       height: 90px;
@@ -41,3 +41,14 @@ dx-button{
       font-size: 26px;
   }
 }
+
+// @media only screen and (max-height: 760px){
+//   .menuDiv{
+//       padding-top: 100px;
+//   }
+
+//   dx-button{
+//       height: 50px;
+//       font-size: 16px;
+//   }
+// }

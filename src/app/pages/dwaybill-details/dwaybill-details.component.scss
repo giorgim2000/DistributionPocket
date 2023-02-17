@@ -1,7 +1,9 @@
+@import "../../layouts/side-nav-outer-toolbar/side-nav-outer-toolbar.component.scss";
+
 .container {
     display: flex;
     flex-direction: column;
-    height: 93vh;
+    height: calc(100vh - #{$header-height});
 }
 
 .headerDiv{

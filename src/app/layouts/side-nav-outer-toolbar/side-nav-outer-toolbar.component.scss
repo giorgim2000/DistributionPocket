@@ -1,3 +1,5 @@
+$header-height: 64px;
+
 :host {
   flex-direction: column;
   display: flex;
@@ -11,5 +13,11 @@
 
 
 #myMenu {
-  height: 64px;
+  height: $header-height;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: calc((100vh - #{$header-height}) - 1vh);
 }

@@ -1,3 +1,11 @@
+@import "../../layouts/side-nav-outer-toolbar/side-nav-outer-toolbar.component.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc((100vh - #{$header-height}) - 10vh);
+}
+
 #mainDiv{
     width: 100%;
 }
