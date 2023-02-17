@@ -23,38 +23,38 @@ export class OrdersComponent implements OnInit {
     },
     {
       DwaybillNumber: "6231677",
-      Preseller: "რამაზ აბდუ",
+      Preseller: "ვასილ მაისურაძე",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
       Comment: "კომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარიკომენტარი, კომენტარი, კომენტარი"
     },
     {
       DwaybillNumber: "316772323",
-      Preseller: "ვასილი უტკინ",
+      Preseller: "ბორის გოგოჭური",
       Remark: "ეს არის შენიშვნა...",
       Status: false,
       Comment: "საქონელი იყო დაზიანებული"
     },
     {
       DwaybillNumber: "512536777",
-      Preseller: "მიხეილ სააკაშვილი",
+      Preseller: "რუსლან ხმალაძე",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
-      Comment: "არავითარი პირობითი სასჯელი!"
+      Comment: "საქონელი იყო დაზიანებული"
     },
     {
       DwaybillNumber: "666111222",
-      Preseller: "ლევან ხაბეიშვილი",
+      Preseller: "ბორის გოგოჭური",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
-      Comment: ""
+      Comment: "არ მიიღო ფასის გამო..."
     },
     {
       DwaybillNumber: "21312325",
-      Preseller: "კობა ხაბაზი",
+      Preseller: "რუსლან ხმალაძე",
       Remark: "ეს არის შენიშვნა...",
       Status: false,
-      Comment: "საქონელი იყო დაზიანებული"
+      Comment: "არ მიიღო ფასის გამო..."
     }
   ]
   completedUrl: string = "../../../assets/completed.png";

@@ -40,6 +40,66 @@ export class DwaybillDetailsComponent implements OnInit {
           Bcode: "51266661",
           ProductName: "ლეისი",
           Amount: 150
+        },
+        {
+          Bcode: "78908909009",
+          ProductName: "კოკა-კოლა",
+          Amount: 30
+        },
+        {
+          Bcode: "1123111411",
+          ProductName: "ფანტა",
+          Amount: 60
+        },
+        {
+          Bcode: "25136666712",
+          ProductName: "სპრაიტი",
+          Amount: 20
+        },
+        {
+          Bcode: "51266661",
+          ProductName: "ლეისი",
+          Amount: 150
+        },
+        {
+          Bcode: "78908909009",
+          ProductName: "კოკა-კოლა",
+          Amount: 30
+        },
+        {
+          Bcode: "1123111411",
+          ProductName: "ფანტა",
+          Amount: 60
+        },
+        {
+          Bcode: "25136666712",
+          ProductName: "სპრაიტი",
+          Amount: 20
+        },
+        {
+          Bcode: "51266661",
+          ProductName: "ლეისი",
+          Amount: 150
+        },
+        {
+          Bcode: "78908909009",
+          ProductName: "კოკა-კოლა",
+          Amount: 30
+        },
+        {
+          Bcode: "1123111411",
+          ProductName: "ფანტა",
+          Amount: 60
+        },
+        {
+          Bcode: "25136666712",
+          ProductName: "სპრაიტი",
+          Amount: 20
+        },
+        {
+          Bcode: "51266661",
+          ProductName: "ლეისი",
+          Amount: 150
         }
       ]
     }

@@ -1,23 +1,26 @@
-<div class="headerDiv">
-    <span>ზედნადები #{{DummyData.DwaybillNumber}}</span>
-    <span>შეკვეთა #{{DummyData.OrderNumber}}</span>
-</div>
-
-<div id="mainDiv">
-    <div class="tabDiv" *ngFor="let product of DummyData.ProductList">
+<div class="container">
+    <div class="headerDiv">
+      <span>ზედნადები #{{DummyData.DwaybillNumber}}</span>
+      <span>შეკვეთა #{{DummyData.OrderNumber}}</span>
+    </div>
+  
+    <div id="mainDiv">
+      <div class="tabDiv" *ngFor="let product of DummyData.ProductList">
         <div class="clientAdressDiv">
-            <p>{{product.Bcode}}</p>
+          <p>{{product.Bcode}}</p>
         </div>
         <div>
-            <p>{{product.ProductName}}</p>
+          <p>{{product.ProductName}}</p>
         </div>
         <div class="iconDiv">
           <p>{{product.Amount}}</p>
         </div>
+      </div>
     </div>
-</div>
-<div class="buttonDibv">
-    <dx-button type="success" stylingMode="contained">
+  
+    <div class="buttonDiv">
+      <dx-button type="success" stylingMode="contained">
         დადასტურება
-    </dx-button>
-</div>
+      </dx-button>
+    </div>
+  </div>
