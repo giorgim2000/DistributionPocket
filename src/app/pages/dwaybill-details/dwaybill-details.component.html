@@ -19,8 +19,47 @@
     </div>
   
     <div class="buttonDiv">
-      <dx-button type="success" stylingMode="contained">
+      <dx-button type="success" stylingMode="contained" (onClick)="confirmBtnClick()">
         დადასტურება
       </dx-button>
     </div>
   </div>
+
+
+
+
+
+  <dx-popup
+  [width]="320"
+  [height]="400"
+  [showTitle]="true"
+  title="Information"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="true"
+  [showCloseButton]="false"
+  container=".dx-viewport"
+  [(visible)]="popupVisible"
+>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="before"
+    [options]="emailButtonOptions"
+  >
+  </dxi-toolbar-item>
+  <dxi-toolbar-item
+    widget="dxButton"
+    toolbar="bottom"
+    location="after"
+    [options]="closeButtonOptions"
+  >
+  </dxi-toolbar-item>
+  <div class="popupContentDiv">
+    <dx-text-box 
+    mode="text"
+    label="კომენტარი"
+    labelMode="static">
+
+    </dx-text-box>
+  </div>
+</dx-popup>

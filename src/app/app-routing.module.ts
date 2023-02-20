@@ -5,7 +5,7 @@ import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
@@ -75,7 +75,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true }), DxDataGridModule, DxFormModule, CommonModule, DxButtonModule, FormsModule, DxDateBoxModule,DxTextBoxModule],
+  imports: [RouterModule.forRoot(routes, { useHash: true }),
+     DxDataGridModule, DxFormModule, CommonModule,
+      DxButtonModule, FormsModule, DxDateBoxModule,
+      DxTextBoxModule, DxPopupModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [

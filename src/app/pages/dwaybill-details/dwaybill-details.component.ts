@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-dwaybill-details',
@@ -104,13 +105,48 @@ export class DwaybillDetailsComponent implements OnInit {
       ]
     }
   ;
+  popupVisible: boolean = false;
+  employees: any = [];
+  currentEmployee: any = {};
+  moreInfoButtonOptions: any;
 
+  emailButtonOptions: any;
 
-  constructor() { }
+  closeButtonOptions: any;
+
+  constructor() {
+    const that = this;
+    this.emailButtonOptions = {
+      type: 'success',
+      stylingMode: 'contained',
+      text: 'დადასტურება',
+      onClick() {
+        const message = `Email is sent to ${that.currentEmployee.FirstName} ${that.currentEmployee.LastName}`;
+        notify({
+          message,
+          position: {
+            my: 'center top',
+            at: 'center top',
+          },
+        }, 'success', 3000);
+      },
+    };
+    this.closeButtonOptions = {
+      type: 'normal',
+      stylingMode: 'text',
+      text: 'დახურვა',
+      onClick() {
+        that.popupVisible = false;
+      },
+    };
+   }
 
   ngOnInit(): void {
   }
 
+  confirmBtnClick(){
+    this.popupVisible = true;
+  }
 
 
 }
