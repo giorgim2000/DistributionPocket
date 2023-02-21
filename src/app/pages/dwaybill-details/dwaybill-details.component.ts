@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
 
 @Component({
@@ -114,31 +115,32 @@ export class DwaybillDetailsComponent implements OnInit {
 
   closeButtonOptions: any;
 
-  constructor() {
-    const that = this;
-    this.emailButtonOptions = {
-      type: 'success',
-      stylingMode: 'contained',
-      text: 'დადასტურება',
-      onClick() {
-        const message = `Email is sent to ${that.currentEmployee.FirstName} ${that.currentEmployee.LastName}`;
-        notify({
-          message,
-          position: {
-            my: 'center top',
-            at: 'center top',
-          },
-        }, 'success', 3000);
-      },
-    };
-    this.closeButtonOptions = {
-      type: 'normal',
-      stylingMode: 'text',
-      text: 'დახურვა',
-      onClick() {
-        that.popupVisible = false;
-      },
-    };
+
+  constructor(private router: Router) {
+    // const that = this;
+    // this.emailButtonOptions = {
+    //   type: 'success',
+    //   stylingMode: 'contained',
+    //   text: 'დადასტურება',
+    //   onClick() {
+    //     const message = `Email is sent to ${that.currentEmployee.FirstName} ${that.currentEmployee.LastName}`;
+    //     notify({
+    //       message,
+    //       position: {
+    //         my: 'center top',
+    //         at: 'center top',
+    //       },
+    //     }, 'success', 3000);
+    //   },
+    // };
+    // this.closeButtonOptions = {
+    //   type: 'normal',
+    //   stylingMode: 'text',
+    //   text: 'დახურვა',
+    //   onClick() {
+    //     that.popupVisible = false;
+    //   }
+    // };
    }
 
   ngOnInit(): void {
@@ -148,7 +150,22 @@ export class DwaybillDetailsComponent implements OnInit {
     this.popupVisible = true;
   }
 
+  confirmOrder(){
+    this.router.navigate(["/tasks"]);
+    const message = `შეკვეთა წარმატებით დადასტურდა!`;
+        notify({
+          message,
+          position: {
+            my: 'center top',
+            at: 'center top',
+          },
+        }, 'success', 3000);
+  }
 
+
+  closePopup(){
+    this.popupVisible = false;
+  }
 }
 
 export interface IProduct{

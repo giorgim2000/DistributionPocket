@@ -31,35 +31,65 @@
 
   <dx-popup
   [width]="320"
-  [height]="400"
+  [height]="480"
   [showTitle]="true"
-  title="Information"
+  titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'<span style='font-family:'myFont'; font-size:15px; font-weight:'bold';'>შეკვეთის დადასტურება</span></div>"
   [dragEnabled]="false"
   [hideOnOutsideClick]="true"
   [showCloseButton]="false"
   container=".dx-viewport"
   [(visible)]="popupVisible"
 >
-  <dxi-toolbar-item
-    widget="dxButton"
-    toolbar="bottom"
-    location="before"
-    [options]="emailButtonOptions"
-  >
-  </dxi-toolbar-item>
-  <dxi-toolbar-item
-    widget="dxButton"
-    toolbar="bottom"
-    location="after"
-    [options]="closeButtonOptions"
-  >
-  </dxi-toolbar-item>
+
   <div class="popupContentDiv">
-    <dx-text-box 
+    <div class="popupHeaderDiv">
+      <span>ზედნადები #{{DummyData.DwaybillNumber}}</span>
+      <span>შეკვეთა #{{DummyData.OrderNumber}}</span>
+    </div>
+
+    <dx-text-area 
     mode="text"
+    class="textArea"
+    height="150"
     label="კომენტარი"
     labelMode="static">
+    </dx-text-area>
 
-    </dx-text-box>
+    <div class="payDiv">
+      <label>
+        თანხის აღება:
+      </label>
+      <dx-text-box 
+      mode="number"
+      width="90px">
+  
+      </dx-text-box>
+    </div>
+
+    <div class="popupBtnDiv">
+      <dx-button
+      type="success"
+      stylingMode="contained"
+      text="დადასტურება"
+      width="120"
+      height="50"
+      (onClick)="confirmOrder()"
+      >
+      </dx-button>
+  
+      <dx-button
+      type="normal"
+      stylingMode="text"
+      text="დახურვა"
+      width="120"
+      height="50"
+      (onClick)="closePopup()"
+      >
+      </dx-button>
+    </div>
   </div>
+
+  
 </dx-popup>
+
+
