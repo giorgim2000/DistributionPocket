@@ -24,7 +24,7 @@ export class HomeComponent {
     {
       text: "პრობლემური საბუთები",
       type: "danger",
-      buttonStyle: "outlined", 
+      buttonStyle: "outlined",
       onClick: () => this.getProblematicDocs()
     }
   ]
@@ -38,11 +38,11 @@ export class HomeComponent {
   }
 
   getCashiersDocs(){
-    this.router.navigate(["/profile"]);
+    //this.router.navigate(["/profile"]);
   }
 
   getProblematicDocs(){
-    this.router.navigate(["./tasks"]);
+    //this.router.navigate(["./tasks"]);
   }
 }
 

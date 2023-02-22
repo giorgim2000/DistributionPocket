@@ -159,7 +159,7 @@ export class DwaybillDetailsComponent implements OnInit {
             my: 'center top',
             at: 'center top',
           },
-        }, 'success', 3000);
+        }, 'success', 2000);
   }
 
 

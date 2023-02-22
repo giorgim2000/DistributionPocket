@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { DwaybillDetailsComponent } from './pages/dwaybill-details/dwaybill-details.component';
+import { BalanceComponent } from './pages/balance/balance.component';
 
 const routes: Routes = [
   {
@@ -87,7 +88,8 @@ const routes: Routes = [
     TasksComponent,
     VisitComponent,
     OrdersComponent,
-    DwaybillDetailsComponent
+    DwaybillDetailsComponent,
+    BalanceComponent
   ]
 })
 export class AppRoutingModule { }
