@@ -26,7 +26,7 @@ export class OrdersComponent implements OnInit {
       Preseller: "ვასილ მაისურაძე",
       Remark: "ეს არის შენიშვნა...",
       Status: true,
-      Comment: "კომენტარი, კომენტარი, კომენტარი, კომენტარი "
+      Comment: "კომენტარი, კომენტარი, კომენტარი, კომენტარი კომენტარი, კომენტარი, კომენტარი, კომენტარი კომენტარი, კომენტარი, კომენტარი, კომენტარი კომენტარი, კომენტარი, კომენტარი, კომენტარი კომენტარი, კომენტარი, კომენტარი, კომენტარი"
     },
     {
       DwaybillNumber: "316772323",
@@ -59,11 +59,14 @@ export class OrdersComponent implements OnInit {
   ]
   completedUrl: string = "../../../assets/completed.png";
   pendingUrl: string = "../../../assets/pending.png";
+  pageType : string = "";
+  tabClassName: string = "";
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    
+    this.pageType = history.state.data;
+    this.tabClassName = history.state.className;
   }
 
   orderClick(order: any){

@@ -7,9 +7,9 @@
         <dx-button type="default" stylingMode="contained" (click)="orders()">შეკვეთები - {{visitData.Ordsuccess}}/{{visitData.Ordn}}</dx-button>
     </div>
     <div class="visitInfoDiv">
-        <dx-button type="default" stylingMode="contained">დაბრუნებები - {{visitData.Retsuccess}}/{{visitData.Retn}}</dx-button>
+        <dx-button type="default" stylingMode="contained" (click)="returns()">დაბრუნებები - {{visitData.Retsuccess}}/{{visitData.Retn}}</dx-button>
     </div>
     <div class="visitInfoDiv">
-        <dx-button type="default" stylingMode="contained">თანხის აღება - {{visitData.Payedcash}}/{{visitData.Collectpay}}</dx-button>
+        <dx-button type="default" stylingMode="contained" (click)="collect()">თანხის აღება - {{visitData.Payedcash}}/{{visitData.Collectpay}}</dx-button>
     </div>
 </div>

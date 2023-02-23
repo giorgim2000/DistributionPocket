@@ -16,7 +16,14 @@ export class VisitComponent implements OnInit {
   }
 
   orders(){
-    this.router.navigate(["/orders"]);
+    this.router.navigate(["/orders"],  { state: { data: "შეკვეთები", className: "tabDiv" } });
   }
 
+  returns(){
+    this.router.navigate(["/orders"],  { state: { data: "დაბრუნებები", className: "returnTabDiv" } });
+  }
+
+  collect(){
+    this.router.navigate(["/orders"],  { state: { data: "თანხის აღება", className: "payTabDiv" } });
+  }
 }

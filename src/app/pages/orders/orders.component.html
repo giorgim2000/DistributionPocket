@@ -1,13 +1,13 @@
 <div class="container">
     <div class="headerDiv">
-        <p id="orderTitle">შეკვეთები --- </p>
+        <p id="orderTitle">{{this.pageType}} --- </p>
     </div>
     <div id="mainDiv">
         <div *ngIf="dummyData.length === 0" class="notFoundDiv">
             მიმდინარეობს მონაცემების ჩატვირთვა...
         </div>
         <div *ngIf="dummyData.length > 0">
-          <div class="tabDiv" (click)="orderClick(order)" *ngFor="let order of dummyData">
+          <div [class]="tabClassName" (click)="orderClick(order)" *ngFor="let order of dummyData">
               <div class="clientAdressDiv">
                   <p id="nameP">{{order.Preseller}}</p>
                   <p id="adressP">{{order.DwaybillNumber}}</p>
