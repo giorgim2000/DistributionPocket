@@ -31,7 +31,10 @@
   [width]="320"
   [height]="480"
   [showTitle]="true"
-  titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'<span style='font-family:'myFont'; font-size:15px; font-weight:'bold';'>შეკვეთის დადასტურება</span></div>"
+  titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'>
+                    <img src='../../../assets/logo.png' style='height: 20px; margin-right: 12px;'/>
+                    <span style='font-family:'myFont'; font-size:14px; font-weight:'bold';'>შეკვეთის დადასტურება</span>
+                  </div>"
   [dragEnabled]="false"
   [hideOnOutsideClick]="true"
   [showCloseButton]="false"
@@ -69,7 +72,7 @@
       type="success"
       stylingMode="contained"
       text="დადასტურება"
-      width="120"
+      width="130"
       height="50"
       (onClick)="confirmOrder()"
       >
@@ -79,7 +82,7 @@
       type="normal"
       stylingMode="outlined"
       text="დახურვა"
-      width="120"
+      width="130"
       height="50"
       (onClick)="closePopup()"
       >

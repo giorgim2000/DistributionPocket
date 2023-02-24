@@ -11624,7 +11624,7 @@
   -webkit-touch-callout: none;
   white-space: normal;
   position: relative;
-  padding: 0 8px 0 24px;
+  padding: 0 8px;
   min-height: 28px;
   border-bottom: 1px solid #515159;
   background: 0 0;
@@ -26072,7 +26072,7 @@ input.dx-hidden {
   padding-top: 16px;
 }
 .dx-diagram-properties-popup.dx-diagram-mobile-popup .dx-popup-title {
-  padding: 8px 8px 0 0;
+  padding: 0 8px;
 }
 .dx-diagram-properties-popup.dx-diagram-mobile-popup .dx-tabpanel .dx-tab-selected::before {
   top: 0;

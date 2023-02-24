@@ -61,16 +61,18 @@ export class OrdersComponent implements OnInit {
   pendingUrl: string = "../../../assets/pending.png";
   pageType : string = "";
   tabClassName: string = "";
+  visitData: any = {};
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { console.log("me var siko!") }
 
   ngOnInit(): void {
-    this.pageType = history.state.data;
+    this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
+    this.visitData = history.state.data;
   }
 
   orderClick(order: any){
-    this.router.navigate(["/dwaybillDetails"]);
+    this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
   }
 
 }
