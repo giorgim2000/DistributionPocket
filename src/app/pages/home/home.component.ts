@@ -28,6 +28,7 @@ export class HomeComponent {
       onClick: () => this.getProblematicDocs()
     }
   ]
+  
 
   constructor(private router: Router) {
 

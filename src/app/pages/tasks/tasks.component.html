@@ -31,8 +31,8 @@
     მიმდინარეობს მონაცემების ჩატვირთვა...
 </div>
 <div *ngIf="FilteredData.length> 0">
-  <div class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData">
-      <div class="clientAdressDiv">
+  <div draggable="true" class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData">
+      <div class="clientAdressDiv" draggable="true">
           <p id="nameP">{{visit.Accnu}}</p>
           <p id="adressP">{{visit.Address}}</p>
       </div>
