@@ -17,7 +17,7 @@ export class TasksComponent implements OnInit {
   FilteredData: DisDocsByExpeditor[] = [];
   visitDate: String = new Date().toString();
   
-  private _filter : string = '';
+  private _filter : string ='';
 
   get filter(): string{
     return this._filter;

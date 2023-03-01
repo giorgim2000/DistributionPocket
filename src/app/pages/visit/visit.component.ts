@@ -24,6 +24,6 @@ export class VisitComponent implements OnInit {
   }
 
   collect(){
-    this.router.navigate(["/orders"],  { state: { data: this.visitData, pageType: "თანხის აღება", className: "payTabDiv" } });
+    this.router.navigate(["/collect-cash"],  { state: { data: this.visitData, } });
   }
 }

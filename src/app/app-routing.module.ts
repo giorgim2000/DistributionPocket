@@ -5,13 +5,14 @@ import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule } from 'devextreme-angular';
+import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule, DxSelectBoxModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { DwaybillDetailsComponent } from './pages/dwaybill-details/dwaybill-details.component';
 import { BalanceComponent } from './pages/balance/balance.component';
+import { CollectCashComponent } from './pages/collect-cash/collect-cash.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'collect-cash',
+    component: CollectCashComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -79,7 +85,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true }),
      DxDataGridModule, DxFormModule, CommonModule,
       DxButtonModule, FormsModule, DxDateBoxModule,
-      DxTextBoxModule, DxPopupModule, DxTextAreaModule],
+      DxTextBoxModule, DxPopupModule, DxTextAreaModule,
+      DxSelectBoxModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [
@@ -89,7 +96,8 @@ const routes: Routes = [
     VisitComponent,
     OrdersComponent,
     DwaybillDetailsComponent,
-    BalanceComponent
+    BalanceComponent,
+    CollectCashComponent
   ]
 })
 export class AppRoutingModule { }

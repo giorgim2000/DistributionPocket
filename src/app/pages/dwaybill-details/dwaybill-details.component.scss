@@ -91,6 +91,18 @@ p{
     font-family: "myFont";
 }
 
+.questionDiv{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 70px;
+}
+
+#questionP{
+    color: #ffffff;
+    font-size: 19px;
+}
+
 .payDiv{
     // margin-top: 24px;
     display: flex;
