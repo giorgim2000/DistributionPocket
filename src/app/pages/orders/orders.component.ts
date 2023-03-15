@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -62,8 +63,9 @@ export class OrdersComponent implements OnInit {
   pageType : string = "";
   tabClassName: string = "";
   visitData: any = {};
+  sorting: boolean = false;
 
-  constructor(private router: Router) { console.log("me var siko!") }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.pageType = history.state.pageType;
@@ -72,7 +74,32 @@ export class OrdersComponent implements OnInit {
   }
 
   orderClick(order: any){
-    this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
+    if(this.sorting){
+      console.log("noda");
+      document.querySelectorAll(".tabClassName").forEach(item => {
+        console.log(item);
+      })
+    }else{
+      this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
+    }
+  }
+
+  onDrop(event: CdkDragDrop<string[]>){
+    moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
+  }
+
+  sort(e: any){
+    console.log(e);
+    if(this.sorting){
+      e.component._elementAttr.stylingmode = "text";
+      e.component._elementAttr.type = "default";
+      console.log("default");
+    }else{
+      e.component._elementAttr.stylingmode = "contained";
+      e.component._elementAttr.type = "normal";
+      console.log("normal");
+    }
+    this.sorting = !this.sorting;
   }
 
 }

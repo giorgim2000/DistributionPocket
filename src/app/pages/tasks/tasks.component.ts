@@ -6,6 +6,7 @@ import {formatDate} from '@angular/common';
 import { AuthService, ScreenService } from 'src/app/shared/services';
 import { IfStmt } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   templateUrl: 'tasks.component.html',
@@ -61,6 +62,10 @@ export class TasksComponent implements OnInit {
 
   dateChange(e: any){
     this.getData(e.value);
+  }
+
+  onDrop(event: CdkDragDrop<string[]>){
+    moveItemInArray(this.FilteredData, event.previousIndex, event.currentIndex);
   }
 
 }

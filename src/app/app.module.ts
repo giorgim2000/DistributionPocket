@@ -12,6 +12,7 @@ import { BalanceComponent } from './pages/balance/balance.component';
 import { CollectCashComponent } from './pages/collect-cash/collect-cash.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent

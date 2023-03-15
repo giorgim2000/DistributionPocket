@@ -13,6 +13,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { DwaybillDetailsComponent } from './pages/dwaybill-details/dwaybill-details.component';
 import { BalanceComponent } from './pages/balance/balance.component';
 import { CollectCashComponent } from './pages/collect-cash/collect-cash.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   {
@@ -86,7 +87,7 @@ const routes: Routes = [
      DxDataGridModule, DxFormModule, CommonModule,
       DxButtonModule, FormsModule, DxDateBoxModule,
       DxTextBoxModule, DxPopupModule, DxTextAreaModule,
-      DxSelectBoxModule],
+      DxSelectBoxModule, DragDropModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [

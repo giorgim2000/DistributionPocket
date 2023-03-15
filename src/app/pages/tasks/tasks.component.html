@@ -26,12 +26,12 @@
     >
     </dx-date-box>
 </div>
-<div id="mainDiv">
+<div id="mainDiv" cdkDropList (cdkDropListDropped)="onDrop($event)">
 <div *ngIf="dataSource.length === 0" class="notFoundDiv">
     მიმდინარეობს მონაცემების ჩატვირთვა...
 </div>
 <div *ngIf="FilteredData.length> 0">
-  <div class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData">
+  <div class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData" cdkDrag>
       <div class="clientAdressDiv">
           <p id="nameP">{{visit.Accnu}}</p>
           <p id="adressP">{{visit.Address}}</p>
