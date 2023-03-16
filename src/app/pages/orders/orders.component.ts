@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   dummyData: IOrder[]=[
     {
       DwaybillNumber: "21312325",
@@ -64,6 +64,9 @@ export class OrdersComponent implements OnInit {
   tabClassName: string = "";
   visitData: any = {};
   sorting: boolean = false;
+  btnType: string = "default";
+  btnStyle: string = "contained";
+  btnText: string = "სორტირება";
 
   constructor(private router: Router) { }
 
@@ -71,37 +74,55 @@ export class OrdersComponent implements OnInit {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
     this.visitData = history.state.data;
+    let copyArray: any[] = [];
+    if(localStorage.length > 0){
+      for (let i = localStorage.length; i >= 0; i--) {
+        // copyArray.push(this.dummyData.find(i => i.DwaybillNumber == localStorage.getItem(i)?.toString()))
+        //copyArray.push({index: i, DwaybillNumber: localStorage.getItem(i.toString())});
+        this.dummyData.splice(this.dummyData.indexOf(this.dummyData.sort()(o => o.DwaybillNumber === localStorage.getItem(i.toString()))))
+      }
+    }
   }
 
-  orderClick(order: any){
-    if(this.sorting){
-      console.log("noda");
-      document.querySelectorAll(".tabClassName").forEach(item => {
-        console.log(item);
+  ngOnDestroy(): void {
+    if(localStorage.length == 0){
+      this.dummyData.map((i,index) => {
+        localStorage.setItem(index.toString(), i.DwaybillNumber);
       })
+    }
+  }
+
+  orderClick(order: IOrder){
+    if(this.sorting){
+      this.placeAtStartPosition(this.dummyData, order);
     }else{
       this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
     }
   }
 
-  onDrop(event: CdkDragDrop<string[]>){
-    moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
-  }
+  // onDrop(event: CdkDragDrop<string[]>){
+  //   moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
+  // }
 
   sort(e: any){
-    console.log(e);
-    if(this.sorting){
-      e.component._elementAttr.stylingmode = "text";
-      e.component._elementAttr.type = "default";
-      console.log("default");
-    }else{
-      e.component._elementAttr.stylingmode = "contained";
-      e.component._elementAttr.type = "normal";
-      console.log("normal");
-    }
+    localStorage.clear();
     this.sorting = !this.sorting;
+    if(this.sorting){
+      this.btnType = "normal";
+      this.btnStyle = "outlined";
+      this.btnText = "გათიშვა";
+    }else{
+      this.btnType = "default";
+      this.btnStyle = "contained";
+      this.btnText = "სორტირება";
+    }
   }
 
+  placeAtStartPosition(itemArray: IOrder[], item: IOrder){
+    var itemIndex = itemArray.indexOf(item);
+    itemArray.splice(itemIndex, 1);
+    itemArray.unshift(item);
+  }
 }
 
 export interface IOrder{

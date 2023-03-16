@@ -12,7 +12,7 @@
 
 .headerDiv{
     margin: 12px;
-    border-bottom: 1px solid white;
+    //border-bottom: 1px solid white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,6 +108,14 @@ p{
 //   white-space: normal; /* Allow text to wrap within the element */
 // }
 
+#sortBtn{
+    height: 65px;
+    margin-top: 10px;
+    font-size: 22px;
+    font-family: 'MyFont';
+    font-weight: bold;
+}
+
 @media only screen and (min-width: 430px) {
     .tabDiv{
         height: 220px;
@@ -130,3 +138,4 @@ p{
         font-size: 1.2rem;
     }
 }
+
