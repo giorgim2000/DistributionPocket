@@ -74,35 +74,38 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
     this.visitData = history.state.data;
-    let copyArray: any[] = [];
-    if(localStorage.length > 0){
-      for (let i = localStorage.length; i >= 0; i--) {
-        // copyArray.push(this.dummyData.find(i => i.DwaybillNumber == localStorage.getItem(i)?.toString()))
-        //copyArray.push({index: i, DwaybillNumber: localStorage.getItem(i.toString())});
-        this.dummyData.splice(this.dummyData.indexOf(this.dummyData.sort()(o => o.DwaybillNumber === localStorage.getItem(i.toString()))))
-      }
-    }
+    // let copyArray: any[] = [];
+    // if(localStorage.length > 0){
+    //   for (let i = localStorage.length; i >= 0; i--) {
+    //     // copyArray.push(this.dummyData.find(i => i.DwaybillNumber == localStorage.getItem(i)?.toString()))
+    //     //copyArray.push({index: i, DwaybillNumber: localStorage.getItem(i.toString())});
+    //     this.dummyData.splice(this.dummyData.findIndex(o => o.DwaybillNumber === localStorage.getItem(i.toString()), 1));
+        
+    //   }
+    // }
   }
 
   ngOnDestroy(): void {
-    if(localStorage.length == 0){
-      this.dummyData.map((i,index) => {
-        localStorage.setItem(index.toString(), i.DwaybillNumber);
-      })
-    }
+    // if(localStorage.length == 0){
+    //   this.dummyData.map((i,index) => {
+    //     localStorage.setItem(index.toString(), i.DwaybillNumber);
+    //   })
+    // }
   }
 
   orderClick(order: IOrder){
-    if(this.sorting){
-      this.placeAtStartPosition(this.dummyData, order);
-    }else{
-      this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
-    }
+    // if(this.sorting){
+    //   this.placeAtStartPosition(this.dummyData, order);
+    // }else{
+    //   this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
+    // }
+
+    this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
   }
 
-  // onDrop(event: CdkDragDrop<string[]>){
-  //   moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
-  // }
+  onDrop(event: CdkDragDrop<string[]>){
+    moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
+  }
 
   sort(e: any){
     localStorage.clear();
