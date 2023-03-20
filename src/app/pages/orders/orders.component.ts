@@ -67,6 +67,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   btnType: string = "default";
   btnStyle: string = "contained";
   btnText: string = "სორტირება";
+  orderSortObject: object = {};
 
   constructor(private router: Router) { }
 
@@ -74,6 +75,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
     this.visitData = history.state.data;
+    if(localStorage.getItem("orderSort") != null){
+      //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"))
+      console.log(localStorage.getItem("orderSort"));
+    }
     // let copyArray: any[] = [];
     // if(localStorage.length > 0){
     //   for (let i = localStorage.length; i >= 0; i--) {
@@ -86,11 +91,16 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // if(localStorage.length == 0){
-    //   this.dummyData.map((i,index) => {
-    //     localStorage.setItem(index.toString(), i.DwaybillNumber);
-    //   })
-    // }
+    if(localStorage.getItem("orderSort") === null){
+      let rowArr :ISavedRowOrder[] = [];
+      this.dummyData.map((i,ind) => {
+        //localStorage.setItem(index.toString(), i.DwaybillNumber);
+        let item: ISavedRowOrder = {Index: ind, Id: i.DwaybillNumber};
+        rowArr.push(item);
+      })
+      console.log(rowArr.join('!'));
+      localStorage.setItem("orderSort", rowArr.join(','));
+    }
   }
 
   orderClick(order: IOrder){
@@ -126,6 +136,33 @@ export class OrdersComponent implements OnInit, OnDestroy {
     itemArray.splice(itemIndex, 1);
     itemArray.unshift(item);
   }
+
+  changeArrayIndex(orders: IOrder[], savedOrderIndexes: ISavedRowOrder[]){
+    const sortedOrders: IOrder[] = [];
+    const orderMap: Record<string, IOrder> = {};
+
+    // Map the orders to their IDs for efficient lookup
+    orders.forEach((order) => {
+      orderMap[order.DwaybillNumber] = order;
+    });
+
+    // Sort the orders based on the order index array
+    savedOrderIndexes.forEach((index : ISavedRowOrder) => {
+      const order = orderMap[index.Id];
+      if (order) {
+        sortedOrders[index.Index] = order;
+      }
+    });
+
+    // Add any remaining orders that weren't in the index array to the end
+    orders.forEach((order) => {
+      if (!orderMap[order.DwaybillNumber]) {
+        sortedOrders.push(order);
+      }
+    });
+
+    return sortedOrders;
+  }
 }
 
 export interface IOrder{
@@ -134,4 +171,9 @@ export interface IOrder{
   Remark: string;
   Status: boolean;
   Comment: string;
+}
+
+export interface ISavedRowOrder{
+  Index: number;
+  Id: string;
 }

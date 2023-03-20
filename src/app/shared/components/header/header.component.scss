@@ -8,6 +8,12 @@ header {
   right: 0;
   z-index: 1;
   height: 50px;
+  -webkit-touch-callout: none; /* Disable touch callout */
+    -webkit-user-select: none; /* Disable text selection */
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 :host {

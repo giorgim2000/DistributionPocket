@@ -1,22 +1,22 @@
 <div class="container">
     <div class="headerDiv">
         <p id="orderTitle">{{this.pageType}} - {{this.visitData.Accnu}}</p>
-        <dx-button 
+        <!-- <dx-button 
         id="sortBtn"
         [(type)]="btnType"
         [(stylingMode)]="btnStyle"
         [(text)]="btnText"
         (onClick)="sort($event)">
             
-        </dx-button>
+        </dx-button> -->
     </div>
     
-    <div id="mainDiv">
+    <div class="mainDiv">
         <div *ngIf="dummyData.length === 0" class="notFoundDiv">
             მიმდინარეობს მონაცემების ჩატვირთვა...
         </div>
         <div *ngIf="dummyData.length > 0" cdkDropList (cdkDropListDropped)="onDrop($event)">                                                                    <!--  cdkDropList (cdkDropListDropped)="onDrop($event)" -->
-          <div [class]="tabClassName" (click)="orderClick(order)" *ngFor="let order of dummyData" cdkDrag [cdkDragStartDelay]="1000">            <!--cdkDrag-->
+          <div [class]="tabClassName" (click)="orderClick(order)" *ngFor="let order of dummyData" cdkDrag [cdkDragStartDelay]="750" cdkDragBoundary=".mainDiv">            <!--cdkDrag-->
               <div class="clientAdressDiv">
                   <p id="nameP">{{order.Preseller}}</p>
                   <p id="adressP">{{order.DwaybillNumber}}</p>
