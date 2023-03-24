@@ -1,4 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -58,6 +59,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
       Comment: "არ მიიღო ფასის გამო..."
     }
   ]
+  Data: VisitDetails[] = [];
   completedUrl: string = "../../../assets/completed.png";
   pendingUrl: string = "../../../assets/pending.png";
   pageType : string = "";
@@ -69,15 +71,16 @@ export class OrdersComponent implements OnInit, OnDestroy {
   btnText: string = "სორტირება";
   orderSortObject: object = {};
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
     this.visitData = history.state.data;
+    this.getData();
     if(localStorage.getItem("orderSort") != null){
       //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"))
-      console.log(localStorage.getItem("orderSort"));
+      //console.log(localStorage.getItem("orderSort"));
     }
     // let copyArray: any[] = [];
     // if(localStorage.length > 0){
@@ -85,7 +88,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
     //     // copyArray.push(this.dummyData.find(i => i.DwaybillNumber == localStorage.getItem(i)?.toString()))
     //     //copyArray.push({index: i, DwaybillNumber: localStorage.getItem(i.toString())});
     //     this.dummyData.splice(this.dummyData.findIndex(o => o.DwaybillNumber === localStorage.getItem(i.toString()), 1));
-        
     //   }
     // }
   }
@@ -103,7 +105,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  orderClick(order: IOrder){
+  getData(){
+    this.http.get<any>("http://10.10.0.29:9183/Crm/GetCustomerDocsByExpeditor.json?Acc=`1410000100`&Iud=0&Ddate=2020-11-11")
+    .subscribe({
+      next: (result) => {
+      console.log(result);
+      this.dummyData = result.Result;
+    },
+    error: (err) => {
+      alert("");
+      // this.router.navigate(["/login-form"]);
+    }});
+  }
+
+  orderClick(order: VisitDetails){
     // if(this.sorting){
     //   this.placeAtStartPosition(this.dummyData, order);
     // }else{
@@ -176,4 +191,14 @@ export interface IOrder{
 export interface ISavedRowOrder{
   Index: number;
   Id: string;
+}
+
+export interface VisitDetails{
+  Book_ID:	string;	
+  Docs_ID: string;	
+  Waybillnum:	string;	
+  PresalerNu: string;	
+  Note: string;	
+  Ostatus:	string;	
+  Comment: string;
 }
