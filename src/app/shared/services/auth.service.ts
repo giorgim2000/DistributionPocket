@@ -50,7 +50,7 @@ export class AuthService {
       headers: header
     };
     try {
-        var resp = await this.http.post<UserResponse>("http://10.10.0.29:9183/auth.json", null, options)
+        var resp = await this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
         .subscribe({next: resp =>{
           this.cookieService.set("X-ss-id", resp.SessionId);
           this.router.navigate(["/home"])

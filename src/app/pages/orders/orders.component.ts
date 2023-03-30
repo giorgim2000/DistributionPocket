@@ -106,11 +106,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   getData(){
-    this.http.get<any>("http://10.10.0.29:9183/Crm/GetCustomerDocsByExpeditor.json?Acc=`1410000100`&Iud=0&Ddate=2020-11-11")
+    this.http.get<any>("http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?Acc=1410000100&Iud=0")
     .subscribe({
       next: (result) => {
-      console.log(result);
-      this.dummyData = result.Result;
+      this.Data = result.Result;
     },
     error: (err) => {
       alert("");
@@ -133,6 +132,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   sort(e: any){
+    alert("SORTSHI SHEMOVIDA!");
     localStorage.clear();
     this.sorting = !this.sorting;
     if(this.sorting){

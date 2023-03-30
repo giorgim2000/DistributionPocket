@@ -1,19 +1,19 @@
 <div class="container">
     <div class="headerDiv">
-      <span>ზედნადები #{{DummyData.DwaybillNumber}}</span>
-      <span>შეკვეთა #{{DummyData.OrderNumber}}</span>
+      <span>ზედნადები #{{Data[0].Waybillnum || null}}</span>
+      <span>შეკვეთა #{{Data[0].OrderId || null}}</span>
     </div>
   
     <div id="mainDiv">
-      <div class="tabDiv" *ngFor="let product of DummyData.ProductList">
+      <div class="tabDiv" *ngFor="let product of Data">
         <div class="clientAdressDiv">
           <p>{{product.Bcode}}</p>
         </div>
         <div>
-          <p>{{product.ProductName}}</p>
+          <p>{{product.Products_nu}}</p>
         </div>
         <div class="iconDiv">
-          <p>{{product.Amount}}</p>
+          <p>{{product.Scount}}</p>
         </div>
       </div>
     </div>
@@ -44,11 +44,14 @@
 
   <div class="popupContentDiv">
     <div class="popupHeaderDiv">
-      <span>ზედნადები #{{DummyData.DwaybillNumber}}</span>
-      <span>შეკვეთა #{{DummyData.OrderNumber}}</span>
+      <span>ზედნადები #{{Data[0].Waybillnum || null}}</span>
+      <span>შეკვეთა #{{Data[0].OrderId || null}}</span>
     </div>
 
-    <!-- <dx-text-area 
+
+
+    <!-- ???
+     <dx-text-area 
     mode="text"
     class="textArea"
     height="150"
@@ -65,7 +68,10 @@
       width="90px">
   
       </dx-text-box>
-    </div> -->
+    </div> 
+      ????? -->
+
+
     <div class="questionDiv">
       <p id="questionP">გსურთ შეკვეთის დადასტურება?</p>
     </div>
