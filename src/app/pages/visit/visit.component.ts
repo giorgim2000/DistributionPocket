@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-visit',
@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
 })
 export class VisitComponent implements OnInit {
   visitData: any;
+  VisitAcc: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this.route.paramMap.subscribe(params => {
+    //   this.VisitAcc = params.get('id');
+    // });
     this.visitData = history.state.data;
   }
 

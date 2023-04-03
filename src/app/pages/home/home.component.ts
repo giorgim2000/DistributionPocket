@@ -35,7 +35,7 @@ export class HomeComponent {
   }
 
   getVisits(){
-    this.router.navigate(["/tasks"]);
+    this.router.navigate(["/visits"]);
   }
 
   getCashiersDocs(){

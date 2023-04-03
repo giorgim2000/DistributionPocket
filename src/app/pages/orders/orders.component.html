@@ -1,14 +1,6 @@
 <div class="container">
     <div class="headerDiv">
         <p id="orderTitle">{{this.pageType}} - {{this.visitData.Accnu}}</p>
-        <!-- <dx-button 
-        id="sortBtn"
-        [(type)]="btnType"
-        [(stylingMode)]="btnStyle"
-        [(text)]="btnText"
-        (onClick)="sort($event)">
-            
-        </dx-button> -->
     </div>
     
     <div class="mainDiv">
@@ -24,13 +16,20 @@
                   <p class="pInfo">კომენტარი: {{order.Comment}} </p>
               </div>
               <div class="iconDiv">
-                <ng-container *ngIf="order.Ostatus; then completed; else pending"></ng-container>
-                <ng-template #completed>
-                <img [src]="completedUrl" alt="Completed">
-                </ng-template>
-                <ng-template #pending>
-                <img [src]="pendingUrl" alt="Pending">
-                </ng-template>
+                <ng-container *ngIf="order.Ostatus === 'დადასტურებული'; then completed
+                   else (order.Ostatus === 'პროექტი' || !order.Ostatus) ? pending : rejected"></ng-container>
+
+                    <ng-template #completed>
+                        <img [src]="completedUrl" alt="Completed">
+                    </ng-template>
+
+                    <ng-template #pending>
+                        <img [src]="pendingUrl" alt="Pending">
+                    </ng-template>
+
+                    <ng-template #rejected>
+                        <img [src]="rejectedUrl" alt="Rejected">
+                    </ng-template>
               </div>
           </div>
         </div>

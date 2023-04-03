@@ -62,6 +62,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   Data: VisitDetails[] = [];
   completedUrl: string = "../../../assets/completed.png";
   pendingUrl: string = "../../../assets/pending.png";
+  rejectedUrl: string = "../../../assets/rejected.png";
   pageType : string = "";
   tabClassName: string = "";
   visitData: any = {};
@@ -70,6 +71,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   btnStyle: string = "contained";
   btnText: string = "სორტირება";
   orderSortObject: object = {};
+  Iud: number = 0;
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -77,7 +79,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
     this.visitData = history.state.data;
-    this.getData();
+    if(this.pageType === "დაბრუნებები")
+      this.Iud = 1;
+    this.getData(this.visitData.Acc, this.Iud);
     if(localStorage.getItem("orderSort") != null){
       //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"))
       //console.log(localStorage.getItem("orderSort"));
@@ -105,8 +109,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  getData(){
-    this.http.get<any>("http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?Acc=1410000100&Iud=0")
+  getData(account: string, iud: number){
+    this.http.get<any>(`http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?Acc=${account}&Iud=${iud}`)
     .subscribe({
       next: (result) => {
       this.Data = result.Result;
@@ -128,7 +132,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   onDrop(event: CdkDragDrop<string[]>){
-    moveItemInArray(this.dummyData, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.Data, event.previousIndex, event.currentIndex);
   }
 
   sort(e: any){
@@ -199,6 +203,6 @@ export interface VisitDetails{
   Waybillnum:	string;	
   PresalerNu: string;	
   Note: string;	
-  Ostatus:	string;	
+  Ostatus:	string | null;	
   Comment: string;
 }

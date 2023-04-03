@@ -17,7 +17,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const routes: Routes = [
   {
-    path: 'tasks',
+    path: 'visits',
     component: TasksComponent,
     canActivate: [ AuthGuardService ]
   },
@@ -82,6 +82,19 @@ const routes: Routes = [
   }
 ];
 
+// {
+//   path: 'visits/:Acc',
+//   component: VisitComponent,
+//   canActivate: [ AuthGuardService ],
+//   children:[
+//     {
+//       path: 'visits/:Acc/Orders',
+//       component: OrdersComponent,
+//       canActivate: [ AuthGuardService ]
+//     }
+//   ]
+// },
+
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true }),
      DxDataGridModule, DxFormModule, CommonModule,
@@ -102,3 +115,5 @@ const routes: Routes = [
   ]
 })
 export class AppRoutingModule { }
+
+

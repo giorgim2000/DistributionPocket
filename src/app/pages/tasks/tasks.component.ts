@@ -43,7 +43,6 @@ export class TasksComponent implements OnInit {
     },
     error: (err) => {
       this.authService.logOut();
-      // this.router.navigate(["/login-form"]);
     }});
   }
 
