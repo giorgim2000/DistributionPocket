@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
+import { VisitDetails } from '../orders/orders.component';
 
 @Component({
   selector: 'app-dwaybill-details',
@@ -11,19 +12,19 @@ import notify from 'devextreme/ui/notify';
 export class DwaybillDetailsComponent implements OnInit {
   Data: IWaybillDetails[] = [];
   popupVisible: boolean = false;
-
-
-  // employees: any = []; // ??????????????????????????
-  // currentEmployee: any = {}; // ???????????????????????
-  // moreInfoButtonOptions: any; // ?????????????????????
-  // emailButtonOptions: any; // ??????????????????
-  // closeButtonOptions: any; // ???????????????????
-
+  info = {} as VisitDetails;
+  status = 0;
 
   constructor(private router: Router, private http: HttpClient) {
+    this.info = history.state.info;
+    if(this.info.Ostatus === "დადასტურებული")
+      this.status = 0;
+    if(this.info.Ostatus === "პროექტი")
+      this.status = 1;
     this.http.get<Resp>(`http://localhost:82/Crm/GetCustomerDocsProducts.json?DocsId=${history.state.info.Docs_ID}`)
     .subscribe({
       next: (result) => {
+        console.log(result);
         for (let index = 0; index < result.Result.length; index++) {
           this.Data.push(result.Result[index]);
         }
@@ -43,6 +44,10 @@ export class DwaybillDetailsComponent implements OnInit {
   }
 
   confirmOrder(){
+    this.http.post(`http://localhost:82/Crm/ChangeVisitStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
+    Status: this.status, Note: this.info.Note, Ddate: new Date(), Crtime: new Date()}}).subscribe(res => {
+      console.log(res);
+    });
     const message = `შეკვეთა წარმატებით დადასტურდა!`;
         notify({
           message,
@@ -52,7 +57,7 @@ export class DwaybillDetailsComponent implements OnInit {
           },
         }, 'success', 1300);
 
-    this.router.navigate(["/tasks"]);
+    this.router.navigate(["/orders"]);
   }
 
   closePopup(){

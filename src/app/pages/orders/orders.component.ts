@@ -78,7 +78,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.pageType = history.state.pageType;
     this.tabClassName = history.state.className;
-    this.visitData = history.state.data;
+    this.visitData = history.state.VisitInfo;
     if(this.pageType === "დაბრუნებები")
       this.Iud = 1;
     this.getData(this.visitData.Acc, this.Iud);
@@ -108,7 +108,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
       localStorage.setItem("orderSort", rowArr.join(','));
     }
   }
-
+                                                                           
   getData(account: string, iud: number){
     this.http.get<any>(`http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?Acc=${account}&Iud=${iud}`)
     .subscribe({
@@ -128,7 +128,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     //   this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
     // }
 
-    this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
+    this.router.navigate(["/dwaybillDetails"], { state: { info: order, Uid: this.Iud } });
   }
 
   onDrop(event: CdkDragDrop<string[]>){

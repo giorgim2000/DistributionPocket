@@ -23,6 +23,9 @@ export class HeaderComponent implements OnInit {
   @Input()
   title!: string;
 
+  @Input() 
+  goToPreviousPage: () => void = ()=>{};
+
   user: IUser | null = { email: '' };
 
   userMenuItems = [
