@@ -48,6 +48,8 @@ export class HeaderComponent implements OnInit {
   }
 
   backToMain(){
+    console.log(this.router.url);
+    console.log(this.router.parseUrl(this.router.url));
     this.router.navigate(["/home"]);
   }
 

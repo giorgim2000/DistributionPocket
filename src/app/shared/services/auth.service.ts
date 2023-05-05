@@ -41,7 +41,7 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient, private cookieService : CookieService) {}
 
-  async logIn(username: string, password: string) {
+ async logIn(username: string, password: string) {
     let creds = `${username}:${password}`;
     let header = new HttpHeaders({
       'Authorization': "Basic " + btoa(creds)
@@ -49,29 +49,22 @@ export class AuthService {
     let options = {
       headers: header
     };
-    try {
-        var resp = await this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
-        .subscribe({next: resp =>{
+    let result = {isOk: false, data: null};
+    this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
+        .subscribe({
+          next: resp =>{
+          result.isOk = true;
+          console.log("NEXTSHI");
           this.cookieService.set("X-ss-id", resp.SessionId);
-          this.router.navigate(["/home"])
-        },
-        error: error =>{
-          notify("სახელი ან პაროლი არასწორია!", 'error', 2000);
-          location.reload();
-        }
+          
+          this.router.navigate(["/home"]);
+          },
+          error: error =>{
+            result = {isOk: false, data: null};
+          }
       });
-      
-      return {
-        isOk: true,
-        data: this._user
-      };
-    }
-    catch {
-      return {
-        isOk: false,
-        message: "Authentication failed"
-      };
-    }
+
+      return result;
   }
 
   async getUser() {

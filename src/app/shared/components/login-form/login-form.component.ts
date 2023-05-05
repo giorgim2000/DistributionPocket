@@ -25,10 +25,12 @@ export class LoginFormComponent {
     this.loading = true;
 
     const result = await this.authService.logIn(username, password);
-    
+    console.log("RESULT:" + result.isOk);
     if (!result.isOk) {
+      console.log("isok?????");
+      notify("სახელი ან პაროლი არასწორია!", 'error', 2000);
       this.loading = false;
-      notify(result.message, 'error', 2000);
+      this.formData.password = "";
     }
   }
 
