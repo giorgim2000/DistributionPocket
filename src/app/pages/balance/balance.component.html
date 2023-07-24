@@ -1,1 +1,45 @@
-<p>balance works!</p>
+<div class="main">
+    <div class="dateBoxDiv">
+        <dx-date-box
+        id="start"
+        type="date"
+        [(value)]="dateStart"
+        (onValueChanged)="dateValueChanged($event)"
+        >
+        </dx-date-box>
+        <dx-date-box
+        id="end"
+        type="date"
+        [(value)]="dateEnd"
+        (onValueChanged)="dateValueChanged($event)"
+        >
+        </dx-date-box>
+    </div>
+    <!-- <div class="dateDiv">
+        <app-datepicker [start_date]="dateStart" [end_date]="dateEnd" (valuesChanged)="dateValueChanged($event)">
+            
+        </app-datepicker>
+    </div> -->
+    <div class="balanceDiv">
+        <p class="balanceP">საწყისი ნაშთი: {{balanceStart}}</p>
+    </div>
+    <div class="container">
+        <div class="tabDiv" [class.isCrTrueClass]="transaction.IsCr" (click)="tabClick()" *ngFor="let transaction of data">
+            <div class="iconDiv">
+                <img src="../../../assets/lari.png">
+            </div>
+            <div class="clientAdressDiv">
+                <p class="primaryP">{{transaction.AccName + (transaction.Acc)}}</p>
+                <p class="secondaryP">{{transaction.OpDetId}}</p>     <!-- {{transaction.TransactionType + (transaction.TransactionTypeNumber)}} -->
+            </div>
+            <div class="otherInfoDiv">
+                <p class="primaryP">{{transaction.IsCr ? "-" + transaction.Vg : transaction.Vg}}₾</p>
+                <p class="secondaryP">{{transaction.DateString}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="balanceDiv">
+        <p class="balanceP">საბოლოო ნაშთი: {{balanceEnd.toFixed(2)}}</p>
+    </div>
+</div>
+

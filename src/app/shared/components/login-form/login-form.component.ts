@@ -16,22 +16,23 @@ export class LoginFormComponent {
   loading = false;
   formData: any = {};
   
-
+  
   constructor(private authService: AuthService, private router: Router) { }
-
-  async onSubmit(e: Event) {
+  
+  onSubmit(e: Event) {
     e.preventDefault();
     const { username, password } = this.formData;
     this.loading = true;
 
-    const result = await this.authService.logIn(username, password);
-    console.log("RESULT:" + result.isOk);
-    if (!result.isOk) {
-      console.log("isok?????");
-      notify("სახელი ან პაროლი არასწორია!", 'error', 2000);
-      this.loading = false;
-      this.formData.password = "";
-    }
+    this.authService.logIn(username, password).subscribe(result => {
+      if (!result.isOk) {
+        notify(result.data, 'error', 2000);
+        this.loading = false;
+        this.formData.password = "";
+      } else {
+        this.router.navigate(["/home"]);
+      }
+    });
   }
 
   onCreateAccountClick = () => {

@@ -1,0 +1,68 @@
+*{
+    font-family: "myFont";
+}
+
+.cashMainDiv, .paymentDiv, .btnDiv{
+    margin: 40px 20px;
+}
+
+dx-button{
+    width:100%;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: "myFont";
+}
+
+.popupBtnDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    dx-button{
+        margin: 10px 0px;
+    }
+}
+
+  .popupBtnDiv > * {
+    font-size: 18px;
+    font-family: 'MyFont';
+}
+  
+  .popupContentDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    height: -webkit-fill-available;
+}
+
+#amount{
+    color: rgb(21, 143, 21);
+}
+
+#preseller{
+    color: #ec3c3c;
+}
+
+h2{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0px;
+}
+
+pre{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 2px;
+}
+
+.questionDiv{
+    margin-top: 20px;
+}
+
+@media only screen and (min-height: 700px) and (min-width: 500px){
+    *{
+        font-size: 20px;
+    }
+}

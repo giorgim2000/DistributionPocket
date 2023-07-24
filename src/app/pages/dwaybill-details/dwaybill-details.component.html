@@ -1,7 +1,7 @@
 <div class="container">
     <div class="headerDiv">
-      <span>ზედნადები #{{Data[0].Waybillnum || null}}</span>
-      <span>შეკვეთა #{{Data[0].OrderId || null}}</span>
+      <span>ზედნადები #{{waybillNum}}</span>
+      <span>შეკვეთა #{{orderId}}</span>
     </div>
   
     <div id="mainDiv">
@@ -19,8 +19,10 @@
     </div>
   
     <div class="buttonDiv">
-      <dx-button type="success" stylingMode="contained" (onClick)="confirmBtnClick()">
-        დადასტურება
+      <dx-button [type]="btnType" 
+                stylingMode="contained" 
+                (onClick)="confirmBtnClick()" 
+                [text]="btnText">
       </dx-button>
     </div>
   </div>
@@ -44,22 +46,23 @@
 
   <div class="popupContentDiv">
     <div class="popupHeaderDiv">
-      <span>ზედნადები #{{Data[0].Waybillnum || null}}</span>
-      <span>შეკვეთა #{{Data[0].OrderId || null}}</span>
+      <span>ზედნადები #{{waybillNum}}</span>
+      <span>შეკვეთა #{{orderId}}</span>
     </div>
 
 
 
-    <!-- ???
+    
      <dx-text-area 
     mode="text"
+    [(value)]="comment"
     class="textArea"
     height="150"
     label="კომენტარი"
     labelMode="static">
     </dx-text-area>
 
-    <div class="payDiv">
+    <!-- <div class="payDiv">
       <label>
         თანხის აღება:
       </label>
@@ -68,23 +71,23 @@
       width="90px">
   
       </dx-text-box>
-    </div> 
-      ????? -->
+    </div>  -->
+      
 
 
     <div class="questionDiv">
-      <p id="questionP">გსურთ შეკვეთის დადასტურება?</p>
+      <p id="questionP">{{question}}</p>
     </div>
     
 
     <div class="popupBtnDiv">
       <dx-button
-      type="success"
+      [type]="btnType"
       stylingMode="contained"
-      text="დადასტურება"
+      [text]="btnText"
       width="130"
       height="50"
-      (onClick)="confirmOrder()"
+      (onClick)="changeStatus()"
       >
       </dx-button>
   

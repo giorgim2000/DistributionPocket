@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import 'devextreme/data/odata/store';
 import 'devextreme/ui/date_box';
 import {formatDate} from '@angular/common';
-import { AuthService, ScreenService } from 'src/app/shared/services';
+import { AuthService, DisDocByExpeditor, DisDocByExpeditorResponse, ScreenService } from 'src/app/shared/services';
 import { IfStmt } from '@angular/compiler';
 import { Router } from '@angular/router';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -14,9 +14,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 
 export class TasksComponent implements OnInit {
-  dataSource: DisDocsByExpeditor[] = [];
-  FilteredData: DisDocsByExpeditor[] = [];
-  visitDate: String = new Date().toString();
+  dataSource: DisDocByExpeditor[] = [];
+  FilteredData: DisDocByExpeditor[] = [];
+  visitDate: string = new Date("2022-10-17").toString(); //new Date().toString();
   
   private _filter : string ='';
 
@@ -35,28 +35,28 @@ export class TasksComponent implements OnInit {
   }
 
   getData(dDate : Date){
-    return this.http.get<any>(`http://localhost:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`)
+    return this.http.get<DisDocByExpeditorResponse>(`http://localhost:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`)
     .subscribe({
       next: (result) => {
-      this.dataSource = result.Result;
-      this.FilteredData = this.performFilter(this.filter);
+        this.dataSource = result.Result;
+        this.FilteredData = this.performFilter(this.filter);
     },
     error: (err) => {
       this.authService.logOut();
     }});
   }
 
-  visitClick(visit: any){
-    this.router.navigate(["/visit"], { state: { data: visit } });
+  visitClick(visit: DisDocByExpeditor){
+    this.router.navigate([`visits/${formatDate(this.visitDate,"yyyy-MM-dd","en")}/${visit.Acc}`], { state: { data: visit } });
   }
 
   filterValueChanged(e: any){
     this.filter = e.value;
   }
 
-  performFilter(filterBy: string): DisDocsByExpeditor[]{
+  performFilter(filterBy: string): DisDocByExpeditor[]{
     filterBy = filterBy.toLocaleLowerCase();
-    return this.dataSource.filter((doc: DisDocsByExpeditor) => doc.Accnu.toLocaleLowerCase().includes(filterBy));
+    return this.dataSource.filter((doc: DisDocByExpeditor) => doc.Accnu.toLocaleLowerCase().includes(filterBy));
   }
 
   dateChange(e: any){
@@ -69,17 +69,7 @@ export class TasksComponent implements OnInit {
 
 }
 
-export interface DisDocsByExpeditor{
-  Acc : string;
-  Accnu : string;
-  Address : string;
-  Ordsuccess : number;
-  Ordn : number;
-  Retsuccess : number;
-  Retn : number;
-  Collectpay : number;
-  Payedcash : number;
-}
+
 
 
 //dDate: Date = new Date();   //2022, 10, 17

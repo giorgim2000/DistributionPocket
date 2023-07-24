@@ -1,7 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IOrder, ISavedRowOrder, VisitDetails } from 'src/app/shared/services/Dtos';
 
 @Component({
   selector: 'app-orders',
@@ -71,19 +72,35 @@ export class OrdersComponent implements OnInit, OnDestroy {
   btnStyle: string = "contained";
   btnText: string = "სორტირება";
   orderSortObject: object = {};
-  Iud: number = 0;
+  Iud: string | null = null;
+  Acc: string = '';
+  Ddate: string = '';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) 
+  { 
+    //this.visitData = history.state.VisitInfo;
+    this.Ddate = route.snapshot.paramMap.get('Ddate') ?? '';
+    this.Iud = route.snapshot.paramMap.get('type'); 
+    this.Acc = route.snapshot.paramMap.get('Acc') ?? '';
+  }
 
   ngOnInit(): void {
-    this.pageType = history.state.pageType;
-    this.tabClassName = history.state.className;
-    this.visitData = history.state.VisitInfo;
-    if(this.pageType === "დაბრუნებები")
-      this.Iud = 1;
-    this.getData(this.visitData.Acc, this.Iud);
+    // this.pageType = history.state.pageType;
+    // this.tabClassName = history.state.className;
+    // this.visitData = history.state.VisitInfo;
+    // if(this.pageType === "დაბრუნებები")
+    //   this.Iud = 1;
+    if(this.Iud === '0')
+    {
+      this.pageType = 'შეკვეთები';
+      this.tabClassName = 'tabDiv';
+    }else{
+      this.pageType = 'დაბრუნებები';
+      this.tabClassName = 'returnTabDiv';
+    }
+    this.getData(this.Acc, Number(this.Iud));
     if(localStorage.getItem("orderSort") != null){
-      //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"))
+      //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"));
       //console.log(localStorage.getItem("orderSort"));
     }
     // let copyArray: any[] = [];
@@ -110,10 +127,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
                                                                            
   getData(account: string, iud: number){
-    this.http.get<any>(`http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?Acc=${account}&Iud=${iud}`)
+    this.http.get<any>(`http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?ddate=${this.Ddate}&Acc=${account}&Iud=${iud}`)
     .subscribe({
       next: (result) => {
       this.Data = result.Result;
+      console.log(result.Result);
     },
     error: (err) => {
       alert("");
@@ -128,7 +146,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     //   this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
     // }
 
-    this.router.navigate(["/dwaybillDetails"], { state: { info: order, Uid: this.Iud } });
+    this.router.navigate([`visits/${this.Ddate}/${this.Acc}/orders/${this.Iud}/${order.Docs_ID}`], { state: { info: order} });
   }
 
   onDrop(event: CdkDragDrop<string[]>){
@@ -184,25 +202,3 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 }
 
-export interface IOrder{
-  DwaybillNumber: string;
-  Preseller: string;
-  Remark: string;
-  Status: boolean;
-  Comment: string;
-}
-
-export interface ISavedRowOrder{
-  Index: number;
-  Id: string;
-}
-
-export interface VisitDetails{
-  Book_ID:	string;	
-  Docs_ID: string;	
-  Waybillnum:	string;	
-  PresalerNu: string;	
-  Note: string;	
-  Ostatus:	string | null;	
-  Comment: string;
-}

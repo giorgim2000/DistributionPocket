@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginFormComponent, ResetPasswordFormComponent, CreateAccountFormComponent, ChangePasswordFormComponent, VisitsTabComponent } from './shared/components';
+import { LoginFormComponent, CreateAccountFormComponent, VisitsTabComponent, DatePickerModule } from './shared/components';
 import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule, DxSelectBoxModule } from 'devextreme-angular';
+import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxMenuModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
@@ -22,6 +22,21 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
+    path: 'visits/:Ddate/:Acc',
+    component: VisitComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'visits/:Ddate/:Acc/orders/:type',
+    component: OrdersComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'visits/:Ddate/:Acc/orders/:type/:id',
+    component: DwaybillDetailsComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [ AuthGuardService ]
@@ -32,28 +47,18 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'orders',
-    component: OrdersComponent,
+    path: 'balance',
+    component: BalanceComponent,
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'collect-cash',
+    path: 'visits/:Ddate/:Acc/collect-cash',
     component: CollectCashComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'dwaybillDetails',
-    component: DwaybillDetailsComponent,
     canActivate: [ AuthGuardService ]
   },
   {
     path: 'login-form',
     component: LoginFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordFormComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -67,40 +72,19 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'change-password/:recoveryCode',
-    component: ChangePasswordFormComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
-    path: 'visit',
-    component: VisitComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
     path: '**',
     redirectTo: 'home'
   }
 ];
 
-// {
-//   path: 'visits/:Acc',
-//   component: VisitComponent,
-//   canActivate: [ AuthGuardService ],
-//   children:[
-//     {
-//       path: 'visits/:Acc/Orders',
-//       component: OrdersComponent,
-//       canActivate: [ AuthGuardService ]
-//     }
-//   ]
-// },
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true }),
      DxDataGridModule, DxFormModule, CommonModule,
       DxButtonModule, FormsModule, DxDateBoxModule,
       DxTextBoxModule, DxPopupModule, DxTextAreaModule,
-      DxSelectBoxModule, DragDropModule],
+      DxSelectBoxModule, DragDropModule, DxNumberBoxModule,
+      DxMenuModule, DatePickerModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [

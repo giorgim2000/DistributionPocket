@@ -1,0 +1,11 @@
+<div class="datepicker" id="datepicker">
+    <dx-menu #menu [dataSource]="items" displayExpr="name" showFirstSubmenuMode="true" orientation="horizontal"
+        [hideSubmenuOnMouseLeave]="false" (onItemClick)="itemClick($event)">
+    </dx-menu>
+
+    <dx-date-box [(ngModel)]="date1" type="date" displayFormat="dd/MM/yyyy" [calendarOptions]="{ firstDayOfWeek: 1}"
+        (onValueChanged)="pickerValueChanged()"></dx-date-box>
+
+    <dx-date-box [(ngModel)]="date2" type="date" displayFormat="dd/MM/yyyy"  [calendarOptions]="{ firstDayOfWeek: 1 }"
+        (onValueChanged)="pickerValueChanged()"></dx-date-box>
+</div>

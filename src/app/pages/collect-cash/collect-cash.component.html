@@ -1,3 +1,85 @@
 <div class="cashMainDiv">
-    <dx-select-box [items]="dummyData" displayExpr="name"></dx-select-box>
+    <p>პრესელერი</p>
+    <dx-select-box 
+    [items]="data"
+    displayExpr="DisplayString"
+    valueExpr="PresellerId"
+    height="65"
+    (onValueChanged)="presellerSelection($event)"
+    [showClearButton]="true"
+    >
+    </dx-select-box>
 </div>
+
+<div class="paymentDiv" [hidden]="hidePay">
+    <dx-number-box 
+    (onValueChanged)="numBoxValueChange($event)"
+    label="თანხა"
+    [(value)]="payAmount"
+    height="65"
+    [min]="0.1"
+    >
+    </dx-number-box>
+</div>
+
+<div class="btnDiv" [hidden]="hidePay">
+    <dx-button
+    [disabled]="btnDisabled"
+    height="80"
+    text="გადახდა"
+    stylingMode="contained"
+    type="success"
+    (onClick)="showPopup()"
+    >
+    </dx-button>
+</div>
+
+<dx-popup
+[width]="320"
+[height]="480"
+[showTitle]="true"
+titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'>
+                  <img src='../../../assets/logo.png' style='height: 20px; margin-right: 12px;'/>
+                  <span style='font-family:'myFont'; font-size:14px; font-weight:'bold';'>გადახდა</span>
+                </div>"
+[dragEnabled]="false"
+[hideOnOutsideClick]="true"
+[showCloseButton]="false"
+container=".dx-viewport"
+[(visible)]="popupVisible"
+>
+
+<div class="popupContentDiv">
+  
+  <div class="questionDiv">
+    <div id="questionP">
+      <pre>გთხოვთ დაადასტუროთ გადახდა</pre>
+      <pre>პრესელერი - <h2 id="preseller">{{this.preseller?.PresellerName}}</h2></pre>
+      <pre>თანხა - <h2 id="preseller">{{this.payAmount}}₾</h2></pre>
+    </div>
+  </div>
+  
+  <div class="popupBtnDiv">
+    <dx-button
+    [type]="'default'"
+    stylingMode="contained"
+    text="დადასტურება"
+    width="100%"
+    height="65"
+    (onClick)="confirmPayment()"
+    >
+    </dx-button>
+
+    <dx-button
+    type="normal"
+    stylingMode="outlined"
+    text="დახურვა"
+    width="100%"
+    height="65"
+    (onClick)="closePopup()"
+    >
+    </dx-button>
+  </div>
+</div>
+
+</dx-popup>

@@ -1,5 +1,6 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/shared/services';
 
 
 @Component({
@@ -7,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: [ './home.component.scss' ]
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   MenuItems = [
     {
       text: "ვიზიტები",
@@ -30,8 +31,12 @@ export class HomeComponent {
   ]
   
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
 
+  }
+
+  ngOnInit(): void{
+    
   }
 
   getVisits(){
@@ -39,7 +44,7 @@ export class HomeComponent {
   }
 
   getCashiersDocs(){
-    //this.router.navigate(["/profile"]);
+    this.router.navigate(["/balance"]);
   }
 
   getProblematicDocs(){

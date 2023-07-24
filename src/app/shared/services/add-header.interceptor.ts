@@ -15,13 +15,13 @@ export class AddHeaderInterceptor implements HttpInterceptor {
         'X-ss-id': sessionId,
         'Content-Type': 'application/json'
       };
-      // //Clone the request and set the new header
+     //Clone the request and set the new header
       if (sessionId) {
         const updatedRequest = request.clone({ setHeaders: headers });
         // Pass the cloned request instead of the original request to the next handle
         return next.handle(updatedRequest);
       }
        return next.handle(request);
-   }
+  }
 }
 

@@ -15,7 +15,8 @@
           height="100%"
           stylingMode="text">
           <div *dxTemplate="let data of 'content'">
-            <app-user-panel [user]="user" [menuItems]="userMenuItems" menuMode="context"></app-user-panel>
+            <app-user-panel  [menuItems]="userMenuItems" menuMode="context"></app-user-panel>  
+            <!-- [user]="user" -->
           </div>
         </dx-button>
       </div>

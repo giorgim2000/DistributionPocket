@@ -1,34 +1,20 @@
 import { Component, Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, convertToParamMap } from '@angular/router';
 import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
-import { buffer } from 'rxjs';
+import { Observable, buffer, of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { UserResponse, IUserInfoResponse } from './Dtos';
 import notify from 'devextreme/ui/notify';
 
 
-export interface IUser {
-  email: string;
-  avatarUrl?: string
-}
-
 const defaultPath = '/';
-// const defaultUser = {
-//   email: 'nodari@example.com',
-//   avatarUrl: 'http://gbf.ge/app/uploads/2020/08/nodari-olimpiuri-xabareltan.jpg'
-// };
 
-interface UserResponse{
-  DisplayName : string;
-  UserName : string;
-  SessionId : string;
-  ReferrerUrl : string;
-  ResponseStatus : object;
-}
 
 @Injectable()
 export class AuthService {
-  private _user: IUser | null = null;
+  static userName: string | undefined;
+  //static userInfo: IUserInfo | undefined;
   
   get loggedIn(): boolean {
     return !!this.cookieService.get("X-ss-id");
@@ -41,7 +27,7 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient, private cookieService : CookieService) {}
 
- async logIn(username: string, password: string) {
+  logIn(username: string, password: string) {
     let creds = `${username}:${password}`;
     let header = new HttpHeaders({
       'Authorization': "Basic " + btoa(creds)
@@ -49,45 +35,45 @@ export class AuthService {
     let options = {
       headers: header
     };
-    let result = {isOk: false, data: null};
-    this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
-        .subscribe({
-          next: resp =>{
-          result.isOk = true;
-          console.log("NEXTSHI");
-          this.cookieService.set("X-ss-id", resp.SessionId);
-          
-          this.router.navigate(["/home"]);
-          },
-          error: error =>{
-            result = {isOk: false, data: null};
-          }
-      });
-
-      return result;
+    let result = {isOk: false, data: ''};
+    return this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
+        .pipe(
+          map(resp => {
+            result.isOk = true;
+            this.cookieService.set("X-ss-id", resp.SessionId);
+            AuthService.userName = resp.UserName;
+            this.getUserInfo();
+            return result;
+          }),
+          catchError(error => {
+            if(error.status === 401)
+              result.data = 'სახელი ან პაროლი არასწორია!';
+            else
+              result.data = 'სერვისთან დაკავშირება ვერ მოხერხდა!';
+            
+            result.isOk = false;
+            return of(result);
+          })
+        );
   }
 
-  async getUser() {
-    try {
-      // Send request
-
-      return {
-        isOk: true,
-        data: this._user
-      };
-    }
-    catch {
-      return {
-        isOk: false,
-        data: null
-      };
-    }
+  async getUserInfo() {
+    this.http.get<IUserInfoResponse>(`http://localhost:82/crm/GetExpeditorInfo.json?Username=${AuthService.userName}`)
+    .subscribe({
+      next: (result) => {
+        localStorage.setItem('MobileUserId', result.Result[0].MobileUserId.toString());
+        localStorage.setItem('PayAcc', result.Result[0].PayAcc.toString());
+        localStorage.setItem('PayOperId', result.Result[0].PayOperId.toString());
+    },
+    error: (err) => {
+      alert("მომხმარებელს შეზღუდული აქვს გარკვეული უფლებები!");
+    }});
   }
 
   async createAccount(email: string, password: string) {
     try {
       // Send request
-      console.log(email, password);
+      //console.log(email, password);
 
       this.router.navigate(['/create-account']);
       return {
@@ -102,42 +88,8 @@ export class AuthService {
     }
   }
 
-  async changePassword(email: string, recoveryCode: string) {
-    try {
-      // Send request
-      console.log(email, recoveryCode);
-
-      return {
-        isOk: true
-      };
-    }
-    catch {
-      return {
-        isOk: false,
-        message: "Failed to change password"
-      }
-    };
-  }
-
-  async resetPassword(email: string) {
-    try {
-      // Send request
-      console.log(email);
-
-      return {
-        isOk: true
-      };
-    }
-    catch {
-      return {
-        isOk: false,
-        message: "Failed to reset password"
-      };
-    }
-  }
-
   async logOut() {
-    this._user = null;
+    AuthService.userName = '';
     this.cookieService.delete("X-ss-id");
     this.router.navigate(['/login-form']);
   }

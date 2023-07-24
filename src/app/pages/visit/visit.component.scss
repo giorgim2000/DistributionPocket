@@ -3,8 +3,9 @@
     flex-direction: column;
     width: 100%; 
     height: 70vh; 
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    margin-top: 10px;
 }
 
 .visitHeaderDiv{
@@ -22,10 +23,10 @@ header{
 }
 
 dx-button{
-  width:250px;
+  width:350px;
   height: 80px;
-  margin-bottom: 30px;
-  font-size: 18px;
+  margin: 15px 0px;
+  font-size: 26px;
   font-family: 'MyFont';
   font-weight: bold;
 }
@@ -35,22 +36,138 @@ dx-button{
   justify-content: space-between;
 }
 
-@media only screen and (min-width: 450px){
+label{
+  margin-right: 20px;
+  font-size: 15px;
+  font-family: 'MyFont';
+}
+
+.textArea{
+  margin-top: 24px;
+}
+
+.popupBtnDiv{
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.popupBtnDiv > * {
+  font-size: 15px;
+  font-family: 'MyFont';
+}
+
+.popupContentDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: -webkit-fill-available;
+}
+
+.questionDiv{
+  display: flex;
+  justify-content: center;
+}
+
+#questionP{
+  font-size: 22px;
+  font-family: 'myFont';
+}
+
+@media only screen and (max-height: 919px) and (min-height: 675px){
+  // .menuDiv{
+  //     padding-top: 100px;
+  // }
+
   dx-button{
-      width:350px;
-      height: 90px;
-      margin-top: 15px;
-      font-size: 26px;
+    height: 60px;
+    margin-top: 15px;
+    font-size: 22px;
+  }
+
+  header{
+    font-size: 20px;
   }
 }
 
-// @media only screen and (max-height: 760px){
-//   .menuDiv{
-//       padding-top: 100px;
-//   }
+@media only screen and (min-height: 920px) and (min-width: 450px){
+  dx-button{
+      width:350px;
+      height: 80px;
+      margin-top: 15px;
+      font-size: 26px;
+  }
 
-//   dx-button{
-//       height: 50px;
-//       font-size: 16px;
-//   }
-// }
+  .mainDiv{
+    margin-top: 30px;
+  }
+
+  header{
+    font-size: 25px;
+  }
+}
+
+
+@media only screen and (max-width: 385px){
+  dx-button{
+    width:250px;
+    font-size: 20px;
+}
+
+
+header{
+  font-size: 20px;
+}
+}
+
+@media only screen and (max-height: 674px){
+  dx-button{
+    height: 40px;
+    font-size: 18px;
+}
+
+.mainDiv{
+  margin-top: 20px;
+}
+
+header{
+  font-size: 20px;
+}
+}
+
+@media only screen and (max-height: 674px){
+  dx-button{
+    height: 50px;
+    font-size: 16px;
+    margin: 12px 0px;
+  }
+
+  .mainDiv{
+    margin-top: 10px;
+  }
+}
+
+@media only screen and (max-height: 573px){
+  dx-button{
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-height: 500px){
+  dx-button{
+    height: 30px;
+    font-size: 14px;
+    margin: 9px 0px;
+  }
+
+  .mainDiv{
+    margin-top: 0px;
+  }
+}
+
+@media only screen and (max-width: 278px){
+  dx-button{
+    width: 200px;
+  }
+}

@@ -1,0 +1,92 @@
+*{
+    font-family: 'MyFont' !important;
+    color: black;
+}
+
+.main{
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      height: calc(100vh - 64px);
+      width:100%;
+}
+
+.dateDiv{
+    width: 100%;
+}
+
+.container{
+    //flex-grow: 1;
+    overflow-y: auto;
+}
+
+.tabDiv{
+    display: flex;
+    justify-content:  space-between;
+    background-color: #ffffff;
+    transition: background-color 0.2s ease-in-out;
+    border-top: rgb(156, 153, 153) 1px solid;
+    border-bottom: rgb(156, 153, 153) 1px solid;
+    cursor: pointer;
+    margin: 3px 0px;
+    border-radius: 10px;
+}
+
+.tabDiv:hover{
+    background-color: #dfe0e4;
+}
+
+div{
+    padding: 5px;
+}
+
+.clientAdressDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.otherInfoDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.iconDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 5px;
+}
+
+img{
+    height: 45px;
+}
+
+p{
+    margin: 3px;
+}
+
+.primaryP{
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.secondaryP{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.balanceDiv{
+    background-color: #ffffff;
+    height: 2.32rem;
+}
+
+.balanceP{
+    color: black;
+    font-weight: bold;
+}
+
+.isCrTrueClass {
+    background-color: rgb(233, 73, 73);
+}

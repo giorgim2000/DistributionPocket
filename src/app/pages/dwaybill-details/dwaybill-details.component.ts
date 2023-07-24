@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
-import { VisitDetails } from '../orders/orders.component';
+import { IWaybillDetails, Resp, VisitDetails } from 'src/app/shared/services/Dtos';
 
 @Component({
   selector: 'app-dwaybill-details',
@@ -13,51 +13,91 @@ export class DwaybillDetailsComponent implements OnInit {
   Data: IWaybillDetails[] = [];
   popupVisible: boolean = false;
   info = {} as VisitDetails;
+  Account: string | null = '';
+  type: string | null = '';
+  docsId: string | null = '';
   status = 0;
+  question: string = 'გსურთ შეკვეთის დადასტურება?';
+  btnText: string = 'დადასტურება';
+  Ddate: string = '';
+  waybillNum: string = '';
+  orderId: string = '';
+  btnType: string = 'success';
+  msg: string = 'შეკვეთა წარმატებით დადასტურდა!';
+  comment: string = '';
 
-  constructor(private router: Router, private http: HttpClient) {
-    this.info = history.state.info;
-    if(this.info.Ostatus === "დადასტურებული")
-      this.status = 0;
-    if(this.info.Ostatus === "პროექტი")
-      this.status = 1;
-    this.http.get<Resp>(`http://localhost:82/Crm/GetCustomerDocsProducts.json?DocsId=${history.state.info.Docs_ID}`)
-    .subscribe({
-      next: (result) => {
-        console.log(result);
-        for (let index = 0; index < result.Result.length; index++) {
-          this.Data.push(result.Result[index]);
-        }
-    },
-    error: (err) => {
-      alert();
-      console.log(err);
-      // this.router.navigate(["/login-form"]);
-    }});
-   }
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.info = history.state.info;
+    this.Account = this.route.snapshot.paramMap.get('Acc');
+    this.Ddate = this.route.snapshot.paramMap.get('Ddate') ?? '';
+    this.type = this.route.snapshot.paramMap.get('type');
+    this.docsId = this.route.snapshot.paramMap.get('id');
+    if(this.info.Ostatus === "დადასტურებული"){
+      this.question = 'გსურთ შეკვეთის სტატუსის დაწევა?';
+      this.btnText = 'დაწევა';
+      this.status = 0;
+      this.btnType = 'danger';
+      this.msg = 'შეკვეთის სტატუსმა წარმატებით დაიწია!';
+    }
+    if(!this.info.Ostatus || this.info.Ostatus === "პროექტი")
+      this.status = 1;
+      
+  }
+
+  ngAfterViewInit() {
+    this.getProductData();
   }
 
   confirmBtnClick(){
     this.popupVisible = true;
   }
 
-  confirmOrder(){
-    this.http.post(`http://localhost:82/Crm/ChangeVisitStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
-    Status: this.status, Note: this.info.Note, Ddate: new Date(), Crtime: new Date()}}).subscribe(res => {
-      console.log(res);
-    });
-    const message = `შეკვეთა წარმატებით დადასტურდა!`;
+  getProductData(){
+    this.http.get<Resp>(`http://10.10.0.85:82/Crm/GetCustomerDocsProducts.json?DocsId=${this.docsId}`)
+    .subscribe({
+      next: (result) => {
+        this.waybillNum = result.Result[0].Waybillnum;
+        this.orderId = result.Result[0].OrderId;
+        for (let index = 0; index < result.Result.length; index++) {
+          this.Data.push(result.Result[index]);
+        }
+    },
+    error: (err) => {
+      console.log(err);
+      console.log(" getcustomerdocsproducts error");
+      //console.log(err);
+      // this.router.navigate(["/login-form"]);
+    }});
+  }
+
+  changeStatus(){
+    this.http.post(`http://localhost:82/Crm/ChangeExpVisitItemStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
+    Status: this.status, Note: this.comment, Ddate: new Date(this.Ddate), Crtime: new Date()}}).subscribe({
+      next: res => {
+        notify({message:
+          this.msg,
+          position: {
+            my: 'center bottom',
+            at: 'center bottom',
+          },
+        }, 'success', 1500);
+        
+        this.router.navigate([`/visits/${this.Ddate}/${this.Account}/orders/${this.type}`]);
+      },
+      error: err => {
+        const message = `დაფიქსირდა შეცდომა! ${err}`;
         notify({
           message,
           position: {
-            my: 'center top',
-            at: 'center top',
+            my: 'center bottom',
+            at: 'center bottom',
           },
-        }, 'success', 1300);
-
-    this.router.navigate(["/orders"]);
+        }, 'error', 1500);
+      }
+    });
+    
   }
 
   closePopup(){
@@ -66,26 +106,10 @@ export class DwaybillDetailsComponent implements OnInit {
 
 }
 
-export interface IWaybillDetails{
-  OrderId:string;
-  Bcode:string;
-  Products_nu:string;
-  Scount:number;
-  Waybillnum:string;
-}
-
-export interface Resp{
-  Result: IWaybillDetails[];
-}
 
 
 
 
-
-
-
-
-// export interface IProduct{
 //   Bcode: string;
 //   ProductName: string;
 //   Amount: Number;
@@ -122,101 +146,3 @@ export interface Resp{
     //   }
     // };
 
-// DummyData: IDwaybillDetails = 
-//     {
-//       waybillNumber: "299919992",
-//       OrderNumber: "211116969",
-//       ProductList: [
-//         {
-//           Bcode: "111122231566",
-//           ProductName: "სიგარეტი",
-//           Amount: 130
-//         },
-//         {
-//           Bcode: "61388823366",
-//           ProductName: "სანთებელა",
-//           Amount: 51
-//         },
-//         {
-//           Bcode: "78908909009",
-//           ProductName: "კოკა-კოლა",
-//           Amount: 30
-//         },
-//         {
-//           Bcode: "1123111411",
-//           ProductName: "ფანტა",
-//           Amount: 60
-//         },
-//         {
-//           Bcode: "25136666712",
-//           ProductName: "სპრაიტი",
-//           Amount: 20
-//         },
-//         {
-//           Bcode: "51266661",
-//           ProductName: "ლეისი",
-//           Amount: 150
-//         },
-//         {
-//           Bcode: "78908909009",
-//           ProductName: "კოკა-კოლა",
-//           Amount: 30
-//         },
-//         {
-//           Bcode: "1123111411",
-//           ProductName: "ფანტა",
-//           Amount: 60
-//         },
-//         {
-//           Bcode: "25136666712",
-//           ProductName: "სპრაიტი",
-//           Amount: 20
-//         },
-//         {
-//           Bcode: "51266661",
-//           ProductName: "ლეისი",
-//           Amount: 150
-//         },
-//         {
-//           Bcode: "78908909009",
-//           ProductName: "კოკა-კოლა",
-//           Amount: 30
-//         },
-//         {
-//           Bcode: "1123111411",
-//           ProductName: "ფანტა",
-//           Amount: 60
-//         },
-//         {
-//           Bcode: "25136666712",
-//           ProductName: "სპრაიტი",
-//           Amount: 20
-//         },
-//         {
-//           Bcode: "51266661",
-//           ProductName: "ლეისი",
-//           Amount: 150
-//         },
-//         {
-//           Bcode: "78908909009",
-//           ProductName: "კოკა-კოლა",
-//           Amount: 30
-//         },
-//         {
-//           Bcode: "1123111411",
-//           ProductName: "ფანტა",
-//           Amount: 60
-//         },
-//         {
-//           Bcode: "25136666712",
-//           ProductName: "სპრაიტი",
-//           Amount: 20
-//         },
-//         {
-//           Bcode: "51266661",
-//           ProductName: "ლეისი",
-//           Amount: 150
-//         }
-//       ]
-//     }
-//   ;

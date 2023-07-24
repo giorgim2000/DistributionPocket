@@ -1,16 +1,141 @@
-<router-outlet></router-outlet>
+<div class="container">
+
+
 <div class="visitHeaderDiv">
-    <header>{{visitData.Accnu}}</header>
+    <header>{{headerString}}</header>
 </div>
 
 <div class="mainDiv">
     <div class="visitInfoDiv">
-        <dx-button type="default" stylingMode="contained" (click)="orders()">შეკვეთები - {{visitData.Ordsuccess}}/{{visitData.Ordn}}</dx-button>
+        <dx-button [disabled]="ordersBtnDisabled" type="default" stylingMode="contained" (click)="orders()">
+          შეკვეთები - {{(visitData?.Ordsuccess)}}/{{visitData?.Ordn}}
+        </dx-button>
     </div>
     <div class="visitInfoDiv">
-        <dx-button type="default" stylingMode="contained" (click)="returns()">დაბრუნებები - {{visitData.Retsuccess}}/{{visitData.Retn}}</dx-button>
+        <dx-button [disabled]="returnsBtnDisabled" type="default" stylingMode="contained" (click)="returns()">დაბრუნებები - {{visitData?.Retsuccess}}/{{visitData?.Retn}}</dx-button>
     </div>
     <div class="visitInfoDiv">
-        <dx-button type="default" stylingMode="contained" (click)="collect()">თანხის აღება - {{visitData.Payedcash}}/{{visitData.Collectpay}}</dx-button>
+        <dx-button type="default" [disabled]="payBtnDisabled" stylingMode="contained" (click)="collect()">თანხის აღება - {{visitData?.Payedcash}}/{{visitData?.Collectpay}}</dx-button>
     </div>
+    <div class="visitInfoDiv">
+        <dx-button type="default" stylingMode="contained" (click)="showPopup(false)">კომენტარის გაკეთება</dx-button>
+    </div>
+    <div class="visitInfoDiv">
+        <dx-button [type]="btnType" stylingMode="contained" (click)="showPopup(true)">{{btnString}}</dx-button>
+    </div>
+    <!-- <div class="visitInfoDiv">
+      <dx-button type="danger" stylingMode="contained" (click)="showPopup(true)">ვიზიტის გაუქმება</dx-button>
+    </div> -->
+</div>
+
+
+
+
+<dx-popup
+[width]="320"
+[height]="480"
+[showTitle]="true"
+titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'>
+                  <img src='../../../assets/logo.png' style='height: 20px; margin-right: 12px;'/>
+                  <span style='font-family:myFont; font-size:20px;'>ვიზიტი</span>
+                </div>"
+[dragEnabled]="false"
+[hideOnOutsideClick]="true"
+[showCloseButton]="false"
+container=".dx-viewport"
+[(visible)]="popupVisible"
+>
+
+<div class="popupContentDiv">
+  <div class="questionDiv">
+    <p id="questionP">{{questionText}}</p>
+  </div>
+
+  
+   <dx-text-area 
+  mode="text"
+  class="textArea"
+  height="150"
+  label="კომენტარი"
+  [(value)]="comment"
+  labelMode="static">
+  </dx-text-area>
+
+  <div class="popupBtnDiv">
+    <dx-button
+    [type]="'default'"
+    stylingMode="contained"
+    [text]="'დადასტურება'"
+    width="130"
+    height="50"
+    (onClick)="visitAction(finishVisit)"
+    >
+    </dx-button>
+
+    <dx-button
+    type="normal"
+    stylingMode="outlined"
+    text="დახურვა"
+    width="130"
+    height="50"
+    (onClick)="closePopup()"
+    >
+    </dx-button>
+  </div>
+</div>
+
+</dx-popup>
+
+
+
+
+
+<dx-popup
+[width]="320"
+[height]="300"
+[showTitle]="true"
+titleTemplate="<div style='display: flex; justify-content: flex-start; height: 3em; align-items: center;'>
+                  <img src='../../../assets/logo.png' style='height: 20px; margin-right: 12px;'/>
+                  <span style='font-family:myFont; font-size:20px;'>ვიზიტის გახსნა</span>
+                </div>"
+[dragEnabled]="false"
+[hideOnOutsideClick]="true"
+[showCloseButton]="false"
+container=".dx-viewport"
+[(visible)]="reOpenPopupVisible"
+>
+
+<div class="popupContentDiv">
+  
+
+
+  <div class="questionDiv">
+    <p id="questionP">გსურთ ვიზიტის გახსნა?</p>
+  </div>
+  
+
+  <div class="popupBtnDiv">
+    <dx-button
+    [type]="'default'"
+    stylingMode="contained"
+    [text]="'დადასტურება'"
+    width="130"
+    height="50"
+    (onClick)="reOpenVisit()"
+    >
+    </dx-button>
+
+    <dx-button
+    type="normal"
+    stylingMode="outlined"
+    text="დახურვა"
+    width="130"
+    height="50"
+    (onClick)="closeRePopup()"
+    >
+    </dx-button>
+  </div>
+</div>
+
+</dx-popup>
 </div>

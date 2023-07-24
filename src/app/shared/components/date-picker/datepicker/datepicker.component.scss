@@ -1,0 +1,23 @@
+.datepicker {
+    display: flex;
+    margin: 3px;
+    width: 375px;
+}
+
+dx-date-box {
+    width: 152px;
+    margin: 0 3px;
+}
+
+#menu {
+    position: absolute;
+    top: 10px;
+    left:10px;
+}
+
+::ng-deep .datepicker .dx-icon{
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;  
+}
