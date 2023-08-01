@@ -12,6 +12,7 @@ import { IWaybillDetails, Resp, VisitDetails } from 'src/app/shared/services/Dto
 export class DwaybillDetailsComponent implements OnInit {
   Data: IWaybillDetails[] = [];
   popupVisible: boolean = false;
+  loading: boolean = false;
   info = {} as VisitDetails;
   Account: string | null = '';
   type: string | null = '';
@@ -55,6 +56,7 @@ export class DwaybillDetailsComponent implements OnInit {
   }
 
   getProductData(){
+    this.loading = true;
     this.http.get<Resp>(`http://10.10.0.85:82/Crm/GetCustomerDocsProducts.json?DocsId=${this.docsId}`)
     .subscribe({
       next: (result) => {
@@ -63,6 +65,7 @@ export class DwaybillDetailsComponent implements OnInit {
         for (let index = 0; index < result.Result.length; index++) {
           this.Data.push(result.Result[index]);
         }
+        this.loading = false;
     },
     error: (err) => {
       console.log(err);
@@ -73,7 +76,8 @@ export class DwaybillDetailsComponent implements OnInit {
   }
 
   changeStatus(){
-    this.http.post(`http://localhost:82/Crm/ChangeExpVisitItemStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
+    this.loading = true;
+    this.http.post(`http://10.10.0.85:82/Crm/ChangeExpVisitItemStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
     Status: this.status, Note: this.comment, Ddate: new Date(this.Ddate), Crtime: new Date()}}).subscribe({
       next: res => {
         notify({message:
@@ -83,8 +87,8 @@ export class DwaybillDetailsComponent implements OnInit {
             at: 'center bottom',
           },
         }, 'success', 1500);
-        
-        this.router.navigate([`/visits/${this.Ddate}/${this.Account}/orders/${this.type}`]);
+        this.loading = false;
+        this.router.navigate([`/visits/${this.Ddate}/${this.Account}/${this.type}`]);
       },
       error: err => {
         const message = `დაფიქსირდა შეცდომა! ${err}`;

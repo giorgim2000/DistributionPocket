@@ -12,6 +12,7 @@ import { formatDate } from '@angular/common';
 export class VisitComponent implements OnInit {
   visitData: DisDocByExpeditor | null = null;
   VisitAcc: any;
+  loading: boolean = true;
   headerString: string = "";
   Ddate: string = '';
   ordersBtnDisabled: boolean = false;
@@ -29,6 +30,7 @@ export class VisitComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private client: HttpClient) { }
 
   ngOnInit(): void {
+    
     this.route.paramMap.subscribe(params => {
       this.VisitAcc = params.get('Acc');
       this.Ddate = params.get('Ddate') ?? '';
@@ -38,7 +40,8 @@ export class VisitComponent implements OnInit {
   }
 
   getData(){
-    return this.client.get<DisDocByExpeditorResponse>(`http://localhost:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(this.Ddate, "yyyy-MM-dd","en")}&Acc=${this.VisitAcc}`)
+    this.loading = true;
+    return this.client.get<DisDocByExpeditorResponse>(`http://10.10.0.85:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(this.Ddate, "yyyy-MM-dd","en")}&Acc=${this.VisitAcc}`)
     .subscribe({
       next: (result) => {
         this.visitData = result.Result[0];
@@ -63,27 +66,31 @@ export class VisitComponent implements OnInit {
           this.payBtnDisabled = false;
         }
         this.headerString = this.visitData.Accnu;
+        this.loading = false;
     },
       error: (err) => {
         //handle error !!!!!!!!!!!!!!!!!
+        this.loading = false;
     }});
   }
 
   openVisit(){
-    this.client.post<any>(`http://localhost:82/Crm/AddExpeditorVisit.json`, {Ddate: this.Ddate, Acc: this.VisitAcc})
+    this.loading = true;
+    this.client.post<any>(`http://10.10.0.85:82/Crm/AddExpeditorVisit.json`, {Ddate: this.Ddate, Acc: this.VisitAcc})
     .subscribe(res => {
       this.visitId = res.Result;
+      this.loading = false;
     });
   }
 
   orders(){
     if(this.visitData != undefined)
-      this.router.navigate([`visits/${this.Ddate}/${this.visitData.Acc}/orders/0`],  { state: { VisitInfo: this.visitData} });
+      this.router.navigate([`visits/${this.Ddate}/${this.visitData.Acc}/0`],  { state: { VisitInfo: this.visitData} });
   }
 
   returns(){
     if(this.visitData != undefined)
-      this.router.navigate([`visits/${this.Ddate}/${this.visitData.Acc}/orders/1`],  { state: { VisitInfo: this.visitData } });
+      this.router.navigate([`visits/${this.Ddate}/${this.visitData.Acc}/1`],  { state: { VisitInfo: this.visitData } });
   }
 
   collect(){
@@ -105,11 +112,12 @@ export class VisitComponent implements OnInit {
   }
 
   visitAction(endVisit: boolean){
+    this.loading = true;
     var visitStatusId = null;
     if(endVisit){
       visitStatusId = this.checkVisitStatus();
     }
-    this.client.post<IFinishExpeditorVisitResponse>(`http://localhost:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: this.comment, VisitStatus: visitStatusId})
+    this.client.post<IFinishExpeditorVisitResponse>(`http://10.10.0.85:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: this.comment, VisitStatus: visitStatusId})
         .subscribe({next: (res) => {
           if(res.Result){
             // NOTIFY!!!!!!
@@ -118,9 +126,11 @@ export class VisitComponent implements OnInit {
           }
           this.getData();
           this.popupVisible = false;
+          this.loading = false;
         },
         error: (err) => {
           console.log(err); //`~!!!!!!!!!!!!!!!!!
+          this.loading = false;
         }
       });
   }
@@ -137,7 +147,8 @@ export class VisitComponent implements OnInit {
   }
 
   reOpenVisit(): void{
-    this.client.post<IFinishExpeditorVisitResponse>(`http://localhost:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: null, VisitStatus: 1})
+    this.loading = true;
+    this.client.post<IFinishExpeditorVisitResponse>(`http://10.10.0.85:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: null, VisitStatus: 1})
         .subscribe({next: (res) => {
           if(res.Result){
             // NOTIFY!!!!!!
@@ -146,9 +157,11 @@ export class VisitComponent implements OnInit {
           }
           this.getData();
           this.reOpenPopupVisible = false;
+          this.loading = false;
         },
         error: (err) => {
           console.log(err); //`~!!!!!!!!!!!!!!!!!
+          this.loading = false;
         }
       });
   }

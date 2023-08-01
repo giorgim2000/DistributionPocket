@@ -40,7 +40,6 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private location: Location) { }
 
   ngOnInit() {
-    //this.authService.getUser().then((e) => this.user = e.data);
   }
 
   toggleMenu = () => {
@@ -48,32 +47,20 @@ export class HeaderComponent implements OnInit {
   }
 
   backToMain(){
-    // console.log(this.router.url);
-    // console.log(this.router.parseUrl(this.router.url));
     this.router.navigate(["/home"]);
   }
 
   back(){
-    // console.log("LOCA " + );
-    // console.log(this.router.setUpLocationChangeListener());
-    // console.log(this.router.parseUrl(this.router.url));
-    // console.log(this.router);
-    // this.location.back();
+    let url = this.removeAfterLastSlash(this.router.url);
+    if(url.split('/').length === 4){
+      url = "/visits";
+    }
+    this.router.navigate([url]);
+  }
 
-
-//     const currentURL = this.router.url;
-    // const parts = currentURL.split('/');
-    // parts.pop();
-    // if(parts.lastIndexOf('orders') === parts.length - 1){
-    //   parts.pop();
-    // }
-    // const newURL = new URL(parts.join('/'));
-    // console.log(newURL);
-    // newURL.searchParams.append("Ddate", parts[0]);
-    // newURL.searchParams.append("Acc", parts[1]);
-    
-    // this.router.navigate([`${newURL}`]);
-    this.location.back();
+  removeAfterLastSlash(url: string): string {
+    const lastSlashIndex = url.lastIndexOf('/');
+    return lastSlashIndex !== -1 ? url.substring(0, lastSlashIndex + 1) : url;
   }
 }
 

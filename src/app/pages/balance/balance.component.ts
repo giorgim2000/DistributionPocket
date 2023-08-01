@@ -33,7 +33,7 @@ export class BalanceComponent implements OnInit {
   }
 
   getData(start : Date, end : Date){
-    this.http.get<ITransactionResponse>(`http://localhost:82/crm/GetExpeditorTransactionInfo.json?D1=${formatDate(start, "yyyy-MM-dd","en")}&D2=${formatDate(end, "yyyy-MM-dd","en")}&Acc=${localStorage.getItem('PayAcc')}`)
+    this.http.get<ITransactionResponse>(`http://10.10.0.85:82/crm/GetExpeditorTransactionInfo.json?D1=${formatDate(start, "yyyy-MM-dd","en")}&D2=${formatDate(end, "yyyy-MM-dd","en")}&Acc=${localStorage.getItem('PayAcc')}`)
               .subscribe({
                 next: (res) => {
                   this.data = res.Result.filter(i => i.BookId);
@@ -53,6 +53,8 @@ export class BalanceComponent implements OnInit {
       if (match) {
         const timestamp = parseInt(match[1], 10);
         i.DDate = new Date(timestamp);
+        
+        //console.log(new Date(timestamp).toLocaleDateString());
         i.DateString = formatDate(i.DDate, "MMM/dd","en");
       }
     })

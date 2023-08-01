@@ -5,7 +5,7 @@ import { AuthGuardService } from './shared/services';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
-import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxMenuModule } from 'devextreme-angular';
+import { DxDataGridModule, DxFormModule, DxButtonModule, DxDateBoxModule, DxTextBoxModule, DxPopupModule, DxTextAreaModule, DxSelectBoxModule, DxNumberBoxModule, DxMenuModule, DxLoadIndicatorModule, DxLoadPanelModule } from 'devextreme-angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VisitComponent } from './pages/visit/visit.component';
@@ -14,8 +14,14 @@ import { DwaybillDetailsComponent } from './pages/dwaybill-details/dwaybill-deta
 import { BalanceComponent } from './pages/balance/balance.component';
 import { CollectCashComponent } from './pages/collect-cash/collect-cash.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProblemTasksComponent } from './pages/problem-tasks/problem-tasks.component';
 
 const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [ AuthGuardService ]
+  },
   {
     path: 'visits',
     component: TasksComponent,
@@ -27,12 +33,17 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'visits/:Ddate/:Acc/orders/:type',
+    path: 'visits/:Ddate/:Acc/collect-cash',
+    component: CollectCashComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'visits/:Ddate/:Acc/:type',
     component: OrdersComponent,
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'visits/:Ddate/:Acc/orders/:type/:id',
+    path: 'visits/:Ddate/:Acc/:type/:id',
     component: DwaybillDetailsComponent,
     canActivate: [ AuthGuardService ]
   },
@@ -42,18 +53,13 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'home',
-    component: HomeComponent,
-    canActivate: [ AuthGuardService ]
-  },
-  {
     path: 'balance',
     component: BalanceComponent,
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'visits/:Ddate/:Acc/collect-cash',
-    component: CollectCashComponent,
+    path: 'problemTasks',
+    component: ProblemTasksComponent,
     canActivate: [ AuthGuardService ]
   },
   {
@@ -84,7 +90,7 @@ const routes: Routes = [
       DxButtonModule, FormsModule, DxDateBoxModule,
       DxTextBoxModule, DxPopupModule, DxTextAreaModule,
       DxSelectBoxModule, DragDropModule, DxNumberBoxModule,
-      DxMenuModule, DatePickerModule],
+      DxMenuModule, DatePickerModule, DxLoadPanelModule],
   providers: [AuthGuardService],
   exports: [RouterModule],
   declarations: [

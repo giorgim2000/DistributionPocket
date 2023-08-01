@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="tabDiv" *ngFor="let transaction of data">    <!---->
+        <div class="iconDiv">
+            <img src="../../../assets/lari.png">
+        </div>
+        <div class="clientAdressDiv">
+            <p class="primaryP">{{transaction.AccName + (transaction.Acc)}}</p>
+            <p class="secondaryP">{{transaction.OpDetId}}</p>     <!-- {{transaction.TransactionType + (transaction.TransactionTypeNumber)}} -->
+        </div>
+        <div class="otherInfoDiv">
+            <p class="primaryP">{{transaction.IsCr ? "-" + transaction.Vg : transaction.Vg}}₾</p>
+            <p class="secondaryP">{{transaction.DateString}}</p>
+        </div>
+    </div>
+</div>

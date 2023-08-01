@@ -14,10 +14,11 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 
 export class TasksComponent implements OnInit {
+  loading: boolean = false;
   dataSource: DisDocByExpeditor[] = [];
   FilteredData: DisDocByExpeditor[] = [];
   visitDate: string = new Date("2022-10-17").toString(); //new Date().toString();
-  
+  static DDate: Date | undefined;
   private _filter : string ='';
 
   get filter(): string{
@@ -31,18 +32,26 @@ export class TasksComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {  }
 
   ngOnInit(): void {
+    this.loading = true;
+    if(TasksComponent.DDate !== undefined)
+      this.visitDate = TasksComponent.DDate.toString();
     this.getData(new Date());
   }
 
   getData(dDate : Date){
-    return this.http.get<DisDocByExpeditorResponse>(`http://localhost:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`)
+    return this.http.get<DisDocByExpeditorResponse>(`http://10.10.0.85:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(dDate, "yyyy-MM-dd","en")}`)
     .subscribe({
       next: (result) => {
         this.dataSource = result.Result;
         this.FilteredData = this.performFilter(this.filter);
+        this.loading = false;
     },
     error: (err) => {
+      console.log("NODARI RAIA AI!");
+      console.log(err.status);
+      console.log(err);
       this.authService.logOut();
+      this.loading = false;
     }});
   }
 
@@ -60,6 +69,7 @@ export class TasksComponent implements OnInit {
   }
 
   dateChange(e: any){
+    TasksComponent.DDate = e.value;
     this.getData(e.value);
   }
 

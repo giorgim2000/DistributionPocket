@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
   }
 
   getProblematicDocs(){
-    //this.router.navigate(["./tasks"]);
+    this.router.navigate(["./problemTasks"]);
   }
 }
 

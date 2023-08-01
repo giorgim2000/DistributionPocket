@@ -9,12 +9,14 @@ import { UnauthenticatedContentModule } from './unauthenticated-content';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieService } from 'ngx-cookie-service';
 import { DatePickerModule } from './shared/components/date-picker/datepicker/datepicker.component';
+import { ProblemTasksComponent } from './pages/problem-tasks/problem-tasks.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProblemTasksComponent
   ],
   imports: [
     BrowserModule,

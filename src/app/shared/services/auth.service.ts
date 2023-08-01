@@ -36,7 +36,7 @@ export class AuthService {
       headers: header
     };
     let result = {isOk: false, data: ''};
-    return this.http.post<UserResponse>("http://localhost:82/auth.json", null, options)
+    return this.http.post<UserResponse>("http://10.10.0.85:82/auth.json", null, options)
         .pipe(
           map(resp => {
             result.isOk = true;
@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   async getUserInfo() {
-    this.http.get<IUserInfoResponse>(`http://localhost:82/crm/GetExpeditorInfo.json?Username=${AuthService.userName}`)
+    this.http.get<IUserInfoResponse>(`http://10.10.0.85:82/crm/GetExpeditorInfo.json?Username=${AuthService.userName}`)
     .subscribe({
       next: (result) => {
         localStorage.setItem('MobileUserId', result.Result[0].MobileUserId.toString());

@@ -9,6 +9,17 @@
     [showClearButton]="true"
     >
     </dx-select-box>
+
+    <dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="loading"
+    [showIndicator]="true"
+    [showPane]="false"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    >
+    </dx-load-panel>
 </div>
 
 <div class="paymentDiv" [hidden]="hidePay">

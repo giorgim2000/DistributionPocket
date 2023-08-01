@@ -52,7 +52,18 @@
     <div *ngIf="FilteredData.length === 0" class="notFoundDiv">
         ვიზიტები ვერ მოიძებნა...
     </div>
+    <dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="loading"
+    [showIndicator]="true"
+    [showPane]="false"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    >
+    </dx-load-panel>
 </div>
+
 
 
   

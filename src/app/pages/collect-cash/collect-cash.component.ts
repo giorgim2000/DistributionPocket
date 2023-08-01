@@ -11,6 +11,7 @@ import { IConfirmPaymentResponse, IDebtInfo, IDebtInfoResponse } from 'src/app/s
 })
 export class CollectCashComponent implements OnInit {
   hidePay: boolean = true;
+  loading: boolean = true;
   btnDisabled: boolean = true;
   preseller: IDebtInfo | undefined;
   payAmount: number = 0;
@@ -27,24 +28,29 @@ export class CollectCashComponent implements OnInit {
   }
 
   GetCashData(){
-    this.http.get<IDebtInfoResponse>(`http://localhost:82/Crm/GetDetsByAcc.json?acc=${this.Acc}`)
+    this.http.get<IDebtInfoResponse>(`http://10.10.0.85:82/Crm/GetDetsByAcc.json?acc=${this.Acc}`)
     .subscribe({
       next: (result) => {
         this.data = result.Result.filter(i => i.PresellerId > 0);
-        this.data.map(i => i.DisplayString = i.PresellerName + '      ---      ' + i.Debt);
+        this.data.map(i => i.DisplayString = i.PresellerName + '      ---      ' + i.Debt + '₾');
+        this.loading = false;
     },
     error: (err) => {
       alert("Somehting went wrong!");
+      this.loading = false;
     }});
   }
 
   presellerSelection(preseller : any){
+    this.loading = true;
     if(preseller.value !== null){
       this.hidePay = false;
       this.preseller = this.data.find(i => i.PresellerId === preseller.value);
     }
     else
       this.hidePay = true;
+
+    this.loading = false;
   }
 
   showPopup(){
@@ -53,7 +59,8 @@ export class CollectCashComponent implements OnInit {
   }
 
   confirmPayment(){
-    this.http.post<IConfirmPaymentResponse>("http://localhost:82/crm/PayDetsByPreseller.json", 
+    this.loading = true;
+    this.http.post<IConfirmPaymentResponse>("http://10.10.0.85:82/crm/PayDetsByPreseller.json", 
             {Acc: this.Acc, PayAcc: localStorage.getItem('PayAcc'), PresellerId: this.preseller?.PresellerId, Amount: this.payAmount, OperId: localStorage.getItem('PayOperId')})
             .subscribe({
               next: (result) => {
@@ -61,6 +68,7 @@ export class CollectCashComponent implements OnInit {
                   this.popupVisible = false;
                   this.GetCashData();
                   this.payAmount = 0;
+                  this.loading = false;
                   notify({message:
                     "გადახდა წარმატებით განხორციელდა!",
                     position: {
@@ -73,6 +81,7 @@ export class CollectCashComponent implements OnInit {
               },
               error: (err) => {
                 alert("გადახდა ვერ განხორციელდა!");
+                this.loading = false;
               }
             })
   }
@@ -85,9 +94,9 @@ export class CollectCashComponent implements OnInit {
       this.btnDisabled = true;
   }
 
-  refreshDebt(event: any){
-    console.log(event);
-  }
+  // refreshDebt(event: any){
+  //   console.log(event);
+  // }
 
   closePopup(){
     this.popupVisible = false;

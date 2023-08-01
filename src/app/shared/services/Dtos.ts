@@ -59,6 +59,7 @@
     Note: string;	
     Ostatus:	string | null;	
     Comment: string;
+    Index: number;
   }
 
   export interface IWaybillDetails{

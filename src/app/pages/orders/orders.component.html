@@ -18,7 +18,6 @@
               <div class="iconDiv">
                 <ng-container *ngIf="order.Ostatus === 'დადასტურებული'; then completed
                    else (order.Ostatus === 'პროექტი' || !order.Ostatus) ? pending : rejected"></ng-container>
-
                     <ng-template #completed>
                         <img [src]="completedUrl" alt="Completed">
                     </ng-template>
@@ -37,6 +36,16 @@
             ვიზიტები ვერ მოიძებნა...
         </div>
     </div>
+    <dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="loading"
+    [showIndicator]="true"
+    [showPane]="false"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    >
+    </dx-load-panel>
 </div>
 
 

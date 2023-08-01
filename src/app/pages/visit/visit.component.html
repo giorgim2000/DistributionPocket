@@ -26,9 +26,20 @@
     <!-- <div class="visitInfoDiv">
       <dx-button type="danger" stylingMode="contained" (click)="showPopup(true)">ვიზიტის გაუქმება</dx-button>
     </div> -->
+
+    
 </div>
 
-
+<dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="loading"
+    [showIndicator]="true"
+    [showPane]="false"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+>
+</dx-load-panel>
 
 
 <dx-popup

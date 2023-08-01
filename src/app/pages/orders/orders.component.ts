@@ -61,12 +61,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   ]
   Data: VisitDetails[] = [];
+  loading: boolean = false;
   completedUrl: string = "../../../assets/completed.png";
   pendingUrl: string = "../../../assets/pending.png";
   rejectedUrl: string = "../../../assets/rejected.png";
   pageType : string = "";
   tabClassName: string = "";
-  visitData: any = {};
+  //visitData: any = {};
   sorting: boolean = false;
   btnType: string = "default";
   btnStyle: string = "contained";
@@ -85,11 +86,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.pageType = history.state.pageType;
-    // this.tabClassName = history.state.className;
-    // this.visitData = history.state.VisitInfo;
-    // if(this.pageType === "დაბრუნებები")
-    //   this.Iud = 1;
+    this.loading = true;
+    
     if(this.Iud === '0')
     {
       this.pageType = 'შეკვეთები';
@@ -100,6 +98,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
     this.getData(this.Acc, Number(this.Iud));
     if(localStorage.getItem("orderSort") != null){
+
       //this.changeArrayIndex(this.dummyData, localStorage.getItem("orderSort"));
       //console.log(localStorage.getItem("orderSort"));
     }
@@ -115,28 +114,42 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if(localStorage.getItem("orderSort") === null){
-      let rowArr :ISavedRowOrder[] = [];
+      let rowArr :any[] = [];
       this.dummyData.map((i,ind) => {
         //localStorage.setItem(index.toString(), i.DwaybillNumber);
         let item: ISavedRowOrder = {Index: ind, Id: i.DwaybillNumber};
-        rowArr.push(item);
+        rowArr.push(item.Index + ',' + item.Id);
       })
       console.log(rowArr.join('!'));
-      localStorage.setItem("orderSort", rowArr.join(','));
+      localStorage.setItem("orderSort", rowArr.join('!'));
     }
+
+    this.sortArray();
   }
                                                                            
   getData(account: string, iud: number){
-    this.http.get<any>(`http://localhost:82/Crm/GetCustomerDocsByExpeditor.json?ddate=${this.Ddate}&Acc=${account}&Iud=${iud}`)
+    this.http.get<any>(`http://10.10.0.85:82/Crm/GetCustomerDocsByExpeditor.json?ddate=${this.Ddate}&Acc=${account}&Iud=${iud}`)
     .subscribe({
       next: (result) => {
       this.Data = result.Result;
-      console.log(result.Result);
+      this.loading = false;
     },
     error: (err) => {
-      alert("");
+      console.log(err);
       // this.router.navigate(["/login-form"]);
+      this.loading = false;
     }});
+  }
+
+  sortArray(){
+    let sortString: string | null = localStorage.getItem('orderSort');
+    let arr = sortString?.split('!');
+    let ordersArr : ISavedRowOrder[]=[];
+    arr?.forEach(item => {
+      ordersArr.push({Index: item.split(',')[0] as unknown as number, Id: item.split(',')[1]});
+    })
+    console.log("ORDERS ARRAY");
+    console.log(ordersArr);
   }
 
   orderClick(order: VisitDetails){
@@ -146,7 +159,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     //   this.router.navigate(["/dwaybillDetails"], { state: { info: order } });
     // }
 
-    this.router.navigate([`visits/${this.Ddate}/${this.Acc}/orders/${this.Iud}/${order.Docs_ID}`], { state: { info: order} });
+    this.router.navigate([`visits/${this.Ddate}/${this.Acc}/${this.Iud}/${order.Docs_ID}`], { state: { info: order} });
   }
 
   onDrop(event: CdkDragDrop<string[]>){
