@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisDocByExpeditor, DisDocByExpeditorResponse, IFinishExpeditorVisitResponse } from '../../shared/services/Dtos';
 import { formatDate } from '@angular/common';
+import { AuthService } from 'src/app/shared/services';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'app-visit',
@@ -26,11 +28,12 @@ export class VisitComponent implements OnInit {
   btnType: string = 'default';
   reOpenPopupVisible: boolean = false;
   questionText: string = '';
+  finishMsg: string = '';
+  notifyType: string = 'success';
 
-  constructor(private router: Router, private route: ActivatedRoute, private client: HttpClient) { }
+  constructor(private router: Router, private route: ActivatedRoute, private client: HttpClient, private authService: AuthService) { }
 
   ngOnInit(): void {
-    
     this.route.paramMap.subscribe(params => {
       this.VisitAcc = params.get('Acc');
       this.Ddate = params.get('Ddate') ?? '';
@@ -44,43 +47,62 @@ export class VisitComponent implements OnInit {
     return this.client.get<DisDocByExpeditorResponse>(`http://10.10.0.85:82/Crm/GetDisDocsByExpeditor.json?Ddate=${formatDate(this.Ddate, "yyyy-MM-dd","en")}&Acc=${this.VisitAcc}`)
     .subscribe({
       next: (result) => {
-        this.visitData = result.Result[0];
-        if(this.visitData.VisitStatus > 1){
-          this.ordersBtnDisabled = true;
-          this.returnsBtnDisabled = true;
-          this.payBtnDisabled = true;
-          // POPUP ROMELIC GVEUBNEBA ROM VISITI DASRULEBULIA AN PROBLEMURIA    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! da loadIndicator!!!!!!
-          this.btnString = 'ვიზიტის გახსნა';
-          this.btnType = 'success';
-        }else{
-          if(this.visitData.Ordn === 0)
+        if(result.Result.length > 0){
+          this.visitData = result.Result[0];
+          if(this.visitData.VisitStatus > 1){
             this.ordersBtnDisabled = true;
-          else
-          this.ordersBtnDisabled = false;
-    
-          if(this.visitData.Retn === 0)
             this.returnsBtnDisabled = true;
-          else
-            this.returnsBtnDisabled = false;
+            this.payBtnDisabled = true;
+            this.btnString = 'ვიზიტის გახსნა';
+            this.btnType = 'success';
+          }else{
+            if(this.visitData.Ordn === 0)
+              this.ordersBtnDisabled = true;
+            else
+            this.ordersBtnDisabled = false;
+      
+            if(this.visitData.Retn === 0)
+              this.returnsBtnDisabled = true;
+            else
+              this.returnsBtnDisabled = false;
 
-          this.payBtnDisabled = false;
+            this.payBtnDisabled = false;
+          }
+          this.headerString = this.visitData.Accnu;
+        }else{
+          alert('ვიზიტის შესახებ ინფორმაცია ვერ მოიძებნა!');
         }
-        this.headerString = this.visitData.Accnu;
+        
         this.loading = false;
     },
       error: (err) => {
-        //handle error !!!!!!!!!!!!!!!!!
         this.loading = false;
+        if(err.status == 401){
+          alert('სესიის ვადა ამოიწურა!');
+          this.authService.logOut();
+        }
+        else
+          alert('დაფიქსირდა შეცდომა!');
     }});
   }
 
   openVisit(){
     this.loading = true;
     this.client.post<any>(`http://10.10.0.85:82/Crm/AddExpeditorVisit.json`, {Ddate: this.Ddate, Acc: this.VisitAcc})
-    .subscribe(res => {
+    .subscribe({next: res => {
       this.visitId = res.Result;
       this.loading = false;
-    });
+    },
+    error: err => {
+      this.loading = false;
+      if(err.status == 401){
+        alert('სესიის ვადა ამოიწურა!');
+        this.authService.logOut();
+      }
+      else
+        alert('დაფიქსირდა შეცდომა!');
+    }
+  });
   }
 
   orders(){
@@ -119,50 +141,77 @@ export class VisitComponent implements OnInit {
     }
     this.client.post<IFinishExpeditorVisitResponse>(`http://10.10.0.85:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: this.comment, VisitStatus: visitStatusId})
         .subscribe({next: (res) => {
-          if(res.Result){
-            // NOTIFY!!!!!!
-          }else{
-            //NOTIFY!!!!!!
-          }
+          notify({message:
+            this.finishMsg,
+            position: {
+              my: 'center bottom',
+              at: 'center bottom',
+            },
+          }, this.notifyType, 2000);
           this.getData();
           this.popupVisible = false;
           this.loading = false;
         },
         error: (err) => {
-          console.log(err); //`~!!!!!!!!!!!!!!!!!
           this.loading = false;
-        }
+          if(err.status == 401){
+            alert('სესიის ვადა ამოიწურა!');
+            this.authService.logOut();
+          }
+          else
+            alert('დაფიქსირდა შეცდომა!');
+          }
       });
   }
 
   closePopup(): void{
+    this.comment = '';
     this.popupVisible = false;
   }
 
   checkVisitStatus(): number{
     if(this.visitData?.Ordn === this.visitData?.Ordsuccess && this.visitData?.Retn === this.visitData?.Retsuccess){
+      this.finishMsg = 'ვიზიტი წარმატებით დასრულდა!';
+      this.notifyType = 'success';
       return 2;
     }else
+      this.finishMsg = 'ვიზიტის წარმატებით დასრულება ვერ მოხერხდა!';
+      this.notifyType = 'warning';
       return 3;
   }
 
   reOpenVisit(): void{
     this.loading = true;
+    this.finishMsg = 'ვიზიტის გახსნა წარმატებით განხორციელდა!';
+    this.notifyType = 'success';
     this.client.post<IFinishExpeditorVisitResponse>(`http://10.10.0.85:82/Crm/FinishExpVisits/${this.visitId}`, {Comment: null, VisitStatus: 1})
         .subscribe({next: (res) => {
-          if(res.Result){
-            // NOTIFY!!!!!!
-          }else{
-            //NOTIFY!!!!!!
-          }
+          notify({message:
+            this.finishMsg,
+            position: {
+              my: 'center bottom',
+              at: 'center bottom',
+            },
+          }, this.notifyType, 2000);
           this.getData();
           this.reOpenPopupVisible = false;
           this.loading = false;
         },
         error: (err) => {
-          console.log(err); //`~!!!!!!!!!!!!!!!!!
           this.loading = false;
-        }
+          if(err.status == 401){
+            alert('სესიის ვადა ამოიწურა!');
+            this.authService.logOut();
+          }
+          else
+            notify({message:
+              'დაფიქსირდა შეცდომა!',
+              position: {
+                my: 'center bottom',
+                at: 'center bottom',
+              },
+            }, 'warning', 2000);
+          }
       });
   }
 

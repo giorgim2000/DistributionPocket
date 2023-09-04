@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import notify from 'devextreme/ui/notify';
+import { AuthService } from 'src/app/shared/services';
 import { IConfirmPaymentResponse, IDebtInfo, IDebtInfoResponse } from 'src/app/shared/services/Dtos';
 
 @Component({
@@ -12,14 +13,15 @@ import { IConfirmPaymentResponse, IDebtInfo, IDebtInfoResponse } from 'src/app/s
 export class CollectCashComponent implements OnInit {
   hidePay: boolean = true;
   loading: boolean = true;
-  btnDisabled: boolean = true;
+  zeroErrorPopup: boolean = false;
+  //btnDisabled: boolean = false;
   preseller: IDebtInfo | undefined;
-  payAmount: number = 0;
+  payAmount: any;
   popupVisible: boolean = false;
   question: string = '';
-  data: IDebtInfo[]=[];
+  data: IDebtInfo[] = [];
   Acc: string = '';
-  constructor(private http: HttpClient,private route: ActivatedRoute) {
+  constructor(private http: HttpClient,private route: ActivatedRoute, private authService: AuthService) {
     this.Acc = this.route.snapshot.paramMap.get('Acc') ?? '';
   }
 
@@ -36,8 +38,13 @@ export class CollectCashComponent implements OnInit {
         this.loading = false;
     },
     error: (err) => {
-      alert("Somehting went wrong!");
       this.loading = false;
+      if(err.status == 401){
+        alert('სესიის ვადა ამოიწურა!');
+        this.authService.logOut();
+      }
+      else
+        alert("სერვისთან დაკავშირება ვერ ხერხდება! გთხოვთ შეამოწმოთ ინტერნეტთან წვდომა!");
     }});
   }
 
@@ -54,20 +61,25 @@ export class CollectCashComponent implements OnInit {
   }
 
   showPopup(){
-    this.question = `გსურთ   ${this.payAmount}₾   ოდენობის გადახდა განახორციელოთ  პრესელერი - ${this.preseller?.PresellerName}   სახელით?`;
-    this.popupVisible = true;
+    if(this.payAmount > 0){
+      this.question = `გსურთ   ${this.payAmount}₾   ოდენობის გადახდა განახორციელოთ  პრესელერი - ${this.preseller?.PresellerName}   სახელით?`;
+      this.popupVisible = true;
+    }else{
+      this.zeroErrorPopup = true;
+    }
   }
 
   confirmPayment(){
     this.loading = true;
     this.http.post<IConfirmPaymentResponse>("http://10.10.0.85:82/crm/PayDetsByPreseller.json", 
-            {Acc: this.Acc, PayAcc: localStorage.getItem('PayAcc'), PresellerId: this.preseller?.PresellerId, Amount: this.payAmount, OperId: localStorage.getItem('PayOperId')})
+            {Acc: this.Acc, PayAcc: localStorage.getItem('PayAcc'), PresellerId: this.preseller?.PresellerId, Amount: this.payAmount, OperId: localStorage.getItem('PayOperId'),
+          Username: AuthService.userName})
             .subscribe({
               next: (result) => {
                 if(result.Result !== null){
                   this.popupVisible = false;
                   this.GetCashData();
-                  this.payAmount = 0;
+                  this.payAmount = null;
                   this.loading = false;
                   notify({message:
                     "გადახდა წარმატებით განხორციელდა!",
@@ -75,24 +87,27 @@ export class CollectCashComponent implements OnInit {
                       my: 'center bottom',
                       at: 'center bottom',
                     },
-                  }, 'success', 1500);
+                  }, 'success', 2000);
                 }
-                
               },
               error: (err) => {
-                alert("გადახდა ვერ განხორციელდა!");
                 this.loading = false;
+                if(err.status == 401){
+                  alert('სესიის ვადა ამოიწურა!');
+                  this.authService.logOut();
+                }
+                else
+                  alert("გადახდა ვერ განხორციელდა!");
               }
             })
   }
 
-  numBoxValueChange(e: any){
-    console.log(e);
-    if(e.value > 0)
-      this.btnDisabled = false;
-    else
-      this.btnDisabled = true;
-  }
+  // numBoxValueChange(e: any){
+  //   if(e.value > 0)
+  //     this.btnDisabled = false;
+  //   else
+  //     this.btnDisabled = true;
+  // }
 
   // refreshDebt(event: any){
   //   console.log(event);
@@ -100,6 +115,7 @@ export class CollectCashComponent implements OnInit {
 
   closePopup(){
     this.popupVisible = false;
+    this.zeroErrorPopup = false;
     this.question = '';
   }
 }

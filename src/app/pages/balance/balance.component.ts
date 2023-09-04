@@ -10,6 +10,7 @@ import { AuthService, ITransaction, ITransactionResponse } from 'src/app/shared/
   styleUrls: ['./balance.component.scss']
 })
 export class BalanceComponent implements OnInit {
+  loading: boolean = false;
   dateStart: any = new Date();
   dateEnd: any = new Date();
   balanceStart: number = 0;
@@ -33,6 +34,7 @@ export class BalanceComponent implements OnInit {
   }
 
   getData(start : Date, end : Date){
+    this.loading = true;
     this.http.get<ITransactionResponse>(`http://10.10.0.85:82/crm/GetExpeditorTransactionInfo.json?D1=${formatDate(start, "yyyy-MM-dd","en")}&D2=${formatDate(end, "yyyy-MM-dd","en")}&Acc=${localStorage.getItem('PayAcc')}`)
               .subscribe({
                 next: (res) => {
@@ -40,9 +42,11 @@ export class BalanceComponent implements OnInit {
                   this.balanceStart = res.Result.find(t => t.StartVg)?.StartVg ?? 0;
                   this.balanceEnd = res.Result.find(t => t.EndVg)?.EndVg ?? 0;
                   this.formatDate(this.data);
+                  this.loading = false;
                 },
                 error: (err) => {
-                  alert(err);
+                  console.log(err);
+                  this.loading = false;
                 }
               })
   }
@@ -54,7 +58,6 @@ export class BalanceComponent implements OnInit {
         const timestamp = parseInt(match[1], 10);
         i.DDate = new Date(timestamp);
         
-        //console.log(new Date(timestamp).toLocaleDateString());
         i.DateString = formatDate(i.DDate, "MMM/dd","en");
       }
     })

@@ -166,20 +166,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
     moveItemInArray(this.Data, event.previousIndex, event.currentIndex);
   }
 
-  sort(e: any){
-    alert("SORTSHI SHEMOVIDA!");
-    localStorage.clear();
-    this.sorting = !this.sorting;
-    if(this.sorting){
-      this.btnType = "normal";
-      this.btnStyle = "outlined";
-      this.btnText = "გათიშვა";
-    }else{
-      this.btnType = "default";
-      this.btnStyle = "contained";
-      this.btnText = "სორტირება";
-    }
-  }
+  // sort(e: any){
+  //   alert("SORTSHI SHEMOVIDA!");
+  //   localStorage.clear();
+  //   this.sorting = !this.sorting;
+  //   if(this.sorting){
+  //     this.btnType = "normal";
+  //     this.btnStyle = "outlined";
+  //     this.btnText = "გათიშვა";
+  //   }else{
+  //     this.btnType = "default";
+  //     this.btnStyle = "contained";
+  //     this.btnText = "სორტირება";
+  //   }
+  // }
 
   placeAtStartPosition(itemArray: IOrder[], item: IOrder){
     var itemIndex = itemArray.indexOf(item);

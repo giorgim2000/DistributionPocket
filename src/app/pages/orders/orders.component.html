@@ -17,7 +17,8 @@
               </div>
               <div class="iconDiv">
                 <ng-container *ngIf="order.Ostatus === 'დადასტურებული'; then completed
-                   else (order.Ostatus === 'პროექტი' || !order.Ostatus) ? pending : rejected"></ng-container>
+                   else (order.Ostatus === 'პროექტი' || !order.Ostatus) ? pending : rejected">
+                </ng-container>
                     <ng-template #completed>
                         <img [src]="completedUrl" alt="Completed">
                     </ng-template>

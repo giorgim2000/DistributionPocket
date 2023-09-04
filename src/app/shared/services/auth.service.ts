@@ -61,12 +61,23 @@ export class AuthService {
     this.http.get<IUserInfoResponse>(`http://10.10.0.85:82/crm/GetExpeditorInfo.json?Username=${AuthService.userName}`)
     .subscribe({
       next: (result) => {
-        localStorage.setItem('MobileUserId', result.Result[0].MobileUserId.toString());
-        localStorage.setItem('PayAcc', result.Result[0].PayAcc.toString());
-        localStorage.setItem('PayOperId', result.Result[0].PayOperId.toString());
+        if(result.Result.length == 0){
+          alert('მომხმარებლის ინფორმაცია ვერ მოიძებნა ბაზაში, რის გამოც გარკვეული უფლებები შეგეზღუდებათ!');
+        }else {
+          localStorage.setItem('MobileUserId', result.Result[0].MobileUserId.toString());
+          localStorage.setItem('PayAcc', result.Result[0].PayAcc.toString());
+          localStorage.setItem('PayOperId', result.Result[0].PayOperId.toString());
+          if(result.Result.length > 1)
+            alert('მოცემულ სახელზე რეგისტრირებულია ერთზე მეტი მომხმარებელი!');
+        }
     },
     error: (err) => {
-      alert("მომხმარებელს შეზღუდული აქვს გარკვეული უფლებები!");
+      if(err.status == 401){
+        alert('სესიის ვადა ამოიწურა!');
+        console.log("LOGOUT!")//this.authService.logOut();////////////////////////////////////////////////////////////////////////
+      }
+      else
+        alert("დაფიქსირდა შეცდომა! მომხმარებელს შეზღუდული აქვს გარკვეული უფლებები!");
     }});
   }
 
@@ -90,6 +101,9 @@ export class AuthService {
 
   async logOut() {
     AuthService.userName = '';
+    localStorage.removeItem('MobileUserId');
+    localStorage.removeItem('PayAcc');
+    localStorage.removeItem('PayOperId');
     this.cookieService.delete("X-ss-id");
     this.router.navigate(['/login-form']);
   }

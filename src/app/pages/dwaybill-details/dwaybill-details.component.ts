@@ -86,7 +86,7 @@ export class DwaybillDetailsComponent implements OnInit {
             my: 'center bottom',
             at: 'center bottom',
           },
-        }, 'success', 1500);
+        }, 'success', 2000);
         this.loading = false;
         this.router.navigate([`/visits/${this.Ddate}/${this.Account}/${this.type}`]);
       },
@@ -98,7 +98,7 @@ export class DwaybillDetailsComponent implements OnInit {
             my: 'center bottom',
             at: 'center bottom',
           },
-        }, 'error', 1500);
+        }, 'error', 2000);
       }
     });
     

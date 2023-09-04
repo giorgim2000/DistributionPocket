@@ -31,23 +31,47 @@
         მიმდინარეობს მონაცემების ჩატვირთვა...
     </div> -->
     <div *ngIf="FilteredData.length > 0">
-        <div class="tabDiv" (click)="visitClick(visit)" *ngFor="let visit of FilteredData" cdkDrag [cdkDragStartDelay]="750" cdkDragBoundary="#mainDiv">
-            <div class="clientAdressDiv">
-                <p id="nameP">{{visit.Accnu}}</p>
-                <p id="adressP">{{visit.Address}}</p>
+        <div class="tabMain" (click)="visitClick(visit)" *ngFor="let visit of FilteredData" cdkDrag [cdkDragStartDelay]="750" cdkDragBoundary="#mainDiv">
+            <div class="tabDiv">
+                <div class="clientAdressDiv">
+                    <p id="nameP">{{visit.Accnu}}</p>
+                    <p id="adressP">{{visit.Address}}</p>
+                </div>
+                <div class="otherInfoDiv">
+                    <p>შეკვეთები: 
+                        <a class="otherInfoP">{{visit.Ordsuccess}}/{{visit.Ordn}}</a>
+                    </p>
+                    <p>დაბრუნებები: 
+                        <a class="otherInfoP">{{visit.Retsuccess}}/{{visit.Retn}}</a>
+                    </p>
+                    <p>თანხა: 
+                        <a class="otherInfoP">{{visit.Payedcash}}/{{visit.Collectpay}}</a>
+                    </p>
+                </div>
             </div>
-            <div class="otherInfoDiv">
-                <p>შეკვეთები: 
-                    <a class="otherInfoP">{{visit.Ordsuccess}}/{{visit.Ordn}}</a>
-                </p>
-                <p>დაბრუნებები: 
-                    <a class="otherInfoP">{{visit.Retsuccess}}/{{visit.Retn}}</a>
-                </p>
-                <p>თანხა: 
-                    <a class="otherInfoP">{{visit.Payedcash}}/{{visit.Collectpay}}</a>
-                </p>
+            <div class="iconDiv">
+                <ng-container *ngIf="visit.VisitStatus === 1; then pending else
+                    (visit.VisitStatus === 2 ? completed : 
+                     (visit.VisitStatus === 3 ? error : canceled))">
+                </ng-container>
+                <ng-template #completed>
+                    <img [src]="completedUrl" alt="Completed">
+                </ng-template>
+
+                <ng-template #pending>
+                    <img [src]="pendingUrl" alt="Pending">
+                </ng-template>
+
+                <ng-template #error>
+                    <img [src]="errorUrl" alt="Error">
+                </ng-template>
+
+                <ng-template #canceled>
+                    <img [src]="canceledUrl" alt="canceled">
+                </ng-template>
             </div>
         </div>
+        
     </div>
     <div *ngIf="FilteredData.length === 0" class="notFoundDiv">
         ვიზიტები ვერ მოიძებნა...

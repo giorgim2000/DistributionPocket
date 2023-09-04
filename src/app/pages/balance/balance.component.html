@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="dateBoxDiv">
+    <!-- <div class="dateBoxDiv">
         <dx-date-box
         id="start"
         type="date"
@@ -14,12 +14,12 @@
         (onValueChanged)="dateValueChanged($event)"
         >
         </dx-date-box>
-    </div>
-    <!-- <div class="dateDiv">
+    </div> -->
+    <div class="dateDiv">
         <app-datepicker [start_date]="dateStart" [end_date]="dateEnd" (valuesChanged)="dateValueChanged($event)">
             
         </app-datepicker>
-    </div> -->
+    </div>
     <div class="balanceDiv">
         <p class="balanceP">საწყისი ნაშთი: {{balanceStart}}</p>
     </div>
@@ -41,5 +41,15 @@
     <div class="balanceDiv">
         <p class="balanceP">საბოლოო ნაშთი: {{balanceEnd.toFixed(2)}}</p>
     </div>
+    <dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [visible]="loading"
+    [showIndicator]="true"
+    [showPane]="false"
+    [shading]="true"
+    [hideOnOutsideClick]="false"
+    >
+    </dx-load-panel>
 </div>
 

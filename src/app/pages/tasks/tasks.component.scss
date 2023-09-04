@@ -30,22 +30,34 @@
     padding-top: 50px;
 }
 
-.tabDiv{
-    display: block;
-    background-color: #ffffff;
+.tabMain{
+    display: flex;
+    justify-content: space-between;
+    background-color:white;
     transition: background-color 0.2s ease-in-out;
     border-top: rgb(156, 153, 153) 1px solid;
     border-bottom: rgb(156, 153, 153) 1px solid;
-    cursor: pointer;
+    cursor: pointer !important;
     margin: 0px 10px;
     border-radius: 10px;
-    cursor: move;
 }
 
-.tabDiv:hover{
+.tabDiv{
+    display: block;
+    margin-left: 5px;
+}
+
+.tabMain:hover{
     background-color: #dfe0e4;
     border-top: black 2px solid;
     border-bottom: black 2px solid;
+}
+
+.iconDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
 }
 
 p{

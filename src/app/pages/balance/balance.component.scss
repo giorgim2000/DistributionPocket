@@ -4,40 +4,43 @@
 }
 
 .main{
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      height: calc(100vh - 64px);
-      width:100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    height: calc(100vh - 64px);
+    width:100%;
 }
 
 .dateDiv{
-    width: 100%;
+    width: calc(100% - 5px);
 }
 
 .container{
-    //flex-grow: 1;
+    //flex-grow: 0;
     overflow-y: auto;
+    width: calc(100% - 5px);
+    margin: 0px 5px;
 }
 
 .tabDiv{
     display: flex;
     justify-content:  space-between;
-    background-color: #ffffff;
+    background-color: white;
     transition: background-color 0.2s ease-in-out;
-    border-top: rgb(156, 153, 153) 1px solid;
-    border-bottom: rgb(156, 153, 153) 1px solid;
+    // border-top: rgb(156, 153, 153) 1px solid;
+    // border-bottom: rgb(156, 153, 153) 1px solid;
     cursor: pointer;
-    margin: 3px 0px;
+    margin: 5px;
     border-radius: 10px;
+    width: calc(100% - 5px);
 }
 
 .tabDiv:hover{
     background-color: #dfe0e4;
 }
 
-div{
-    padding: 5px;
-}
+// div{
+//     margin: 5px;
+// }
 
 .clientAdressDiv{
     width: 100%;
@@ -78,7 +81,7 @@ p{
 }
 
 .balanceDiv{
-    background-color: #ffffff;
+    background-color:#006994;
     height: 2.32rem;
 }
 

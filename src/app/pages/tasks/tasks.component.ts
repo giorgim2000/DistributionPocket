@@ -15,6 +15,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 export class TasksComponent implements OnInit {
   loading: boolean = false;
+  completedUrl: string = "../../../assets/completed.png";
+  pendingUrl: string = "../../../assets/pending.png";
+  errorUrl: string = "../../../assets/error.png";
+  canceledUrl: string = "../../../assets/canceled.png"
   dataSource: DisDocByExpeditor[] = [];
   FilteredData: DisDocByExpeditor[] = [];
   visitDate: string = new Date("2022-10-17").toString(); //new Date().toString();
@@ -47,11 +51,11 @@ export class TasksComponent implements OnInit {
         this.loading = false;
     },
     error: (err) => {
-      console.log("NODARI RAIA AI!");
-      console.log(err.status);
-      console.log(err);
-      this.authService.logOut();
       this.loading = false;
+      if(err.status == 401)
+        this.authService.logOut();
+      else
+        alert('დაფიქსირდა შეცდომა!');
     }});
   }
 
