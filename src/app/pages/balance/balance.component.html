@@ -1,10 +1,14 @@
 <div class="main">
-    <!-- <div class="dateBoxDiv">
-        <dx-date-box
+    <div class="titleDiv">
+        <p id="title">ბალანსი</p>
+    </div>
+    <div class="dateBoxDiv">
+        <!-- <dx-date-box
         id="start"
         type="date"
         [(value)]="dateStart"
         (onValueChanged)="dateValueChanged($event)"
+        [acceptCustomValue]="false"
         >
         </dx-date-box>
         <dx-date-box
@@ -12,13 +16,15 @@
         type="date"
         [(value)]="dateEnd"
         (onValueChanged)="dateValueChanged($event)"
+        [acceptCustomValue]="false"
         >
-        </dx-date-box>
-    </div> -->
-    <div class="dateDiv">
+        </dx-date-box> -->
         <app-datepicker [start_date]="dateStart" [end_date]="dateEnd" (valuesChanged)="dateValueChanged($event)">
             
         </app-datepicker>
+    </div>
+    <div class="dateDiv">
+        
     </div>
     <div class="balanceDiv">
         <p class="balanceP">საწყისი ნაშთი: {{balanceStart}}</p>

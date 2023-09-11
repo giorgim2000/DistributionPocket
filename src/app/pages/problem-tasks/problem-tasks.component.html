@@ -1,15 +1,22 @@
-<div class="container">
-    <div class="tabDiv" *ngFor="let transaction of data">    <!---->
-        <div class="iconDiv">
-            <img src="../../../assets/lari.png">
-        </div>
-        <div class="clientAdressDiv">
-            <p class="primaryP">{{transaction.AccName + (transaction.Acc)}}</p>
-            <p class="secondaryP">{{transaction.OpDetId}}</p>     <!-- {{transaction.TransactionType + (transaction.TransactionTypeNumber)}} -->
-        </div>
-        <div class="otherInfoDiv">
-            <p class="primaryP">{{transaction.IsCr ? "-" + transaction.Vg : transaction.Vg}}₾</p>
-            <p class="secondaryP">{{transaction.DateString}}</p>
+<div id="mainDiv">
+    <div class="titleDiv">
+        <p id="title">პრობლემური საბუთები</p>
+    </div>
+    <div class="container">
+        <div class="tabDiv" *ngFor="let doc of data">
+            <div class="dateDiv">
+                <p class="dateP">
+                    {{doc.DateString ? doc.DateString : 'N/A'}}
+                </p>
+            </div>
+            <div class="mainInfoDiv">
+                <p class="primaryP">{{doc.ProblemType}}</p>
+                <p class="secondaryP">{{doc.Debtor}}</p>
+            </div>
+            <div class="otherInfoDiv">
+                <p class="primaryP" *ngIf="doc.Preseller">{{doc.Preseller}}</p>
+                <p class="secondaryP" *ngIf="doc.Amount">{{doc.Amount}}₾</p>
+            </div>
         </div>
     </div>
 </div>

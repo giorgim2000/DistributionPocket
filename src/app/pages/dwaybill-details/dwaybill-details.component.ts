@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import notify from 'devextreme/ui/notify';
+import { AuthService } from 'src/app/shared/services';
 import { IWaybillDetails, Resp, VisitDetails } from 'src/app/shared/services/Dtos';
+import { OrdersComponent } from '../orders/orders.component';
 
 @Component({
   selector: 'app-dwaybill-details',
@@ -27,7 +29,7 @@ export class DwaybillDetailsComponent implements OnInit {
   msg: string = 'შეკვეთა წარმატებით დადასტურდა!';
   comment: string = '';
 
-  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.info = history.state.info;
@@ -68,10 +70,20 @@ export class DwaybillDetailsComponent implements OnInit {
         this.loading = false;
     },
     error: (err) => {
-      console.log(err);
-      console.log(" getcustomerdocsproducts error");
-      //console.log(err);
-      // this.router.navigate(["/login-form"]);
+      this.loading = false;
+      if(err.status == 401){
+        alert('სესიის ვადა ამოიწურა!');
+        this.authService.logOut();
+      }else{
+        const message = `დაფიქსირდა შეცდომა! ${err}`;
+          notify({
+            message,
+            position: {
+              my: 'center bottom',
+              at: 'center bottom',
+            },
+          }, 'error', 2000);
+      }
     }});
   }
 
@@ -80,25 +92,51 @@ export class DwaybillDetailsComponent implements OnInit {
     this.http.post(`http://10.10.0.85:82/Crm/ChangeExpVisitItemStatus.json`, {VisitDetails: {Docs_id: this.info.Docs_ID, Order_id: this.Data[0].OrderId, 
     Status: this.status, Note: this.comment, Ddate: new Date(this.Ddate), Crtime: new Date()}}).subscribe({
       next: res => {
-        notify({message:
-          this.msg,
-          position: {
-            my: 'center bottom',
-            at: 'center bottom',
+        let orderStatus = this.status === 1 ? 40 : 32;
+        this.http.patch(`http://10.10.0.85:82/Crm/Orders/${this.Data[0].OrderId}/${orderStatus}`, null).subscribe({
+          next: (res) => {
+            this.loading = false;
+            notify({message:
+              this.msg,
+              position: {
+                my: 'center bottom',
+                at: 'center bottom',
+              },
+            }, 'success', 2000);
+            this.router.navigate([`/visits/${this.Ddate}/${this.Account}/${this.type}`]);
           },
-        }, 'success', 2000);
-        this.loading = false;
-        this.router.navigate([`/visits/${this.Ddate}/${this.Account}/${this.type}`]);
+          error: (err) => {
+            this.loading = false;
+            if(err.status == 401){
+              alert('სესიის ვადა ამოიწურა!');
+              this.authService.logOut();
+            }else{
+              const message = `დაფიქსირდა შეცდომა! ${err}`;
+              notify({
+                message,
+                position: {
+                  my: 'center bottom',
+                  at: 'center bottom',
+                },
+              }, 'error', 2000);
+            }
+          }})
       },
       error: err => {
-        const message = `დაფიქსირდა შეცდომა! ${err}`;
-        notify({
-          message,
-          position: {
-            my: 'center bottom',
-            at: 'center bottom',
-          },
-        }, 'error', 2000);
+        this.loading = false;
+        if(err.status == 401){
+          alert('სესიის ვადა ამოიწურა!');
+          this.authService.logOut();
+        }else{
+          const message = `დაფიქსირდა შეცდომა! ${err}`;
+          notify({
+            message,
+            position: {
+              my: 'center bottom',
+              at: 'center bottom',
+            },
+          }, 'error', 2000);
+        }
       }
     });
     

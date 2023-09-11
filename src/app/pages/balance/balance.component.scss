@@ -4,21 +4,32 @@
 }
 
 .main{
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     height: calc(100vh - 64px);
     width:100%;
+    overflow-x: hidden;
 }
 
-.dateDiv{
-    width: calc(100% - 5px);
+.titleDiv{
+    border-bottom: 1px solid white;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#title{
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    font-family: "myFont";
 }
 
 .container{
-    //flex-grow: 0;
     overflow-y: auto;
-    width: calc(100% - 5px);
-    margin: 0px 5px;
+    width: calc(100% - 20px);
+    scroll-behavior: smooth;
+    margin: auto;
 }
 
 .tabDiv{
@@ -26,21 +37,17 @@
     justify-content:  space-between;
     background-color: white;
     transition: background-color 0.2s ease-in-out;
-    // border-top: rgb(156, 153, 153) 1px solid;
-    // border-bottom: rgb(156, 153, 153) 1px solid;
+    border: solid 1px #006994;
     cursor: pointer;
-    margin: 5px;
+    margin: 5px 0;
     border-radius: 10px;
-    width: calc(100% - 5px);
+    width: 100%;
+    padding: 8px;
 }
 
 .tabDiv:hover{
     background-color: #dfe0e4;
 }
-
-// div{
-//     margin: 5px;
-// }
 
 .clientAdressDiv{
     width: 100%;
@@ -82,12 +89,14 @@ p{
 
 .balanceDiv{
     background-color:#006994;
-    height: 2.32rem;
+    height: auto;
 }
 
 .balanceP{
     color: black;
     font-weight: bold;
+    font-size: 22px;
+    margin: 8px 10px;
 }
 
 .isCrTrueClass {

@@ -74,7 +74,7 @@ export class AuthService {
     error: (err) => {
       if(err.status == 401){
         alert('სესიის ვადა ამოიწურა!');
-        console.log("LOGOUT!")//this.authService.logOut();////////////////////////////////////////////////////////////////////////
+        this.logOut();
       }
       else
         alert("დაფიქსირდა შეცდომა! მომხმარებელს შეზღუდული აქვს გარკვეული უფლებები!");

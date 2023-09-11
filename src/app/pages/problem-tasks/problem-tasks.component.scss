@@ -1,0 +1,101 @@
+.tabMain{
+    display: flex;
+    justify-content: space-between;
+    background-color:white;
+    transition: background-color 0.2s ease-in-out;
+    border-top: rgb(156, 153, 153) 1px solid;
+    border-bottom: rgb(156, 153, 153) 1px solid;
+    cursor: pointer !important;
+    margin: 0px 10px;
+    border-radius: 10px;
+}
+
+#mainDiv{
+    width: 100%;
+}
+
+.titleDiv{
+    border-bottom: 1px solid white;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#title{
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    font-family: "myFont";
+}
+
+.tabDiv{
+    display: flex;
+    margin: 6px 8px;
+    background:  rgb(243 92 92);
+    border-radius: 10px;
+}
+
+.tabMain:hover{
+    background-color: #dfe0e4;
+    border-top: black 2px solid;
+    border-bottom: black 2px solid;
+}
+
+.dateDiv{
+    display: flex;
+    align-items: center;
+    margin: 8px 15px;
+}
+
+.dateDiv p{
+    font-weight: 600;
+    margin: 4px;
+    color: black;
+    font-size: 18px;
+}
+
+p{
+    font-family: 'myFont';
+    color: black;
+}
+
+.mainInfoDiv{
+    padding: 10px;
+}
+
+.mainInfoDiv p{
+    margin: 5px;
+}
+
+.mainInfoDiv .primaryP{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mainInfoDiv .secondaryP{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#nameP{
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+
+#adressP{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.otherInfoDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+.otherInfoDiv p{
+    margin: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}

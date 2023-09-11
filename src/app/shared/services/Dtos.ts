@@ -11,6 +11,10 @@
     PayAcc: string;
     PayOperId: string;
   }
+
+  export interface ServiceConfig {
+    serviceUrl: string | undefined;
+}
   
   export interface IUserInfoResponse{
     Result: IUserInfo[];
@@ -76,6 +80,7 @@
 
   export interface IDebtInfo{
     PresellerId: number;
+    Acc: string;
     PresellerName: string;
     DisplayString: string;
     MobileUserId: number;
@@ -107,4 +112,14 @@
   
   export interface ITransactionResponse{
     Result: ITransaction[];
+  }
+
+  export interface IProblemDocs{
+    ProblemTypeId: number;
+    ProblemType: string;
+    Debtor: string;
+    Preseller?: string | undefined | null;
+    Amount?: number | undefined | null;
+    DueDate?: Date | undefined | null;
+    DateString: string;
   }

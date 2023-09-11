@@ -21,7 +21,7 @@ export class TasksComponent implements OnInit {
   canceledUrl: string = "../../../assets/canceled.png"
   dataSource: DisDocByExpeditor[] = [];
   FilteredData: DisDocByExpeditor[] = [];
-  visitDate: string = new Date("2022-10-17").toString(); //new Date().toString();
+  visitDate: string = new Date().toString(); //new Date().toString();
   static DDate: Date | undefined;
   private _filter : string ='';
 

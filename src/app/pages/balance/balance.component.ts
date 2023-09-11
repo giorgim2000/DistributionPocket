@@ -23,13 +23,15 @@ export class BalanceComponent implements OnInit {
   }
 
   dateValueChanged(event: any){
-    if(event.element.id === 'start' && event.value > this.dateEnd)
-      this.dateEnd =  event.value;
+    if(event.date1 > this.dateEnd)
+      this.dateEnd =  event.date1;
 
-    if(event.element.id === 'end' && event.value < this.dateStart)
-      this.dateStart = event.value;
+    if(event.date2 < this.dateStart)
+      this.dateStart = event.date2;
 
     
+    this.dateStart = event.date1;
+    this.dateEnd = event.date2;
     this.getData(this.dateStart, this.dateEnd);
   }
 
